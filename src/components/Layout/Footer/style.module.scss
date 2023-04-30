@@ -1,0 +1,24 @@
+.footer {
+  height: var(--footer-height);
+  flex: none;
+
+  &Container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.githubLinksList {
+  display: flex;
+  column-gap: 1rem;
+}
+
+.githubLink {
+  text-decoration: none;
+  transition: 0.25s;
+
+  &Icon {
+    margin-right: 0.2rem;
+  }
+}

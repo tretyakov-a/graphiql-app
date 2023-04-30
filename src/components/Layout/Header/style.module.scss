@@ -1,0 +1,31 @@
+.header {
+  height: var(--header-height);
+  background-color: var(--color-bg);
+  flex: none;
+
+  &Container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.menu {
+  height: 100%;
+  display: flex;
+  column-gap: 1rem;
+
+  &Link {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    &Active {
+      color: var(--color-primary);
+    }
+  }
+
+  &Container {
+    height: 100%;
+  }
+}
