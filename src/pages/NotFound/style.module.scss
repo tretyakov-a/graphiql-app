@@ -1,0 +1,32 @@
+.notFoundPage {
+  height: 100%;
+
+  &Container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &Title {
+    font-size: 8rem;
+    font-weight: 400;
+    color: var(--color-secondary);
+  }
+
+  &Subtitle {
+    font-size: 1.6rem;
+    margin-top: 2rem;
+    color: var(--color-text-xl);
+  }
+
+  &Info {
+    margin-top: 0.5rem;
+    color: var(--color-text-l);
+  }
+
+  &Link {
+    margin-top: 2rem;
+    text-decoration: underline;
+  }
+}
