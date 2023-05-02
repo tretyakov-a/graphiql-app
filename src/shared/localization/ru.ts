@@ -1,3 +1,9 @@
 export default {
-  translation: {},
+  name: 'Русский',
+  translation: {
+    mainPage: 'На главную',
+    graphiql: 'Graphiql',
+    signIn: 'Войти',
+    signUp: 'Зарегистрироваться',
+  },
 };

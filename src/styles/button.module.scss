@@ -1,0 +1,32 @@
+.button {
+  border: none;
+  border-radius: 5px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-l);
+  height: var(--button-size);
+  transition: 0.25s;
+
+  @media (hover: hover) {
+    &:hover {
+      cursor: pointer;
+      background-color: var(--color-text-xs);
+    }
+  }
+
+  &:active,
+  &Active {
+    background-color: var(--color-text-xs);
+  }
+
+  &Icon {
+    width: var(--button-size);
+  }
+
+  &Text {
+    width: auto;
+    padding: 0 1rem;
+  }
+}
