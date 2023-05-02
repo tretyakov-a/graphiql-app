@@ -1,0 +1,16 @@
+.developerCard {
+  &Link {
+    color: var(--color-text);
+    &:hover {
+      color: var(--color-text);
+    }
+  }
+
+  &Header {
+    padding: 0.5em 0;
+  }
+  
+  &Desc {
+    
+  }
+}

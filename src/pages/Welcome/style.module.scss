@@ -1,2 +1,41 @@
 .welcome {
+
+  &Header {
+    padding: 1em 0;
+    color: var(--color-secondary);
+  }
+
+  &Desc {
+    padding-bottom: 1em;
+  }
+
+  &Cards {
+
+    &Conteiner {
+      display: flex;
+      padding-bottom: 1em;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: stretch;
+
+      @media screen and (max-width: 640px) {
+        flex-direction: column;
+      }
+    }
+
+    &Block {
+      width: calc((100% - 30px) / 3);
+      padding: 10px;
+      border-style: solid;
+      border-color: var(--color-primary-alpha50);
+      border-width: 1px;
+      border-radius: 0.5em;
+
+      @media screen and (max-width: 640px) {
+        width: 100%;
+      }
+    }
+  }
 }
