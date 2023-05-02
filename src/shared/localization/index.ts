@@ -1,12 +1,14 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import en from './en';
+import us from './en';
 import ru from './ru';
 
-export const languages = { en, ru };
+const languages = { us, ru };
 
 i18n.use(initReactI18next).init({
   resources: languages,
-  lng: 'en',
-  fallbackLng: 'en',
+  lng: 'us',
+  fallbackLng: 'us',
 });
+
+export { i18n, languages };
