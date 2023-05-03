@@ -1,2 +1,47 @@
 .graphiql {
+  &Main {
+    display: flex;
+    width: 100%;
+  }
+
+  &Container {
+    display: flex;
+  }
+}
+
+.documentationExporer {
+  display: none;
+}
+
+.verticalToolbar {
+  width: var(--button-size);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.editors,
+.response {
+  flex: 1 1 0%;
+}
+
+.editors {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  padding: 0.5rem;
+  background-color: var(--color-bg-light);
+}
+
+.editorsContainer {
+  width: 100%;
+  padding: 0.5rem;
+  display: flex;
+  border-radius: 10px;
+  background-color: var(--color-panel-bg);
+}
+
+.response {
+  padding: 0.5rem;
 }

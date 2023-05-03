@@ -1,0 +1,22 @@
+.queryEditor {
+  flex: 1 1 0%;
+  display: flex;
+
+  &Text {
+    flex-grow: 1;
+    margin-right: 0.5rem;
+  }
+
+  &Toolbar {
+    &Play {
+      background-color: var(--color-success);
+      color: var(--color-text-light);
+
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--color-success);
+        }
+      }
+    }
+  }
+}
