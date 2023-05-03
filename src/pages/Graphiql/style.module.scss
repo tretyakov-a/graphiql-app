@@ -21,6 +21,10 @@
   align-items: center;
 }
 
+.sideToolbar {
+  margin-right: 0.5rem;
+}
+
 .editors,
 .response {
   flex: 1 1 0%;
@@ -29,9 +33,9 @@
 .editors {
   display: flex;
   flex-direction: column;
-  border-radius: 10px;
-  padding: 0.5rem;
+  border-radius: 6px;
   background-color: var(--color-bg-light);
+  box-shadow: 0 5px 15px -10px var(--color-text);
 }
 
 .editorsContainer {

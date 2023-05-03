@@ -1,10 +1,31 @@
 .bottomEditors {
   flex: 1 1 0%;
+  padding: 0.5rem;
 
   &Header {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 0.5rem;
+    border-top: 1px solid var(--color-text-xs);
+    padding: 0.5rem;
   }
 }
 
-.response {
-  padding: 0.5rem;
+.editorTab {
+  &Header {
+    padding: 0.5rem;
+    color: var(--color-text-m);
+    border-radius: 5px;
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--color-bg);
+        cursor: pointer;
+      }
+    }
+
+    &Active {
+      color: var(--color-text-l);
+    }
+  }
 }

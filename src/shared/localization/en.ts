@@ -5,5 +5,7 @@ export default {
     graphiql: 'Graphiql',
     signIn: 'Sign In',
     signUp: 'Sign Up',
+    variables: 'Variables',
+    headers: 'Headers',
   },
 };

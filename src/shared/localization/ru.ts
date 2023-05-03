@@ -5,5 +5,7 @@ export default {
     graphiql: 'Graphiql',
     signIn: 'Войти',
     signUp: 'Зарегистрироваться',
+    variables: 'Переменные',
+    headers: 'Заголовки',
   },
 };
