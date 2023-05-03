@@ -2,6 +2,7 @@
   &Main {
     display: flex;
     width: 100%;
+    height: 100%;
   }
 
   &Container {
@@ -28,6 +29,7 @@
 .editors,
 .response {
   flex: 1 1 0%;
+  height: 100%;
 }
 
 .editors {
@@ -36,14 +38,15 @@
   border-radius: 6px;
   background-color: var(--color-bg-light);
   box-shadow: 0 5px 15px -10px var(--color-text);
-}
 
-.editorsContainer {
-  width: 100%;
-  padding: 0.5rem;
-  display: flex;
-  border-radius: 10px;
-  background-color: var(--color-panel-bg);
+  &Container {
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem;
+    display: flex;
+    border-radius: 10px;
+    background-color: var(--color-panel-bg);
+  }
 }
 
 .response {

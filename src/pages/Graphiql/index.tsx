@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 import BottomEditors from './BottomEditors';
 import QueryEditor from './QueryEditor';
+import Editor from './Editor';
 
 const Graphiql = () => {
   return (
@@ -25,7 +26,9 @@ const Graphiql = () => {
             <QueryEditor />
             <BottomEditors />
           </div>
-          <section className={classes.response}>Response</section>
+          <section className={classes.response}>
+            <Editor editable={false} basicSetup={{ lineNumbers: false }} />
+          </section>
         </div>
       </div>
     </PageWrapper>
