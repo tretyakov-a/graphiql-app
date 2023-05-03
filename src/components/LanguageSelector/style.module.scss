@@ -1,0 +1,32 @@
+.radio {
+  line-height: 200%;
+  padding: 0 0.5rem;
+  transition: 0.25s;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--color-text-xs);
+    }
+  }
+
+  input {
+    display: none;
+  }
+
+  label {
+    display: flex;
+    column-gap: 0.5rem;
+
+    &::before {
+      content: "✓";
+      opacity: 0;
+      transition: 0.25s;
+    }
+  }
+
+  input:checked ~ label {
+    &::before {
+      opacity: 1;
+    }
+  }
+}
