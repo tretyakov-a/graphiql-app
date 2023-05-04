@@ -1,8 +1,7 @@
-import btnClasses from '@src/styles/button.module.scss';
 import classes from './style.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import Editor from '../Editor';
+import IconButton from '@src/components/IconButton';
 
 const QueryEditor = () => {
   return (
@@ -11,15 +10,7 @@ const QueryEditor = () => {
         <Editor value="query {}" />
       </div>
       <aside className={[classes.queryEditorToolbar, classes.verticalToolbar].join(' ')}>
-        <button
-          className={[
-            btnClasses.button,
-            btnClasses.buttonIcon,
-            classes.queryEditorToolbarPlay,
-          ].join(' ')}
-        >
-          <FontAwesomeIcon icon={faPlay} size="xl" />
-        </button>
+        <IconButton icon={faPlay} className={classes.playButton} />
       </aside>
     </section>
   );
