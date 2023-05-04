@@ -1,4 +1,4 @@
 import us from './en';
 import ru from './ru';
 
-export { us, ru };
+export const welcomeLocalisation = { us, ru };
