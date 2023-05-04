@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import classes from './style.module.scss';
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [user, loading, error] = useAuthState(auth);
@@ -25,26 +27,26 @@ const Login = () => {
           className={classes.login__textBox}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="E-mail Address"
+          placeholder={t('EmailAddress') || ''}
         />
         <input
           type="password"
           className={classes.login__textBox}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
+          placeholder={t('Password') || ''}
         />
         <button
           className={classes.login__btn}
           onClick={() => signInWithEmailAndPassword(auth, email, password)}
         >
-          Login
+          {t('Login') || ''}
         </button>
         <div>
-          <Link to="/reset">Forgot Password</Link>
+          <Link to="/reset">{t('ForgotPassword') || ''}</Link>
         </div>
         <div>
-          Don&apos;t have an account? <Link to="/register">Register</Link> now.
+          {t('DontHave') || ''} <Link to="/register">{t('Register') || ''}</Link>
         </div>
       </div>
     </div>

@@ -4,8 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { auth, sendPasswordReset } from '../../firebase';
 import classes from './style.module.scss';
+import { useTranslation } from 'react-i18next';
 
 function Reset() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
@@ -21,13 +23,13 @@ function Reset() {
           className={classes.reset__textBox}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="E-mail Address"
+          placeholder={t('EmailAddress') || ''}
         />
         <button className={classes.reset__btn} onClick={() => sendPasswordReset(email)}>
-          Send password reset email
+          {t('SendPasswordResetEmail') || ''}
         </button>
         <div>
-          Don&apos;t have an account? <Link to="/register">Register</Link> now.
+          {t('DontHave') || ''} <Link to="/register">{t('Register')}</Link>
         </div>
       </div>
     </div>
