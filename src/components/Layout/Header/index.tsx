@@ -30,7 +30,7 @@ const Header = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/auth" className={classes.menuLink}>
+                <NavLink to="/register" className={classes.menuLink}>
                   {t('signUp')}
                 </NavLink>
               </li>
