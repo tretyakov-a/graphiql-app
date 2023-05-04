@@ -5,18 +5,32 @@ import BottomEditorsTabs from './BottomEditorsTabs';
 import QueryEditor from './QueryEditor';
 import Editor from './Editor';
 import IconButton from '@src/components/IconButton';
+import { useState } from 'react';
 
 const Graphiql = () => {
+  const [isDocsVisible, setIsDocsVisible] = useState(false);
+
+  const toggleDocs = () => {
+    setIsDocsVisible((prev) => !prev);
+  };
+
+  const docsExporerClasses = [
+    classes.docsExporer,
+    isDocsVisible ? classes.docsExporerCollapsed : '',
+  ].join(' ');
+
   return (
     <PageWrapper
       pageClassName={classes.graphiql}
       pageContainerClassName={classes.graphiqlContainer}
     >
       <aside className={[classes.sideToolbar, classes.verticalToolbar].join(' ')}>
-        <IconButton icon={faBook} />
+        <IconButton icon={faBook} onClick={toggleDocs} isActive={!isDocsVisible} />
       </aside>
       <div className={classes.graphiqlMain}>
-        <section className={classes.documentationExporer}>Docs</section>
+        <section className={docsExporerClasses}>
+          <h2>Docs</h2>
+        </section>
         <div className="dragBar dragBarVertical"></div>
         <div className={classes.editorsContainer}>
           <div className={classes.editors}>

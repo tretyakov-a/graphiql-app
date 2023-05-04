@@ -10,8 +10,15 @@
   }
 }
 
-.documentationExporer {
-  display: none;
+.docsExporer {
+  display: block;
+  flex: 0.3 1 0%;
+  padding: 0.5rem;
+  border-left: 1px solid var(--color-text-xs);
+
+  &Collapsed {
+    display: none;
+  }
 }
 
 .verticalToolbar {
@@ -40,6 +47,7 @@
   box-shadow: 0 5px 15px -10px var(--color-text);
 
   &Container {
+    flex: 1 1 0%;
     width: 100%;
     height: 100%;
     padding: 0.5rem;
