@@ -20,7 +20,7 @@ const Welcome = () => {
       <h3 className={classes.welcomeHeader}>{t('ourProject')}</h3>
       <div className={classes.welcomeDesc}>
         <p>
-          {t('projectDesc1')} <a href="https://rs.school/react/">React course</a>.{' '}
+          {t('projectDesc1')} <a href="https://rs.school/react/">{t('React course')}</a>.{' '}
           {t('projectDesc2')}
         </p>
         <p>{t('projectDesc3')}</p>

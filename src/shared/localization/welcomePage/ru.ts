@@ -4,6 +4,7 @@ export default {
   ourProject: 'Наш проект',
   ourSchool: 'Наша школа',
   projectDesc1: 'Приложение разработано для финального задания',
+  'React course': 'курса по React',
   projectDesc2: 'GraphiQL это площадка для изучения запросов graphQL.',
   projectDesc3: 'Дополнительная информация о приложнеии...',
   schoolDesc:

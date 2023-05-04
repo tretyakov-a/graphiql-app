@@ -4,6 +4,7 @@ export default {
   ourProject: 'Our Project',
   ourSchool: 'Our School',
   projectDesc1: 'The application is developed for final task of',
+  'React course': 'React course',
   projectDesc2: 'GraphiQL is a playground/IDE for graphQL requests.',
   projectDesc3: 'Some more info about the app...',
   schoolDesc:
