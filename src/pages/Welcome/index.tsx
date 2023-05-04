@@ -1,4 +1,3 @@
-// import i18n from 'i18next';
 import { useTranslation } from 'react-i18next';
 import classes from './style.module.scss';
 import PageWrapper from '@src/components/PageWrapper';
