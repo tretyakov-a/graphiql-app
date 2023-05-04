@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && && vite build",
+    "build": "tsc --noEmit && vite build",
     "lint": "eslint src --ext ts,tsx",
     "prettier": "prettier src --check",
     "preview": "vite preview"
@@ -17,14 +17,14 @@
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@reduxjs/toolkit": "^1.9.3",
-    "firebase": "^9.21.0",
     "normalize.css": "^8.0.1",
+    "firebase": "^9.21.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-firebase-hooks": "^5.1.1",
     "react-hook-form": "^7.43.8",
+    "react-i18next": "^12.2.2",
     "react-redux": "^8.0.5",
-    "react-router-dom": "^6.11.0"
+    "react-router-dom": "^6.9.0"
   },
   "devDependencies": {
     "@types/node": "^18.15.3",
