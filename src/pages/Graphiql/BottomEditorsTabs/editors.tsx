@@ -7,11 +7,11 @@ export enum EDITORS {
 
 export const editors = [
   {
-    translationKey: 'variables',
+    headerTitle: 'variables',
     component: <Editor value={'{}'} />,
   },
   {
-    translationKey: 'headers',
+    headerTitle: 'headers',
     component: <Editor />,
   },
 ];
