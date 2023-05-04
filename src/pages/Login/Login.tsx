@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { auth, signInWithGoogle } from '../../firebase';
+import { auth } from '../../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import classes from './style.module.scss';
@@ -39,12 +39,6 @@ const Login = () => {
           onClick={() => signInWithEmailAndPassword(auth, email, password)}
         >
           Login
-        </button>
-        <button
-          className={classes.login__btn + ' ' + classes.login__google}
-          onClick={signInWithGoogle}
-        >
-          Login with Google
         </button>
         <div>
           <Link to="/reset">Forgot Password</Link>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
-import { auth, registerWithEmailAndPassword, signInWithGoogle } from '../../firebase';
+import { auth, registerWithEmailAndPassword } from '../../firebase';
 import classes from './style.module.scss';
 function Register() {
   const [email, setEmail] = useState('');
@@ -41,12 +41,6 @@ function Register() {
         />
         <button className={classes.register__btn} onClick={register}>
           Register
-        </button>
-        <button
-          className={classes.register__btn + ' ' + classes.register__google}
-          onClick={signInWithGoogle}
-        >
-          Register with Google
         </button>
         <div>
           Already have an account? <Link to="/auth">Login</Link> now.
