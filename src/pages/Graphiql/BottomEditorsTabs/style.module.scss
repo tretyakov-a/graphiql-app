@@ -1,4 +1,6 @@
 .header {
+  display: flex;
+  justify-content: space-between;
   border-top: 1px solid var(--color-text-xs);
   padding: 0.5rem;
 
@@ -10,11 +12,20 @@
 
   &Toolbar {
   }
+
+  .collapseButton {
+    color: var(--color-text-xm);
+  }
 }
 
 .tabs {
   flex: 1 1 0%;
   padding: 0.5rem;
+  display: block;
+
+  &Collapsed {
+    display: none;
+  }
 }
 
 .tab {
