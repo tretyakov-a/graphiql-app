@@ -4,7 +4,7 @@ import React, { useRef, useState } from 'react';
 
 interface PopupProps extends React.PropsWithChildren {
   Anchor: React.ForwardRefExoticComponent<
-    React.RefAttributes<HTMLElement> & React.HTMLProps<HTMLElement>
+    React.RefAttributes<HTMLElement> & React.HTMLProps<HTMLElement> & { isActive?: boolean }
   >;
 }
 
@@ -36,7 +36,7 @@ const Popup = (props: PopupProps) => {
 
   return (
     <>
-      {<Anchor onClick={tooglePopup} ref={anchorRef} />}
+      {<Anchor onClick={tooglePopup} ref={anchorRef} isActive={isVisible} />}
       {isVisible && (
         <Portal>
           <div
