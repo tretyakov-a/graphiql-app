@@ -17,16 +17,18 @@
       flex-direction: row;
       flex-wrap: nowrap;
       gap: 10px;
-      justify-content: space-between;
+      justify-content: space-evenly;
       align-items: stretch;
 
       @media screen and (max-width: 640px) {
         flex-direction: column;
+        align-items: center;
       }
     }
 
     &Block {
       width: calc((100% - 30px) / 3);
+      max-width: 350px;
       padding: 10px;
       border-style: solid;
       border-color: var(--color-primary-alpha50);

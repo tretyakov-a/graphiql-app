@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import classes from './style.module.scss';
 import PageWrapper from '@src/components/PageWrapper';
 import DeveloperCard from './DeveloperCard';
-import { githubLinks } from '@src/components/Layout/Footer/github-links';
+import { githubLinks } from '@src/shared/data/githubLinks';
 
 const Welcome = () => {
   const { t } = useTranslation('welcomeLocalisation');
