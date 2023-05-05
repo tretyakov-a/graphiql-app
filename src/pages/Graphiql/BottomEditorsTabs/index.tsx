@@ -5,6 +5,7 @@ import TabHeader from './TabHeader';
 import Tab from './Tab';
 import IconButton from '@src/components/IconButton';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { classNames } from '@src/shared/utils';
 
 const BottomEditorsTabs = () => {
   const [currentEditor, setCurrentEditor] = useState(EDITORS.VARIABLES);
@@ -32,10 +33,13 @@ const BottomEditorsTabs = () => {
     return { headers, tabs };
   }, [currentEditor]);
 
-  const tabsClasses = [classes.tabs, isCollapsed ? classes.tabsCollapsed : ''].join(' ');
+  const tabsContainerClasses = classNames([
+    classes.tabsContainer,
+    isCollapsed && classes.tabsContainerCollapsed,
+  ]);
 
   return (
-    <>
+    <div className={tabsContainerClasses}>
       <div className={classes.header}>
         <div className={classes.headerWrapper}>{elements.headers}</div>
         <div className={classes.headerToolbar}>
@@ -48,8 +52,8 @@ const BottomEditorsTabs = () => {
         </div>
       </div>
 
-      <div className={tabsClasses}>{elements.tabs}</div>
-    </>
+      <div className={classes.tabs}>{elements.tabs}</div>
+    </div>
   );
 };
 

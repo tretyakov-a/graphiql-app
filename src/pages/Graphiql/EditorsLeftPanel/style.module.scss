@@ -1,0 +1,16 @@
+.editorsLeftPanel {
+  display: flex;
+  flex: 1 1 0%;
+  min-width: 200px;
+  height: 100%;
+  border-radius: 6px;
+  background-color: var(--color-bg-light);
+  box-shadow: 0 5px 15px -10px var(--color-text);
+
+  &Container {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+}

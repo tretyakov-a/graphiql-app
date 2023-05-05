@@ -3,6 +3,7 @@
     display: flex;
     width: 100%;
     height: 100%;
+    overflow: hidden;
   }
 
   &Container {
@@ -10,44 +11,13 @@
   }
 }
 
-.docsExporer {
-  display: block;
-  flex: 0.3 1 0%;
-  padding: 0.5rem;
-  border-left: 1px solid var(--color-text-xs);
-
-  &Collapsed {
-    display: none;
-  }
-}
-
-.verticalToolbar {
-  width: var(--button-size);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.sideToolbar {
-  margin-right: 0.5rem;
-}
-
-.editors,
-.response {
-  flex: 1 1 0%;
-  height: 100%;
-}
-
 .editors {
-  display: flex;
-  flex-direction: column;
-  border-radius: 6px;
-  background-color: var(--color-bg-light);
-  box-shadow: 0 5px 15px -10px var(--color-text);
+  &Panel {
+    flex: 1 1 0%;
+    min-width: 0;
+  }
 
   &Container {
-    flex: 1 1 0%;
     width: 100%;
     height: 100%;
     padding: 0.5rem;
@@ -59,4 +29,13 @@
 
 .response {
   padding: 0.5rem;
+  width: 100%;
+  height: 100%;
+}
+
+.responsePanel {
+  flex: 1 1 0%;
+  min-width: 0;
+  height: 100%;
+  display: flex;
 }
