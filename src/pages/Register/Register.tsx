@@ -4,45 +4,63 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import { auth, registerWithEmailAndPassword } from '../../firebase';
 import classes from './style.module.scss';
+import { useInput } from '@src/shared/hooks/InputFormHooks';
 
 function Register() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+  const email = useInput('', { isEmpty: true, minLength: 3, isEmail: true });
+  const password = useInput('', { isEmpty: true, minLength: 8, isPassword: true });
+  const name = useInput('', { isEmpty: true, minLength: 3 });
   const [user, loading, error] = useAuthState(auth);
   const { t } = useTranslation();
   const register = () => {
     if (!name) alert(t('PleaseEnterName'));
-    registerWithEmailAndPassword(name, email, password);
+    registerWithEmailAndPassword(name.value, email.value, password.value);
   };
+
   useEffect(() => {
     if (loading) return;
   }, [user, loading]);
+
   return (
     <div className={classes.register}>
       <div className={classes.register__container}>
+        {name.isDirty && name.isError && <div style={{ color: 'red' }}>{name.errorText}</div>}
         <input
           type="text"
+          name="name"
           className={classes.register__textBox}
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={name.value}
+          onChange={(e) => name.onChange(e)}
           placeholder={t('FullName') || ''}
+          onBlur={() => name.onBlur()}
         />
+        {email.isDirty && email.isError && <div style={{ color: 'red' }}>{email.errorText}</div>}
         <input
           type="text"
+          name="email"
           className={classes.register__textBox}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={email.value}
+          onChange={(e) => email.onChange(e)}
           placeholder={t('EmailAddress') || ''}
+          onBlur={() => email.onBlur()}
         />
+        {password.isDirty && password.isError && (
+          <div style={{ color: 'red' }}>{password.errorText}</div>
+        )}
         <input
           type="password"
+          name="password"
           className={classes.register__textBox}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={password.value}
+          onChange={(e) => password.onChange(e)}
           placeholder={t('Password') || ''}
+          onBlur={() => password.onBlur()}
         />
-        <button className={classes.register__btn} onClick={register}>
+        <button
+          disabled={email.isError || password.isError || name.isError}
+          className={classes.register__btn}
+          onClick={register}
+        >
           {t('Register') || ''}
         </button>
         <div>

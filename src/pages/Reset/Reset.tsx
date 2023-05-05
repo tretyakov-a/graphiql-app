@@ -5,10 +5,11 @@ import { Link } from 'react-router-dom';
 import { auth, sendPasswordReset } from '../../firebase';
 import classes from './style.module.scss';
 import { useTranslation } from 'react-i18next';
+import { useInput } from '@src/shared/hooks/InputFormHooks';
 
 function Reset() {
   const { t } = useTranslation();
-  const [email, setEmail] = useState('');
+  const email = useInput('', { isEmpty: true, minLength: 3, isEmail: true });
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
   useEffect(() => {
@@ -20,12 +21,14 @@ function Reset() {
       <div className={classes.reset__container}>
         <input
           type="text"
+          name="email"
           className={classes.reset__textBox}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={email.value}
+          onChange={(e) => email.onChange(e)}
           placeholder={t('EmailAddress') || ''}
+          onBlur={() => email.onBlur()}
         />
-        <button className={classes.reset__btn} onClick={() => sendPasswordReset(email)}>
+        <button className={classes.reset__btn} onClick={() => sendPasswordReset(email.value)}>
           {t('SendPasswordResetEmail') || ''}
         </button>
         <div>
