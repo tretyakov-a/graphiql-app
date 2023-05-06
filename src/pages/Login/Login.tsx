@@ -28,7 +28,6 @@ const Login = () => {
       pageClassName={classes.login}
       pageContainerClassName={classes.login__pageContainer}
     >
-      {/* <div className={classes.login}> */}
       <div className={classes.login__container}>
         {email.isDirty && email.isError && <div style={{ color: 'red' }}>{email.errorText}</div>}
         <input
@@ -70,7 +69,6 @@ const Login = () => {
           {t('DontHave') || ''} <Link to="/register">{t('Register') || ''}</Link>
         </div>
       </div>
-      {/* </div> */}
     </PageWrapper>
   );
 };

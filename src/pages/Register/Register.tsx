@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { auth, registerWithEmailAndPassword } from '../../firebase';
 import classes from './style.module.scss';
 import { useInput } from '@src/shared/hooks/InputFormHooks';
+import PageWrapper from '@src/components/PageWrapper';
 
 function Register() {
   const email = useInput('', { isEmpty: true, minLength: 3, isEmail: true });
@@ -24,7 +25,10 @@ function Register() {
   }, [user, loading, navigate]);
 
   return (
-    <div className={classes.register}>
+    <PageWrapper
+      pageClassName={classes.register}
+      pageContainerClassName={classes.register__pageContainer}
+    >
       <div className={classes.register__container}>
         {name.isDirty && name.isError && <div style={{ color: 'red' }}>{name.errorText}</div>}
         <input
@@ -69,7 +73,7 @@ function Register() {
           {t('AlreadyHaveAnAccount') || ''} <Link to="/auth">{t('Login')}</Link>
         </div>
       </div>
-    </div>
+    </PageWrapper>
   );
 }
 export default Register;

@@ -6,6 +6,7 @@ import { auth, sendPasswordReset } from '../../firebase';
 import classes from './style.module.scss';
 import { useTranslation } from 'react-i18next';
 import { useInput } from '@src/shared/hooks/InputFormHooks';
+import PageWrapper from '@src/components/PageWrapper';
 
 function Reset() {
   const { t } = useTranslation();
@@ -21,7 +22,10 @@ function Reset() {
     }
   }, [user, loading, navigate]);
   return (
-    <div className={classes.reset}>
+    <PageWrapper
+      pageClassName={classes.reset}
+      pageContainerClassName={classes.reset__pageContainer}
+    >
       <div className={classes.reset__container}>
         {email.isDirty && email.isError && <div style={{ color: 'red' }}>{email.errorText}</div>}
         <input
@@ -46,7 +50,7 @@ function Reset() {
           {t('DontHave') || ''} <Link to="/register">{t('Register')}</Link>
         </div>
       </div>
-    </div>
+    </PageWrapper>
   );
 }
 export default Reset;
