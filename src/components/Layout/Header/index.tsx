@@ -3,7 +3,7 @@ import generalClasses from '@src/styles/general.module.scss';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
-import { auth } from '@src/firebase';
+import { auth, logout } from '@src/firebase';
 import LanguageSelector from '@src/components/LanguageSelector';
 
 const Header = () => {
@@ -39,6 +39,13 @@ const Header = () => {
                   <NavLink to="/register" className={classes.menuLink}>
                     {t('signUp')}
                   </NavLink>
+                )}
+              </li>
+              <li>
+                {user && (
+                  <button onClick={logout} className={classes.menuLink}>
+                    {t('logOut')}
+                  </button>
                 )}
               </li>
             </ul>

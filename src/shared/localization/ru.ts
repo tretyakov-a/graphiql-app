@@ -23,5 +23,6 @@ export default {
     NeedSpecial: 'Пароль должен иметь хотя бы 1 специальный символ',
     NotRegister: 'Такого аккаунта не существует',
     CheckEOrP: 'Проверьте e-mail или пароль',
+    logOut: 'Выйти',
   },
 };

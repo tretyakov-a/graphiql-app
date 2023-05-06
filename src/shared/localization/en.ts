@@ -23,5 +23,6 @@ export default {
     NeedSpecial: 'The password must contain numbers and a special character',
     NotRegister: 'This e-mail is`n register yet',
     CheckEOrP: 'Check e-mail or password',
+    logOut: 'logOut',
   },
 };
