@@ -6,6 +6,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import classes from './style.module.scss';
 import { useTranslation } from 'react-i18next';
 import { useInput } from '@src/shared/hooks/InputFormHooks';
+import PageWrapper from '@src/components/PageWrapper';
 
 const Login = () => {
   const { t } = useTranslation();
@@ -23,7 +24,11 @@ const Login = () => {
   }, [user, loading, navigate]);
 
   return (
-    <div className={classes.login}>
+    <PageWrapper
+      pageClassName={classes.login}
+      pageContainerClassName={classes.login__pageContainer}
+    >
+      {/* <div className={classes.login}> */}
       <div className={classes.login__container}>
         {email.isDirty && email.isError && <div style={{ color: 'red' }}>{email.errorText}</div>}
         <input
@@ -65,7 +70,8 @@ const Login = () => {
           {t('DontHave') || ''} <Link to="/register">{t('Register') || ''}</Link>
         </div>
       </div>
-    </div>
+      {/* </div> */}
+    </PageWrapper>
   );
 };
 
