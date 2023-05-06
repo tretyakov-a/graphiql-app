@@ -1,14 +1,16 @@
 import classes from './style.module.scss';
-import React, { useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { DragContextProvider } from '@src/pages/Graphiql/drag-context';
 import QueryEditor from '../QueryEditor';
 import BottomEditorsTabs from '../BottomEditorsTabs';
 import { useResizeableFlex } from '../hooks/use-resizable-flex';
+import { DragOptions } from '../hooks/use-resizable-flex/types';
 
 const MIN_WIDTH = 200;
 
 const EditorsLeftPanel = () => {
-  const { flex, dragBar } = useResizeableFlex('editors', { dragBar: { position: 'right' } });
+  const dragOptions = useMemo<DragOptions>(() => ({ dragBar: { position: 'right' } }), []);
+  const { flex, dragBar } = useResizeableFlex('editors', dragOptions);
   const editorsContainerRef = useRef<HTMLDivElement>(null);
 
   const editorsLeftPanelClasses = [classes.editorsLeftPanel].join(' ');
