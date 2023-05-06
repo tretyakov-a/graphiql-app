@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -13,9 +13,13 @@ function Reset() {
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
   useEffect(() => {
-    if (loading) return;
-    if (user) navigate('/');
-  }, [user, loading]);
+    try {
+      if (loading) return;
+      if (user) navigate('/');
+    } catch {
+      return;
+    }
+  }, [user, loading, navigate]);
   return (
     <div className={classes.reset}>
       <div className={classes.reset__container}>
@@ -32,7 +36,13 @@ function Reset() {
         <button
           disabled={email.isError}
           className={classes.reset__btn}
-          onClick={() => sendPasswordReset(email.value)}
+          onClick={() => {
+            try {
+              sendPasswordReset(email.value);
+            } catch {
+              return;
+            }
+          }}
         >
           {t('SendPasswordResetEmail') || ''}
         </button>

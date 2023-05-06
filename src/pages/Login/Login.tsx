@@ -1,4 +1,4 @@
-import { ChangeEvent, FocusEvent, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
@@ -20,7 +20,7 @@ const Login = () => {
       return;
     }
     if (user) navigate('/');
-  }, [user, loading]);
+  }, [user, loading, navigate]);
 
   return (
     <div className={classes.login}>
@@ -50,7 +50,11 @@ const Login = () => {
         <button
           disabled={email.isError || password.isError}
           className={classes.login__btn}
-          onClick={() => signInWithEmailAndPassword(auth, email.value, password.value)}
+          onClick={() => {
+            signInWithEmailAndPassword(auth, email.value, password.value).catch(() =>
+              alert('This person does not exist')
+            );
+          }}
         >
           {t('Login') || ''}
         </button>
