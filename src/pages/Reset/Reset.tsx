@@ -19,6 +19,7 @@ function Reset() {
   return (
     <div className={classes.reset}>
       <div className={classes.reset__container}>
+        {email.isDirty && email.isError && <div style={{ color: 'red' }}>{email.errorText}</div>}
         <input
           type="text"
           name="email"
@@ -28,7 +29,11 @@ function Reset() {
           placeholder={t('EmailAddress') || ''}
           onBlur={() => email.onBlur()}
         />
-        <button className={classes.reset__btn} onClick={() => sendPasswordReset(email.value)}>
+        <button
+          disabled={email.isError}
+          className={classes.reset__btn}
+          onClick={() => sendPasswordReset(email.value)}
+        >
           {t('SendPasswordResetEmail') || ''}
         </button>
         <div>
