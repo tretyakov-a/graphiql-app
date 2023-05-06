@@ -5,18 +5,18 @@ import { useAppDispatch, useAppUI } from '@src/store';
 
 const SideToolbar = () => {
   const {
-    isDocsVisible,
-    actions: { toggleDocsVisibility },
+    visiblity,
+    actions: { toggleVisibility },
   } = useAppUI();
   const dispatch = useAppDispatch();
 
   const toggleDocs = () => {
-    dispatch(toggleDocsVisibility());
+    dispatch(toggleVisibility('docs'));
   };
 
   return (
     <aside className={[classes.sideToolbar, classes.verticalToolbar].join(' ')}>
-      <IconButton icon={faBook} onClick={toggleDocs} isActive={isDocsVisible} />
+      <IconButton icon={faBook} onClick={toggleDocs} isActive={visiblity.docs} />
     </aside>
   );
 };

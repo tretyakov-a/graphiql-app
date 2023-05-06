@@ -21,4 +21,5 @@ export interface AsyncThunkConfig {
   state: RootState;
 }
 
-export { useAppUI, type AppUIState, type FlexState } from './app-ui';
+export { useAppUI } from './app-ui';
+export type { AppUIState, FlexState, VisibilityState } from './app-ui';

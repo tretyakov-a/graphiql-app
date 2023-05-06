@@ -1,4 +1,4 @@
-import type { DragBarOrientation, DragbarPosition } from './DragBar/types';
+import type { DragBarProps } from './DragBar/types';
 
 export type LimitEntry = {
   value: number;
@@ -12,8 +12,5 @@ export type DragLimits = {
 
 export type DragOptions = {
   limits?: DragLimits | null;
-  dragBar?: {
-    position?: DragbarPosition;
-    orientation?: DragBarOrientation;
-  };
+  dragBar?: Omit<DragBarProps, 'onPositionChange'>;
 };

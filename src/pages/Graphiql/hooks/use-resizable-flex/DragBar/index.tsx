@@ -4,7 +4,13 @@ import { classNames } from '@src/shared/utils';
 import { DragBarProps } from './types';
 
 const DragBar = React.memo((props: DragBarProps) => {
-  const { onPositionChange, onDragEnd, position = 'left', orientation = 'vertical' } = props;
+  const {
+    onPositionChange,
+    onDragEnd,
+    onDragStart,
+    position = 'left',
+    orientation = 'vertical',
+  } = props;
   const [isDragged, setIsDragged] = useState(false);
   const dragBarRef = useRef<HTMLDivElement>(null);
   const isHorizontal = orientation === 'horizontal';
@@ -21,7 +27,6 @@ const DragBar = React.memo((props: DragBarProps) => {
 
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
-    setIsDragged(true);
     const rect = (e.target as HTMLElement).getBoundingClientRect();
 
     let delta = 0;
@@ -32,10 +37,10 @@ const DragBar = React.memo((props: DragBarProps) => {
     }
 
     const handleMouseUp = () => {
-      setIsDragged(false);
       document.removeEventListener('mousemove', handleMouseMoveWithX);
       document.removeEventListener('mouseup', handleMouseUp);
       document.body.style.cursor = 'default';
+      setIsDragged(false);
       onDragEnd?.();
     };
 
@@ -44,6 +49,8 @@ const DragBar = React.memo((props: DragBarProps) => {
     document.addEventListener('mousemove', handleMouseMoveWithX);
     document.addEventListener('mouseup', handleMouseUp);
     document.body.style.cursor = isHorizontal ? 'row-resize' : 'col-resize';
+    setIsDragged(true);
+    onDragStart?.();
   };
 
   const dragBarClasses = classNames([

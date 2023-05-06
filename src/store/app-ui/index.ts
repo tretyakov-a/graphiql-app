@@ -1,9 +1,12 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { useAppSelector } from '..';
-import type { AppUIState, FlexState } from './types';
+import type { AppUIState, FlexState, VisibilityState } from './types';
 
 const initialState: AppUIState = {
-  isDocsVisible: false,
+  visiblity: {
+    docs: false,
+    bottomEditors: true,
+  },
   flexValues: {
     docs: 0.3,
     editors: 1,
@@ -15,8 +18,12 @@ export const appUISlice = createSlice({
   name: 'appUI',
   initialState,
   reducers: {
-    toggleDocsVisibility: (state) => {
-      state.isDocsVisible = !state.isDocsVisible;
+    toggleVisibility: (state, action: PayloadAction<Partial<keyof VisibilityState>>) => {
+      const prev = state.visiblity[action.payload];
+      state.visiblity[action.payload] = !prev;
+    },
+    setVisiblity: (state, action: PayloadAction<Partial<VisibilityState>>) => {
+      state.visiblity = { ...state.visiblity, ...action.payload };
     },
     setFlex: (state, action: PayloadAction<Partial<FlexState>>) => {
       state.flexValues = { ...state.flexValues, ...action.payload };
@@ -32,6 +39,6 @@ export const useAppUI = () => {
   };
 };
 
-export type { AppUIState, FlexState };
+export type { AppUIState, FlexState, VisibilityState };
 
 export default appUISlice.reducer;

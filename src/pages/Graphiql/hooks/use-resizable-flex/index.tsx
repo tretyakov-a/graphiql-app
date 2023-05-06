@@ -24,9 +24,10 @@ export const useResizeableFlex = (flexStoreKey: keyof FlexState, options?: DragO
     flexValues,
     actions: { setFlex },
   } = useAppUI();
+  const storedFlexValue = flexValues[flexStoreKey];
   const { containerRef } = useContext(DragContext);
-  const [flex, setFlexCurrent] = useState(flexValues[flexStoreKey]);
-  const flexRef = useRef(flexValues[flexStoreKey]);
+  const [flex, setFlexCurrent] = useState(storedFlexValue);
+  const flexRef = useRef(storedFlexValue);
   const dispatch = useAppDispatch();
 
   const { dragBar: dragBarOptions, limits } = useMemo(

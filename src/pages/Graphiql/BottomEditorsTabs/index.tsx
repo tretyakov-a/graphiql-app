@@ -6,14 +6,20 @@ import Tab from './Tab';
 import IconButton from '@src/components/IconButton';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { classNames } from '@src/shared/utils';
+import { useAppDispatch, useAppUI } from '@src/store';
 
 const BottomEditorsTabs = () => {
   const [currentEditor, setCurrentEditor] = useState(EDITORS.VARIABLES);
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const {
+    visiblity,
+    actions: { toggleVisibility },
+  } = useAppUI();
+  const dispatch = useAppDispatch();
 
   const toggleCollapsed = () => {
-    setIsCollapsed((prev) => !prev);
+    dispatch(toggleVisibility('bottomEditors'));
   };
+  const isVisible = visiblity.bottomEditors;
 
   const elements = useMemo(() => {
     const headers: JSX.Element[] = [];
@@ -35,7 +41,7 @@ const BottomEditorsTabs = () => {
 
   const tabsContainerClasses = classNames([
     classes.tabsContainer,
-    isCollapsed && classes.tabsContainerCollapsed,
+    !isVisible && classes.tabsContainerCollapsed,
   ]);
 
   return (
@@ -44,7 +50,7 @@ const BottomEditorsTabs = () => {
         <div className={classes.headerWrapper}>{elements.headers}</div>
         <div className={classes.headerToolbar}>
           <IconButton
-            icon={isCollapsed ? faChevronUp : faChevronDown}
+            icon={!isVisible ? faChevronUp : faChevronDown}
             iconSize="sm"
             className={classes.collapseButton}
             onClick={toggleCollapsed}

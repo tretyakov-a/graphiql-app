@@ -4,7 +4,12 @@ export type FlexState = {
   queryEditor: number;
 };
 
+export type VisibilityState = {
+  docs: boolean;
+  bottomEditors: boolean;
+};
+
 export interface AppUIState {
-  isDocsVisible: boolean;
   flexValues: FlexState;
+  visiblity: VisibilityState;
 }

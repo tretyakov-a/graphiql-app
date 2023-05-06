@@ -6,8 +6,8 @@ const MIN_WIDTH = 200;
 
 const DocsExplorerPanel = () => {
   const {
-    isDocsVisible,
-    actions: { toggleDocsVisibility },
+    visiblity,
+    actions: { toggleVisibility },
   } = useAppUI();
   const dispatch = useAppDispatch();
   const { flex, dragBar } = useResizeableFlex('docs', {
@@ -15,7 +15,7 @@ const DocsExplorerPanel = () => {
       leftTop: {
         value: 200,
         onLimitMet: () => {
-          dispatch(toggleDocsVisibility());
+          dispatch(toggleVisibility('docs'));
         },
       },
     },
@@ -23,7 +23,7 @@ const DocsExplorerPanel = () => {
 
   const docsExplorerClasses = [
     classes.docsExplorerPanel,
-    !isDocsVisible ? classes.docsExplorerPanelCollapsed : '',
+    !visiblity.docs ? classes.docsExplorerPanelCollapsed : '',
   ].join(' ');
 
   return (
