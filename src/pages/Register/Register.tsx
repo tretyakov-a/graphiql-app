@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth, registerWithEmailAndPassword } from '../../firebase';
 import classes from './style.module.scss';
 import { useInput } from '@src/shared/hooks/InputFormHooks';
@@ -12,6 +12,7 @@ function Register() {
   const name = useInput('', { isEmpty: true, minLength: 3 });
   const [user, loading, error] = useAuthState(auth);
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const register = () => {
     if (!name) alert(t('PleaseEnterName'));
     registerWithEmailAndPassword(name.value, email.value, password.value);
@@ -19,7 +20,8 @@ function Register() {
 
   useEffect(() => {
     if (loading) return;
-  }, [user, loading]);
+    if (user) navigate('/');
+  }, [user, loading, navigate]);
 
   return (
     <div className={classes.register}>
