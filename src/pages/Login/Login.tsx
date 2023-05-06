@@ -11,7 +11,7 @@ const Login = () => {
   const { t } = useTranslation();
   const email = useInput('', { isEmpty: true, minLength: 3, isEmail: true });
   const password = useInput('', { isEmpty: true, minLength: 8, isPassword: true });
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
 
   useEffect(() => {

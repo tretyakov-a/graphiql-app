@@ -10,7 +10,7 @@ function Register() {
   const email = useInput('', { isEmpty: true, minLength: 3, isEmail: true });
   const password = useInput('', { isEmpty: true, minLength: 8, isPassword: true });
   const name = useInput('', { isEmpty: true, minLength: 3 });
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const { t } = useTranslation();
   const navigate = useNavigate();
   const register = () => {

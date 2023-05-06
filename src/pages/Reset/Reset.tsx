@@ -10,7 +10,7 @@ import { useInput } from '@src/shared/hooks/InputFormHooks';
 function Reset() {
   const { t } = useTranslation();
   const email = useInput('', { isEmpty: true, minLength: 3, isEmail: true });
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
   useEffect(() => {
     try {
