@@ -1,37 +1,27 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import classes from './style.module.scss';
-import { DragContext } from '@src/shared/contexts/drag-context';
 import { classNames } from '@src/shared/utils';
+import { DragBarProps } from './types';
 
-interface DragBarProps {
-  onPositionChange: (pos: number) => void;
-  onDragEnd?: () => void;
-  position?: 'left' | 'right';
-  orientation?: 'horizontal' | 'vertical';
-}
-
-const DragBar = (props: DragBarProps) => {
+const DragBar = React.memo((props: DragBarProps) => {
   const { onPositionChange, onDragEnd, position = 'left', orientation = 'vertical' } = props;
-  const { isLimitMet, setIsLimitMet } = useContext(DragContext);
-  const dragBarRef = useRef<HTMLDivElement>(null);
   const [isDragged, setIsDragged] = useState(false);
-  const [removeListeners, setRemoveListeners] = useState<() => void>(() => () => {});
+  const dragBarRef = useRef<HTMLDivElement>(null);
   const isHorizontal = orientation === 'horizontal';
 
-  const handleMouseMove = (delta: number) => (e: MouseEvent) => {
+  const handleMouseMove = (delta: number, stopDragging: () => void) => (e: MouseEvent) => {
     let pos = 0;
     if (isHorizontal) {
       pos = e.screenY + delta;
     } else {
       pos = position === 'left' ? e.screenX + delta : e.screenX - delta;
     }
-    onPositionChange(pos);
+    onPositionChange(pos, stopDragging);
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
     setIsDragged(true);
-    setIsLimitMet(false);
     const rect = (e.target as HTMLElement).getBoundingClientRect();
 
     let delta = 0;
@@ -41,7 +31,6 @@ const DragBar = (props: DragBarProps) => {
       delta = position === 'left' ? rect.x + rect.width - e.screenX : e.screenX - rect.x;
     }
 
-    const handleMouseMoveWithX = handleMouseMove(delta);
     const handleMouseUp = () => {
       setIsDragged(false);
       document.removeEventListener('mousemove', handleMouseMoveWithX);
@@ -50,17 +39,12 @@ const DragBar = (props: DragBarProps) => {
       onDragEnd?.();
     };
 
+    const handleMouseMoveWithX = handleMouseMove(delta, handleMouseUp);
+
     document.addEventListener('mousemove', handleMouseMoveWithX);
     document.addEventListener('mouseup', handleMouseUp);
     document.body.style.cursor = isHorizontal ? 'row-resize' : 'col-resize';
-    setRemoveListeners(() => handleMouseUp);
   };
-
-  useEffect(() => {
-    if (isDragged === false || isLimitMet === true) {
-      removeListeners();
-    }
-  }, [isDragged, removeListeners, isLimitMet]);
 
   const dragBarClasses = classNames([
     classes.dragbar,
@@ -80,6 +64,6 @@ const DragBar = (props: DragBarProps) => {
       </div>
     </div>
   );
-};
+});
 
 export default DragBar;
