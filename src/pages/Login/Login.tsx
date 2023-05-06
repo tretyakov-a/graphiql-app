@@ -52,7 +52,7 @@ const Login = () => {
           className={classes.login__btn}
           onClick={() => {
             signInWithEmailAndPassword(auth, email.value, password.value).catch(() =>
-              alert('This person does not exist')
+              alert(t('CheckEOrP'))
             );
           }}
         >

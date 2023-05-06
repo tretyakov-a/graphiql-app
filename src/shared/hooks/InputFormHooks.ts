@@ -1,4 +1,5 @@
 import { useState, ChangeEvent, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Validations {
   isEmpty?: boolean;
@@ -32,6 +33,7 @@ const useInput = (initialValue: string, validations: Validations) => {
 const useValidation = (value: string, validations: Validations) => {
   const [isError, setError] = useState(false);
   const [errorText, setErrorText] = useState('');
+  const { t } = useTranslation();
 
   useEffect(() => {
     for (const validation in validations) {
@@ -39,38 +41,40 @@ const useValidation = (value: string, validations: Validations) => {
         case 'minLength':
           value.length < (validations[validation] || Infinity) ? setError(true) : setError(false);
           value.length < (validations[validation] || Infinity)
-            ? setErrorText('It is too short')
+            ? setErrorText(t('ItsShort') || '')
             : setErrorText('');
           break;
         case 'isEmpty':
           value ? setError(false) : setError(true);
-          value ? setErrorText('') : setErrorText('It can`t be empty');
+          value ? setErrorText('') : setErrorText(t('ItEmpty') || '');
           break;
         case 'isEmail':
           const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
           re.test(String(value).toLowerCase()) ? setError(false) : setError(true);
-          re.test(String(value).toLowerCase()) ? setErrorText('') : setErrorText('It isn`t E-mail');
+          re.test(String(value).toLowerCase())
+            ? setErrorText('')
+            : setErrorText(t('ItEmail') || '');
           break;
         case 'isPassword':
           const numbers = /[0-9]/;
           const symbols = /[-!$%^&*()_+|~=`{}\[\]:";'<>?,.\/]/;
           if (value.length < 8) {
             setError(true);
-            setErrorText('The password must be 8 or more characters long');
+            setErrorText(t('longer') || '');
             if (!value.length) {
-              setErrorText('The password can`t be empty');
+              setErrorText(t('ItEmpty') || '');
             }
           } else if (value === value.toLowerCase()) {
             setError(true);
-            setErrorText('Need at least one capital letter');
+            setErrorText(t('NeedCapital') || '');
           } else if (!symbols.test(value) || !numbers.test(value)) {
             setError(true);
-            setErrorText('The password must contain numbers and a special character');
+            setErrorText(t('NeedSpecial') || '');
           }
           break;
       }
     }
-  }, [value]);
+  }, [t, validations, value]);
 
   return {
     isError,

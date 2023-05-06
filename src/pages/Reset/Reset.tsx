@@ -37,11 +37,7 @@ function Reset() {
           disabled={email.isError}
           className={classes.reset__btn}
           onClick={() => {
-            try {
-              sendPasswordReset(email.value);
-            } catch {
-              return;
-            }
+            sendPasswordReset(email.value).catch(() => alert(t('NotRegister')));
           }}
         >
           {t('SendPasswordResetEmail') || ''}

@@ -15,5 +15,13 @@ export default {
     SendPasswordResetEmail: 'Сбросить пароль',
     DontHave: 'Всё ещё нет аккаунта?',
     ForgotPassword: 'Забыли Пароль',
+    ItsShort: 'Слишком коротко',
+    ItEmpty: 'Не должно быть пустого поля',
+    ItEmail: 'Это не e-mail',
+    longer: 'Пароль должен быть 8 и более символов',
+    NeedCapital: 'Нужен хотя бы 1 заглавный символ',
+    NeedSpecial: 'Пароль должен иметь хотя бы 1 специальный символ',
+    NotRegister: 'Такого аккаунта не существует',
+    CheckEOrP: 'Проверьте e-mail или пароль',
   },
 };
