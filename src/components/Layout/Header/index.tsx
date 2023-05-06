@@ -23,9 +23,11 @@ const Header = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/graphiql" className={classes.menuLink}>
-                  {t('graphiql')}
-                </NavLink>
+                {user && (
+                  <NavLink to="/graphiql" className={classes.menuLink}>
+                    {t('graphiql')}
+                  </NavLink>
+                )}
               </li>
               <li>
                 {!user && (
