@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, useNavigate } from 'react-router-dom';
-import { auth, registerWithEmailAndPassword } from '../../firebase';
+import { auth, registerWithEmailAndPassword } from '../../shared/api/firebase';
 import classes from './style.module.scss';
 import { useInput } from '@src/shared/hooks/InputFormHooks';
 import PageWrapper from '@src/components/PageWrapper';

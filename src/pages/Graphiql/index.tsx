@@ -1,4 +1,4 @@
-import { auth } from '@src/firebase';
+import { auth } from '@src/shared/api/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import classes from './style.module.scss';
 import PageWrapper from '@src/components/PageWrapper';
