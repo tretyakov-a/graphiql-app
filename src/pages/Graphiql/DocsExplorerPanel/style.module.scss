@@ -1,12 +1,30 @@
+@import "@src/styles/breakpoints";
+
 .docsExplorer {
   &Panel {
-    display: flex;
+    display: none;
     flex-direction: row;
     border-left: 1px solid var(--color-text-xs);
     min-width: 200px;
 
-    &Collapsed {
-      display: none;
+    &Visible {
+      display: flex;
+    }
+
+    @include sm-breakpoint {
+      position: absolute;
+      background: white;
+      width: 100%;
+      padding: 0 var(--content-padding);
+      transform: translateX(-100%);
+      opacity: 0;
+      transition: 0.25s;
+
+      &Visible {
+        transform: translateX(0%);
+        opacity: 1;
+        display: flex;
+      }
     }
   }
 
@@ -15,5 +33,10 @@
     width: 100%;
     height: 100%;
     padding: 0.5rem;
+
+    @include sm-breakpoint {
+      border-radius: 10px;
+      box-shadow: 0 5px 15px -10px var(--color-text);
+    }
   }
 }

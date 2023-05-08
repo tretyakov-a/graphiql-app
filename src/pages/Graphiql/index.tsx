@@ -3,7 +3,7 @@ import PageWrapper from '@src/components/PageWrapper';
 import Editor from './Editor';
 import { useRef } from 'react';
 import SideToolbar from './SideToolbar';
-import { DragContextProvider } from '@src/pages/Graphiql/drag-context';
+import { DragContextProvider } from '@src/shared/contexts/drag';
 import EditorsLeftPanel from './EditorsLeftPanel';
 import DocsExplorerPanel from './DocsExplorerPanel';
 

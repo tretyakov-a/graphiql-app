@@ -47,7 +47,9 @@ const BottomEditorsTabs = () => {
   return (
     <div className={tabsContainerClasses}>
       <div className={classes.header}>
-        <div className={classes.headerWrapper}>{elements.headers}</div>
+        <div className={classes.headerWrapper}>
+          <div className={classes.headers}>{elements.headers}</div>
+        </div>
         <div className={classes.headerToolbar}>
           <IconButton
             icon={!isVisible ? faChevronUp : faChevronDown}

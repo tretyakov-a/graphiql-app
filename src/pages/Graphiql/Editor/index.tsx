@@ -1,3 +1,4 @@
+import React from 'react';
 import './codemirror.scss';
 import classes from './style.module.scss';
 import CodeMirror, { type ReactCodeMirrorProps } from '@uiw/react-codemirror';
@@ -12,7 +13,7 @@ const basicSetupOptions = {
   highlightSelectionMatches: true,
 };
 
-const Editor = (props: ReactCodeMirrorProps) => {
+const Editor = React.memo((props: ReactCodeMirrorProps) => {
   const { basicSetup } = props;
   return (
     <div className={classes.editorContainer}>
@@ -23,6 +24,6 @@ const Editor = (props: ReactCodeMirrorProps) => {
       />
     </div>
   );
-};
+});
 
 export default Editor;

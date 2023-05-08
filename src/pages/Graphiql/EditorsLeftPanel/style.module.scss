@@ -7,6 +7,10 @@
   background-color: var(--color-bg-light);
   box-shadow: 0 5px 15px -10px var(--color-text);
 
+  &Column {
+    flex-direction: column;
+  }
+
   &Container {
     flex: 1;
     height: 100%;

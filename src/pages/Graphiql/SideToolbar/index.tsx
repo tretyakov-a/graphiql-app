@@ -15,7 +15,7 @@ const SideToolbar = () => {
   };
 
   return (
-    <aside className={[classes.sideToolbar, classes.verticalToolbar].join(' ')}>
+    <aside className={classes.sideToolbar}>
       <IconButton icon={faBook} onClick={toggleDocs} isActive={visiblity.docs} />
     </aside>
   );

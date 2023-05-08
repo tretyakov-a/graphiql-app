@@ -1,3 +1,5 @@
+@import "@src/styles/breakpoints";
+
 .graphiql {
   &Main {
     display: flex;
@@ -8,6 +10,10 @@
 
   &Container {
     display: flex;
+
+    @include sm-breakpoint {
+      flex-direction: column;
+    }
   }
 }
 
@@ -24,6 +30,10 @@
     display: flex;
     border-radius: 10px;
     background-color: var(--color-panel-bg);
+
+    @include xs-breakpoint {
+      flex-direction: column;
+    }
   }
 }
 

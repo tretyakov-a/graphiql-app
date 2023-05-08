@@ -1,7 +1,7 @@
 import DragBar from './DragBar';
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useAppDispatch } from '@src/store';
-import { DragContext } from '@src/pages/Graphiql/drag-context';
+import { DragContext } from '@src/shared/contexts/drag';
 import type { DragOptions } from './types';
 import { FlexState, useAppUI } from '@src/store';
 import { mergeOptions } from './utils';

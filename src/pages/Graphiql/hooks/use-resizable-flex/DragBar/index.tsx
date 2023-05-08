@@ -51,6 +51,7 @@ const DragBar = React.memo((props: DragBarProps) => {
   const wrapperClasses = classNames([
     classes.dragbarWrapper,
     placing === 'right' && classes.dragbarWrapperRight,
+    placing === 'bottom' && classes.dragbarWrapperBottom,
   ]);
 
   return (

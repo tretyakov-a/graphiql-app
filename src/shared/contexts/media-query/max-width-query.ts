@@ -1,4 +1,5 @@
 type BreakpointKeys = 'xs' | 'sm' | 'md' | 'lg';
+
 const breakpoints: Record<BreakpointKeys, number> = {
   xs: 576,
   sm: 768,

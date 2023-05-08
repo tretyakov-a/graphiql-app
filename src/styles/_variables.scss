@@ -26,8 +26,14 @@
   --footer-height: 50px;
   --header-height: 50px;
   --button-size: 40px;
+  --rss-logo-size: 100px;
 
   @include sm-breakpoint {
     --content-padding: 5px;
+  }
+
+  @include xs-breakpoint {
+    --footer-height: 80px;
+    --rss-logo-size: 80px;
   }
 }

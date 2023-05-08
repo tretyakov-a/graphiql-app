@@ -56,6 +56,11 @@ $dragbarWidth: 9px;
     bottom: 0;
     width: 100%;
     height: $dragbarWidth;
+
+    &Bottom {
+      bottom: auto;
+      top: 0;
+    }
   }
 
   .dragbarThumb {
