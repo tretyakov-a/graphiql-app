@@ -32,9 +32,10 @@ const useOrientation = (orientation: DragBarOrientation, placing: DragbarPlacing
 
   const withRect = useCallback(
     (rect: DOMRect) => {
+      const { height, width, y, x } = rect;
+
       const getPosInContainer = (pos: number) => {
-        const { height, width } = rect;
-        const posInPx = pos - (isHorizontal ? rect.y : rect.x);
+        const posInPx = pos - (isHorizontal ? y : x);
         const posInPercents = isHorizontal
           ? placing === 'top'
             ? (height - posInPx) / height
@@ -45,9 +46,9 @@ const useOrientation = (orientation: DragBarOrientation, placing: DragbarPlacing
 
       const isInBoundaries = (pos: number) => {
         if (isHorizontal) {
-          return pos >= rect.y && pos <= rect.y + rect.height;
+          return pos > y && pos < y + height;
         } else {
-          return pos >= rect.x && pos <= rect.x + rect.width;
+          return pos > x && pos < x + width;
         }
       };
 
@@ -58,7 +59,7 @@ const useOrientation = (orientation: DragBarOrientation, placing: DragbarPlacing
             limits?.leftTop.onLimitMet.call(null);
             result = false;
           }
-          if (limits?.rightBottom && posInPx > rect.height - limits?.rightBottom.value / 2) {
+          if (limits?.rightBottom && posInPx > height - limits?.rightBottom.value / 2) {
             limits?.rightBottom.onLimitMet.call(null);
             result = false;
           }
