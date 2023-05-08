@@ -7,14 +7,6 @@ import { FlexState, useAppUI } from '@src/store';
 import { mergeOptions } from './utils';
 import useOrientation from './use-orientation';
 
-// const isInBoundaries = (orientation: DragBarOrientation, pos: number, rect: DOMRect) => {
-//   if (orientation == 'horizontal') {
-
-//   } else {
-
-//   }
-// }
-
 const defaultOptions: DragOptions = {
   limits: null,
   dragBar: { placing: 'left', orientation: 'vertical' },
@@ -32,13 +24,14 @@ export const useResizeableFlex = (flexStoreKey: keyof FlexState, options?: DragO
   const dispatch = useAppDispatch();
   const mergedOptions = useMemo(() => mergeOptions(options || {}, defaultOptions), [options]);
   const { orientation, placing } = mergedOptions.dragBar;
-  const { getPosInContainer } = useOrientation(orientation, placing);
+  const { getPosInContainer, isInBoundaries } = useOrientation(orientation, placing);
 
   const handleDragBarPosChange = useCallback(
     (pos: number, stopDragging: () => void) => {
       const { limits } = mergedOptions;
       if (!containerRef!.current) return;
       const rect = containerRef!.current.getBoundingClientRect();
+      if (!isInBoundaries(pos, rect)) return;
       const [posInPx, posInPercents] = getPosInContainer(pos, rect);
       if (limits !== null) {
         if (limits?.leftTop && posInPx < limits?.leftTop.value / 2) {

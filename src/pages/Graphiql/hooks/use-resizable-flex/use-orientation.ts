@@ -37,7 +37,15 @@ const useOrientation = (orientation: DragBarOrientation, placing: DragbarPlacing
     [isHorizontal]
   );
 
-  return { getPosition, getDelta, getActiveCursor, getPosInContainer };
+  const isInBoundaries = (pos: number, rect: DOMRect) => {
+    if (isHorizontal) {
+      return pos >= rect.y && pos <= rect.y + rect.height;
+    } else {
+      return pos >= rect.x && pos <= rect.x + rect.width;
+    }
+  };
+
+  return { getPosition, getDelta, getActiveCursor, getPosInContainer, isInBoundaries };
 };
 
 export default useOrientation;
