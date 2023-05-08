@@ -1,8 +1,10 @@
 export type DragBarOrientation = 'horizontal' | 'vertical';
 export type DragbarPlacing = 'left' | 'right' | 'top' | 'bottom';
 
+export type PositionChangeHandler = (pos: number, stopDragging: () => void, rect?: DOMRect) => void;
+
 export interface DragBarProps {
-  onPositionChange: (pos: number, stopDragging: () => void) => void;
+  onPositionChange: PositionChangeHandler;
   onDragEnd?: () => void;
   onDragStart?: () => void;
   placing?: DragbarPlacing;

@@ -1,8 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import classes from './style.module.scss';
 import { classNames } from '@src/shared/utils';
 import { DragBarProps } from './types';
 import useOrientation from '../use-orientation';
+import { DragContext } from '@src/shared/contexts/drag';
 
 const DragBar = React.memo((props: DragBarProps) => {
   const {
@@ -12,13 +13,16 @@ const DragBar = React.memo((props: DragBarProps) => {
     placing = 'left',
     orientation = 'vertical',
   } = props;
+  const { containerRef } = useContext(DragContext);
   const [isDragged, setIsDragged] = useState(false);
   const dragBarRef = useRef<HTMLDivElement>(null);
   const { getPosition, getDelta, getActiveCursor } = useOrientation(orientation, placing);
 
-  const handleMouseMove = (delta: number, stopDragging: () => void) => (e: MouseEvent) => {
-    onPositionChange(getPosition(e, delta), stopDragging);
-  };
+  const handleMouseMove =
+    (delta: number, ...rest: [() => void, DOMRect?]) =>
+    (e: MouseEvent) => {
+      onPositionChange(getPosition(e, delta), ...rest);
+    };
 
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -32,8 +36,8 @@ const DragBar = React.memo((props: DragBarProps) => {
       setIsDragged(false);
       onDragEnd?.();
     };
-
-    const handleMouseMoveWithParams = handleMouseMove(delta, handleMouseUp);
+    const containerRect = containerRef?.current?.getBoundingClientRect();
+    const handleMouseMoveWithParams = handleMouseMove(delta, handleMouseUp, containerRect);
 
     document.addEventListener('mousemove', handleMouseMoveWithParams);
     document.addEventListener('mouseup', handleMouseUp);

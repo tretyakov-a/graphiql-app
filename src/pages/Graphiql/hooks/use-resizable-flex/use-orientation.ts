@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { DragBarOrientation, DragbarPlacing } from './DragBar/types';
+import { DragLimits } from './types';
 
 const useOrientation = (orientation: DragBarOrientation, placing: DragbarPlacing) => {
   const isHorizontal = orientation === 'horizontal';
@@ -7,19 +8,20 @@ const useOrientation = (orientation: DragBarOrientation, placing: DragbarPlacing
   const getPosition = (e: MouseEvent, delta: number) => {
     let pos = 0;
     if (isHorizontal) {
-      pos = e.screenY + delta;
+      pos = placing === 'top' ? e.screenY + delta : e.screenY - delta;
     } else {
       pos = placing === 'left' ? e.screenX + delta : e.screenX - delta;
     }
     return pos;
   };
 
-  const getDelta = (e: React.MouseEvent, rect: DOMRect) => {
+  const getDelta = (e: React.MouseEvent, dragBarRect: DOMRect) => {
+    const { x, y, width, height } = dragBarRect;
     let delta = 0;
     if (isHorizontal) {
-      delta = rect.y + rect.height - e.screenY;
+      delta = placing === 'top' ? y + height - e.screenY : e.screenY - y;
     } else {
-      delta = placing === 'left' ? rect.x + rect.width - e.screenX : e.screenX - rect.x;
+      delta = placing === 'left' ? x + width - e.screenX : e.screenX - x;
     }
     return delta;
   };
@@ -28,24 +30,53 @@ const useOrientation = (orientation: DragBarOrientation, placing: DragbarPlacing
     return isHorizontal ? 'row-resize' : 'col-resize';
   };
 
-  const getPosInContainer = useCallback(
-    (pos: number, rect: DOMRect) => {
-      const posInPx = pos - (isHorizontal ? rect.y : rect.x);
-      const posInPercents = posInPx / (isHorizontal ? rect.height : rect.width);
-      return [posInPx, posInPercents];
+  const withRect = useCallback(
+    (rect: DOMRect) => {
+      const getPosInContainer = (pos: number) => {
+        const { height, width } = rect;
+        const posInPx = pos - (isHorizontal ? rect.y : rect.x);
+        const posInPercents = isHorizontal
+          ? placing === 'top'
+            ? (height - posInPx) / height
+            : posInPx / height
+          : posInPx / width;
+        return [posInPx, posInPercents];
+      };
+
+      const isInBoundaries = (pos: number) => {
+        if (isHorizontal) {
+          return pos >= rect.y && pos <= rect.y + rect.height;
+        } else {
+          return pos >= rect.x && pos <= rect.x + rect.width;
+        }
+      };
+
+      const checkLimits = (limits: DragLimits | null, posInPx: number) => {
+        let result = true;
+        if (limits !== null) {
+          if (limits?.leftTop && posInPx < limits?.leftTop.value / 2) {
+            limits?.leftTop.onLimitMet.call(null);
+            result = false;
+          }
+          if (limits?.rightBottom && posInPx > rect.height - limits?.rightBottom.value / 2) {
+            limits?.rightBottom.onLimitMet.call(null);
+            result = false;
+          }
+        }
+        return result;
+      };
+
+      return { getPosInContainer, isInBoundaries, checkLimits };
     },
-    [isHorizontal]
+    [isHorizontal, placing]
   );
 
-  const isInBoundaries = (pos: number, rect: DOMRect) => {
-    if (isHorizontal) {
-      return pos >= rect.y && pos <= rect.y + rect.height;
-    } else {
-      return pos >= rect.x && pos <= rect.x + rect.width;
-    }
+  return {
+    getPosition,
+    getDelta,
+    getActiveCursor,
+    withRect,
   };
-
-  return { getPosition, getDelta, getActiveCursor, getPosInContainer, isInBoundaries };
 };
 
 export default useOrientation;
