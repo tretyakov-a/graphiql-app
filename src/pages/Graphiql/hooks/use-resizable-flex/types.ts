@@ -10,7 +10,15 @@ export type DragLimits = {
   rightBottom?: LimitEntry;
 };
 
+type DragBar = Omit<DragBarProps, 'onPositionChange'>;
+
 export type DragOptions = {
   limits?: DragLimits | null;
-  dragBar?: Omit<DragBarProps, 'onPositionChange'>;
+  dragBar?: DragBar;
+};
+
+type MergedDragBar = DragBar & Required<Pick<DragBarProps, 'orientation' | 'placing'>>;
+
+export type MergedDragOptions = Required<Pick<DragOptions, 'dragBar' | 'limits'>> & {
+  dragBar: MergedDragBar;
 };

@@ -9,7 +9,7 @@ import { DragOptions } from '../hooks/use-resizable-flex/types';
 const MIN_WIDTH = 200;
 
 const EditorsLeftPanel = () => {
-  const dragOptions = useMemo<DragOptions>(() => ({ dragBar: { position: 'right' } }), []);
+  const dragOptions = useMemo<DragOptions>(() => ({ dragBar: { placing: 'right' } }), []);
   const { flex, dragBar } = useResizeableFlex('editors', dragOptions);
   const editorsContainerRef = useRef<HTMLDivElement>(null);
 

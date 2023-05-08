@@ -5,6 +5,7 @@ import { DragContext } from '@src/pages/Graphiql/drag-context';
 import type { DragOptions } from './types';
 import { FlexState, useAppUI } from '@src/store';
 import { mergeOptions } from './utils';
+import useOrientation from './use-orientation';
 
 // const isInBoundaries = (orientation: DragBarOrientation, pos: number, rect: DOMRect) => {
 //   if (orientation == 'horizontal') {
@@ -16,7 +17,7 @@ import { mergeOptions } from './utils';
 
 const defaultOptions: DragOptions = {
   limits: null,
-  dragBar: { position: 'left', orientation: 'vertical' },
+  dragBar: { placing: 'left', orientation: 'vertical' },
 };
 
 export const useResizeableFlex = (flexStoreKey: keyof FlexState, options?: DragOptions) => {
@@ -29,28 +30,25 @@ export const useResizeableFlex = (flexStoreKey: keyof FlexState, options?: DragO
   const [flex, setFlexCurrent] = useState(storedFlexValue);
   const flexRef = useRef(storedFlexValue);
   const dispatch = useAppDispatch();
-
-  const { dragBar: dragBarOptions, limits } = useMemo(
-    () => mergeOptions(options || {}, defaultOptions),
-    [options]
-  );
+  const mergedOptions = useMemo(() => mergeOptions(options || {}, defaultOptions), [options]);
+  const { orientation, placing } = mergedOptions.dragBar;
+  const { getPosInContainer } = useOrientation(orientation, placing);
 
   const handleDragBarPosChange = useCallback(
     (pos: number, stopDragging: () => void) => {
+      const { limits } = mergedOptions;
       if (!containerRef!.current) return;
       const rect = containerRef!.current.getBoundingClientRect();
-      const posPx = pos - (dragBarOptions?.orientation === 'horizontal' ? rect.y : rect.x);
+      const [posInPx, posInPercents] = getPosInContainer(pos, rect);
       if (limits !== null) {
-        if (limits?.leftTop && posPx < limits?.leftTop.value / 2) {
+        if (limits?.leftTop && posInPx < limits?.leftTop.value / 2) {
           stopDragging();
           return limits?.leftTop.onLimitMet.call(null);
         }
       }
-      const posPercent =
-        posPx / (dragBarOptions?.orientation === 'horizontal' ? rect.height : rect.width);
-      setFlexCurrent(posPercent / (1 - posPercent));
+      setFlexCurrent(posInPercents / (1 - posInPercents));
     },
-    [containerRef, dragBarOptions, limits]
+    [containerRef, mergedOptions, getPosInContainer]
   );
 
   useEffect(() => {
@@ -65,7 +63,7 @@ export const useResizeableFlex = (flexStoreKey: keyof FlexState, options?: DragO
     <DragBar
       onPositionChange={handleDragBarPosChange}
       onDragEnd={handleDragEnd}
-      {...dragBarOptions}
+      {...mergedOptions.dragBar}
     />
   );
 
