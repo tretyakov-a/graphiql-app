@@ -7,5 +7,3 @@ export interface DragContextProps {
 export const DragContext = React.createContext<DragContextProps>({
   containerRef: null,
 });
-
-export { default as DragContextProvider } from './DragContextProvider';

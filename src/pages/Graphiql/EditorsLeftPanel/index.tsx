@@ -1,11 +1,11 @@
 import classes from './style.module.scss';
 import React, { useContext, useMemo, useRef } from 'react';
-import { DragContextProvider } from '@src/shared/contexts/drag';
 import QueryEditor from '../QueryEditor';
 import BottomEditorsTabs from '../BottomEditorsTabs';
 import { useResizeableFlex } from '../hooks/use-resizable-flex';
 import { DragOptions } from '../hooks/use-resizable-flex/types';
 import { MediaQueryContext, maxWidthQuery } from '@src/shared/contexts/media-query';
+import { DragContext } from '@src/shared/contexts/drag';
 
 const MIN_WIDTH = 200;
 
@@ -32,9 +32,9 @@ const EditorsLeftPanel = () => {
   return (
     <div className={editorsLeftPanelClasses} style={{ flex: flex, minWidth: `${MIN_WIDTH}px` }}>
       <div className={classes.editorsLeftPanelContainer} ref={editorsContainerRef}>
-        <DragContextProvider containerRef={editorsContainerRef}>
+        <DragContext.Provider value={{ containerRef: editorsContainerRef }}>
           <QueryEditor />
-        </DragContextProvider>
+        </DragContext.Provider>
         <BottomEditorsTabs />
       </div>
       {dragBar}
