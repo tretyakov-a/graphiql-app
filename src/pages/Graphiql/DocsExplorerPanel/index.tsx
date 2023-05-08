@@ -1,13 +1,15 @@
 import classes from './style.module.scss';
 import { useAppDispatch, useAppUI } from '@src/store';
 import { useResizeableFlex } from '../hooks/use-resizable-flex';
-import { useContext, useMemo } from 'react';
-import Portal from '@src/components/Portal';
+import { useContext, useMemo, useRef } from 'react';
 import { DragContext } from '../../../shared/contexts/drag';
 import { DragOptions } from '../hooks/use-resizable-flex/types';
 import { maxWidthQuery, MediaQueryContext } from '@src/shared/contexts/media-query';
+import { classNames } from '@src/shared/utils';
+import useOpenCloseAnimation from '@src/shared/hooks/animation';
 
 const MIN_WIDTH = 200;
+const STORE_KEY = 'docs';
 
 const DocsExplorerPanel = () => {
   const { containerRef } = useContext(DragContext);
@@ -22,23 +24,29 @@ const DocsExplorerPanel = () => {
         leftTop: {
           value: MIN_WIDTH,
           onLimitMet: () => {
-            dispatch(toggleVisibility('docs'));
+            dispatch(toggleVisibility(STORE_KEY));
           },
         },
       },
     }),
     [dispatch, toggleVisibility]
   );
-  const { flex, dragBar } = useResizeableFlex('docs', dragOptions);
+  const { flex, dragBar } = useResizeableFlex(STORE_KEY, dragOptions);
   const { matches } = useContext(MediaQueryContext);
-
-  const docsExplorerClasses = [
-    classes.docsExplorerPanel,
-    visiblity.docs ? classes.docsExplorerPanelVisible : '',
-  ].join(' ');
-
+  const isVisible = visiblity.docs;
+  const elementRef = useRef<HTMLDivElement>(null);
   const matchesSmBreakpoint = matches![maxWidthQuery('sm')];
   const containerRect = containerRef?.current?.getBoundingClientRect() || { y: 0, height: 0 };
+  useOpenCloseAnimation(elementRef, isVisible, {
+    display: 'flex',
+    isActive: matchesSmBreakpoint,
+  });
+
+  const docsExplorerClasses = classNames([
+    classes.docsExplorerPanel,
+    isVisible && classes.docsExplorerPanelVisible,
+  ]);
+
   const mediaMatchStyles = matchesSmBreakpoint
     ? {
         top: `${containerRect.y}px`,
@@ -46,19 +54,27 @@ const DocsExplorerPanel = () => {
       }
     : {};
 
-  const docsExplorerEl = (
+  return (
     <div
       className={docsExplorerClasses}
       style={{ flex: flex, minWidth: `${MIN_WIDTH}px`, ...mediaMatchStyles }}
+      ref={elementRef}
     >
       <section className={classes.docsExplorerContainer}>
         <h2>Docs</h2>
+        <p>
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+          been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer
+          took a galley of type and scrambled it to make a type specimen book. It has survived not
+          only five centuries, but also the leap into electronic typesetting, remaining essentially
+          unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+          Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+          PageMaker including versions of Lorem Ipsum.
+        </p>
       </section>
       {dragBar}
     </div>
   );
-
-  return <>{matchesSmBreakpoint ? <Portal>{docsExplorerEl}</Portal> : docsExplorerEl}</>;
 };
 
 export default DocsExplorerPanel;

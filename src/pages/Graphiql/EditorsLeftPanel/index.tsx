@@ -8,6 +8,7 @@ import { MediaQueryContext, maxWidthQuery } from '@src/shared/contexts/media-que
 import { DragContext } from '@src/shared/contexts/drag';
 
 const MIN_WIDTH = 200;
+const STORE_KEY = 'editors';
 
 const EditorsLeftPanel = () => {
   const { matches } = useContext(MediaQueryContext);
@@ -21,7 +22,7 @@ const EditorsLeftPanel = () => {
     }),
     [matchesXsBreakpoint]
   );
-  const { flex, dragBar } = useResizeableFlex('editors', dragOptions);
+  const { flex, dragBar } = useResizeableFlex(STORE_KEY, dragOptions);
   const editorsContainerRef = useRef<HTMLDivElement>(null);
 
   const editorsLeftPanelClasses = [
