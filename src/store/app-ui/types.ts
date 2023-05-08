@@ -1,7 +1,7 @@
 export type FlexState = {
   docs: number;
   editors: number;
-  queryEditor: number;
+  bottomEditors: number;
 };
 
 export type VisibilityState = {

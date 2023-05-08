@@ -34,8 +34,8 @@ const EditorsLeftPanel = () => {
       <div className={classes.editorsLeftPanelContainer} ref={editorsContainerRef}>
         <DragContext.Provider value={{ containerRef: editorsContainerRef }}>
           <QueryEditor />
+          <BottomEditorsTabs />
         </DragContext.Provider>
-        <BottomEditorsTabs />
       </div>
       {dragBar}
     </div>

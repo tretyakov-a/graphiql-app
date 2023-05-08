@@ -10,7 +10,7 @@ const initialState: AppUIState = {
   flexValues: {
     docs: 0.3,
     editors: 1,
-    queryEditor: 1,
+    bottomEditors: 1,
   },
 };
 

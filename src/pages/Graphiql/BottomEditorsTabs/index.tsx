@@ -5,8 +5,13 @@ import TabHeader from './TabHeader';
 import Tab from './Tab';
 import IconButton from '@src/components/IconButton';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
-import { classNames } from '@src/shared/utils';
 import { useAppDispatch, useAppUI } from '@src/store';
+import { DragOptions } from '../hooks/use-resizable-flex/types';
+import { useResizeableFlex } from '../hooks/use-resizable-flex';
+
+const MIN_HEIGHT = 200;
+const HEADER_HEIGHT = 57;
+const STORE_KEY = 'bottomEditors';
 
 const BottomEditorsTabs = () => {
   const [currentEditor, setCurrentEditor] = useState(EDITORS.VARIABLES);
@@ -14,12 +19,30 @@ const BottomEditorsTabs = () => {
     visiblity,
     actions: { toggleVisibility },
   } = useAppUI();
+  const isVisible = visiblity.bottomEditors;
   const dispatch = useAppDispatch();
+  const dragOptions = useMemo<DragOptions>(
+    () => ({
+      dragBar: {
+        orientation: 'horizontal',
+        placing: 'top',
+      },
+      limits: {
+        rightBottom: {
+          value: MIN_HEIGHT,
+          onLimitMet: () => {
+            dispatch(toggleVisibility(STORE_KEY));
+          },
+        },
+      },
+    }),
+    [dispatch, toggleVisibility]
+  );
+  const { flex, dragBar } = useResizeableFlex(STORE_KEY, dragOptions);
 
   const toggleCollapsed = () => {
-    dispatch(toggleVisibility('bottomEditors'));
+    dispatch(toggleVisibility(STORE_KEY));
   };
-  const isVisible = visiblity.bottomEditors;
 
   const elements = useMemo(() => {
     const headers: JSX.Element[] = [];
@@ -39,14 +62,16 @@ const BottomEditorsTabs = () => {
     return { headers, tabs };
   }, [currentEditor]);
 
-  const tabsContainerClasses = classNames([
-    classes.tabsContainer,
-    !isVisible && classes.tabsContainerCollapsed,
-  ]);
-
   return (
-    <div className={tabsContainerClasses}>
-      <div className={classes.header}>
+    <div
+      className={classes.tabsContainer}
+      style={{
+        flex: isVisible ? flex : 0,
+        minHeight: `${isVisible ? MIN_HEIGHT : HEADER_HEIGHT}px`,
+      }}
+    >
+      {isVisible && dragBar}
+      <div className={classes.header} style={{ height: `${HEADER_HEIGHT}px` }}>
         <div className={classes.headerWrapper}>
           <div className={classes.headers}>{elements.headers}</div>
         </div>
@@ -59,7 +84,6 @@ const BottomEditorsTabs = () => {
           />
         </div>
       </div>
-
       <div className={classes.tabs}>{elements.tabs}</div>
     </div>
   );
