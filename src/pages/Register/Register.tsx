@@ -6,7 +6,6 @@ import { auth, registerWithEmailAndPassword } from '../../shared/api/firebase';
 import classes from './style.module.scss';
 import { useInput } from '@src/shared/hooks/InputFormHooks';
 import PageWrapper from '@src/components/PageWrapper';
-import ErrorBoundary from '@src/components/ErrorBoundary/ErrorBoundary';
 
 function Register() {
   const email = useInput('', { isEmpty: true, minLength: 3, isEmail: true });
@@ -30,52 +29,50 @@ function Register() {
       pageClassName={classes.register}
       pageContainerClassName={classes.register__pageContainer}
     >
-      <ErrorBoundary>
-        <div className={classes.register__container}>
-          {name.isDirty && name.isError && <div style={{ color: 'red' }}>{name.errorText}</div>}
-          <input
-            type="text"
-            name="name"
-            className={classes.register__textBox}
-            value={name.value}
-            onChange={(e) => name.onChange(e)}
-            placeholder={t('FullName') || ''}
-            onBlur={() => name.onBlur()}
-          />
-          {email.isDirty && email.isError && <div style={{ color: 'red' }}>{email.errorText}</div>}
-          <input
-            type="text"
-            name="email"
-            className={classes.register__textBox}
-            value={email.value}
-            onChange={(e) => email.onChange(e)}
-            placeholder={t('EmailAddress') || ''}
-            onBlur={() => email.onBlur()}
-          />
-          {password.isDirty && password.isError && (
-            <div style={{ color: 'red' }}>{password.errorText}</div>
-          )}
-          <input
-            type="password"
-            name="password"
-            className={classes.register__textBox}
-            value={password.value}
-            onChange={(e) => password.onChange(e)}
-            placeholder={t('Password') || ''}
-            onBlur={() => password.onBlur()}
-          />
-          <button
-            disabled={email.isError || password.isError || name.isError}
-            className={classes.register__btn}
-            onClick={register}
-          >
-            {t('Register') || ''}
-          </button>
-          <div>
-            {t('AlreadyHaveAnAccount') || ''} <Link to="/auth">{t('Login')}</Link>
-          </div>
+      <div className={classes.register__container}>
+        {name.isDirty && name.isError && <div style={{ color: 'red' }}>{name.errorText}</div>}
+        <input
+          type="text"
+          name="name"
+          className={classes.register__textBox}
+          value={name.value}
+          onChange={(e) => name.onChange(e)}
+          placeholder={t('FullName') || ''}
+          onBlur={() => name.onBlur()}
+        />
+        {email.isDirty && email.isError && <div style={{ color: 'red' }}>{email.errorText}</div>}
+        <input
+          type="text"
+          name="email"
+          className={classes.register__textBox}
+          value={email.value}
+          onChange={(e) => email.onChange(e)}
+          placeholder={t('EmailAddress') || ''}
+          onBlur={() => email.onBlur()}
+        />
+        {password.isDirty && password.isError && (
+          <div style={{ color: 'red' }}>{password.errorText}</div>
+        )}
+        <input
+          type="password"
+          name="password"
+          className={classes.register__textBox}
+          value={password.value}
+          onChange={(e) => password.onChange(e)}
+          placeholder={t('Password') || ''}
+          onBlur={() => password.onBlur()}
+        />
+        <button
+          disabled={email.isError || password.isError || name.isError}
+          className={classes.register__btn}
+          onClick={register}
+        >
+          {t('Register') || ''}
+        </button>
+        <div>
+          {t('AlreadyHaveAnAccount') || ''} <Link to="/auth">{t('Login')}</Link>
         </div>
-      </ErrorBoundary>
+      </div>
     </PageWrapper>
   );
 }
