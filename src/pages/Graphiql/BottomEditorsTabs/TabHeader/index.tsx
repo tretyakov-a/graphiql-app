@@ -1,4 +1,5 @@
-import classes from './style.module.scss';
+import { classNames } from '@src/shared/utils';
+import classes from '../style.module.scss';
 import { useTranslation } from 'react-i18next';
 
 interface TabHeaderProps {
@@ -13,7 +14,7 @@ const TabHeader = ({ isActive, onClick, title }: TabHeaderProps) => {
   return (
     <div
       onClick={onClick}
-      className={[classes.tabHeader, isActive && classes.tabHeaderActive].join(' ')}
+      className={classNames([classes.tabHeader, isActive && classes.tabHeaderActive])}
     >
       {t(title)}
     </div>

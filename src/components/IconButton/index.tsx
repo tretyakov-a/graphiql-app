@@ -2,6 +2,7 @@ import btnClasses from '@src/styles/button.module.scss';
 import { IconDefinition, SizeProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { forwardRef } from 'react';
+import { classNames } from '@src/shared/utils';
 
 interface IconButtonProps extends React.HTMLProps<HTMLButtonElement> {
   icon: IconDefinition;
@@ -12,12 +13,12 @@ interface IconButtonProps extends React.HTMLProps<HTMLButtonElement> {
 const IconButton = forwardRef<HTMLElement, IconButtonProps>((props, ref) => {
   const { icon, iconSize, className, onClick, isActive } = props;
 
-  const classes = [
+  const classes = classNames([
     btnClasses.button,
     btnClasses.buttonIcon,
-    isActive ? btnClasses.buttonActive : '',
+    isActive && btnClasses.buttonActive,
     className,
-  ].join(' ');
+  ]);
 
   return (
     <button ref={ref as React.RefObject<HTMLButtonElement>} onClick={onClick} className={classes}>

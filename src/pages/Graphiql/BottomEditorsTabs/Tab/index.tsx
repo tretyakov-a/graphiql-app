@@ -1,4 +1,4 @@
-import classes from './style.module.scss';
+import classes from '../style.module.scss';
 
 interface TabProps {
   isActive: boolean;

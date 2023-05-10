@@ -1,4 +1,5 @@
-import Editor from '../Editor';
+import HeadersEditor from './HeadersEditor';
+import VariablesEditor from './VariablesEditor';
 
 export enum EDITORS {
   VARIABLES,
@@ -8,10 +9,10 @@ export enum EDITORS {
 export const editors = [
   {
     headerTitle: 'variables',
-    component: <Editor value={'{}'} />,
+    component: <VariablesEditor />,
   },
   {
     headerTitle: 'headers',
-    component: <Editor />,
+    component: <HeadersEditor />,
   },
 ];
