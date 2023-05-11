@@ -1,0 +1,40 @@
+.developerCard {
+  &Container {
+    display: flex;
+    flex-direction: column;
+  }
+  &Circle {
+    display: inline-block;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 80%;
+    padding-bottom: 80%;
+    height: 0;
+    position: relative;
+    align-self: center;
+    margin-bottom: 10px;
+  }
+
+  &Img {
+    width:100%;
+    height:100%;
+    position: absolute;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &Link {
+    color: var(--color-text);
+    &:hover {
+      color: var(--color-text);
+    }
+  }
+
+  &Header {
+    padding: 0.5em 0;
+  }
+  
+  &Desc {
+    
+  }
+}
