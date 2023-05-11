@@ -1,11 +1,10 @@
 import React, { forwardRef, useMemo } from 'react';
 import classes from './style.module.scss';
-import buttonClasses from '@src/styles/button.module.scss';
 import { useTranslation } from 'react-i18next';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import Popup from '@src/components/Popup';
 import { languages } from '@src/shared/localization';
+import IconButton from '@src/components/IconButton';
 
 const LanguageSelector = () => {
   const { i18n } = useTranslation();
@@ -41,13 +40,7 @@ const LanguageSelector = () => {
     <div className={classes.toolbar}>
       <Popup
         Anchor={forwardRef<HTMLElement>((props, ref) => (
-          <button
-            className={[buttonClasses.button, buttonClasses.buttonIcon].join(' ')}
-            {...props}
-            ref={ref as React.RefObject<HTMLButtonElement>}
-          >
-            <FontAwesomeIcon icon={faGlobe} size="xl" />
-          </button>
+          <IconButton icon={faGlobe} {...props} ref={ref as React.RefObject<HTMLButtonElement>} />
         ))}
       >
         <form onChange={handleLanguageChange}>{languagesList}</form>
