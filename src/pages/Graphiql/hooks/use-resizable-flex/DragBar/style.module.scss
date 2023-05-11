@@ -1,0 +1,70 @@
+$dragbarWidth: 9px;
+
+.dragbar {
+  cursor: col-resize;
+  position: relative;
+  width: 0;
+  flex: 0;
+
+  &Wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    width: $dragbarWidth;
+    height: 100%;
+
+    &Right {
+      left: 0;
+    }
+  }
+
+  &Thumb {
+    opacity: 0;
+    position: absolute;
+    z-index: 10;
+    width: $dragbarWidth - 4px;
+    height: 100px;
+    background-color: var(--color-primary-alpha50);
+    border-radius: 2px;
+    transition: 0.25s;
+    pointer-events: none;
+  }
+
+  &Dragged {
+    .dragbarThumb {
+      opacity: 1;
+    }
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      .dragbarThumb {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.dragbarHorizontal {
+  width: 100%;
+  height: 0;
+  cursor: row-resize;
+
+  .dragbarWrapper {
+    bottom: 0;
+    width: 100%;
+    height: $dragbarWidth;
+
+    &Bottom {
+      bottom: auto;
+      top: 0;
+    }
+  }
+
+  .dragbarThumb {
+    width: 100px;
+    height: $dragbarWidth - 4px;
+  }
+}

@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <footer className={classes.footer}>
       <div className={[generalClasses.container, classes.footerContainer].join(' ')}>
-        <RssLogo width={100} />
+        <RssLogo />
         <ul className={classes.githubLinksList}>
           {githubLinks.map(({ link, name }) => (
             <li key={name}>

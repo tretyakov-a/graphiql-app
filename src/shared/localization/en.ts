@@ -5,6 +5,8 @@ export default {
     graphiql: 'Graphiql',
     signIn: 'Sign In',
     signUp: 'Sign Up',
+    variables: 'Variables',
+    headers: 'Headers',
     PleaseEnterName: 'Please enter name',
     FullName: 'Full Name',
     EmailAddress: 'E-mail Address',
