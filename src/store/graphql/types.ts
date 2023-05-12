@@ -22,5 +22,5 @@ export interface GraphqlState {
   editors: Record<EditorKey, string>;
   endpoint: string;
   query: GraphqlLoadingState & { executed: { query: string; variables: string } };
-  schema: GraphqlLoadingState;
+  schema: GraphqlLoadingState & { fetched: boolean };
 }

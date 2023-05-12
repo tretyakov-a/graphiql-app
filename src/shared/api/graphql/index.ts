@@ -13,7 +13,7 @@ export const fetchQuery = async (
     variables?: string;
   }
 ) => {
-  const { query, variables = '' } = options;
+  const { query, variables = '{}' } = options;
   let parsedVariables: object = {};
 
   try {

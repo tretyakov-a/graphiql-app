@@ -1,7 +1,14 @@
-import { type PayloadAction, createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { AsyncThunkConfig, useAppSelector } from '..';
+import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { useAppSelector } from '..';
 import { type GraphqlState, type EditorKey, Loading } from './types';
-import { type GraphqlResponse, fetchQuery, fetchSchema } from '@src/shared/api/graphql';
+import {
+  fetchGraphqlQuery,
+  fetchGraphqlQueryExtraReducers,
+} from './async-actions/fetch-graphql-query';
+import {
+  fetchGraphqlSchema,
+  fetchGraphqlSchemaExtraReducers,
+} from './async-actions/fetch-graphql-schema';
 
 const initialState: GraphqlState = {
   endpoint: 'https://rickandmortyapi.com/graphql',
@@ -37,41 +44,9 @@ const initialState: GraphqlState = {
     loading: Loading.IDLE,
     error: null,
     data: null,
+    fetched: false,
   },
 };
-
-export const fetchGraphqlQuery = createAsyncThunk<GraphqlResponse, void, AsyncThunkConfig>(
-  'graphql/fetchGraphqlQuery',
-  async (_, { getState }) => {
-    const {
-      endpoint,
-      editors: { query, variables },
-    } = getState().graphql;
-    const response = await fetchQuery(endpoint, { query, variables });
-    return response;
-  },
-  {
-    condition: (_: void, { getState }) => {
-      const {
-        editors: { query, variables },
-        query: {
-          executed: { query: prevQuery, variables: prevVariables },
-          loading,
-          error,
-        },
-      } = getState().graphql;
-      if (
-        (prevQuery === query &&
-          prevVariables === variables &&
-          error === null &&
-          loading === Loading.SUCCESS) ||
-        loading === Loading.PENDING
-      ) {
-        return false;
-      }
-    },
-  }
-);
 
 export const graphqlSlice = createSlice({
   name: 'graphql',
@@ -83,21 +58,8 @@ export const graphqlSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchGraphqlQuery.pending, (state) => {
-      state.query.loading = Loading.PENDING;
-      const { query, variables } = state.editors;
-      state.query.executed = { query, variables };
-    });
-    builder.addCase(fetchGraphqlQuery.fulfilled, (state, action) => {
-      state.query.loading = Loading.SUCCESS;
-      state.query.data = action.payload;
-      state.editors.response = JSON.stringify(action.payload, null, 2);
-    });
-    builder.addCase(fetchGraphqlQuery.rejected, (state, action) => {
-      state.query.loading = Loading.ERROR;
-      state.query.error = action.error.message || '';
-      console.log(action.error);
-    });
+    fetchGraphqlQueryExtraReducers(builder);
+    fetchGraphqlSchemaExtraReducers(builder);
   },
 });
 
@@ -105,7 +67,7 @@ export const useGraphqlStore = () => {
   const { actions } = graphqlSlice;
   return {
     ...useAppSelector((state) => state.graphql),
-    actions: { ...actions, fetchGraphqlQuery },
+    actions: { ...actions, fetchGraphqlQuery, fetchGraphqlSchema },
   };
 };
 
