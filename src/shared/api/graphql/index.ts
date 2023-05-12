@@ -14,10 +14,10 @@ export const fetchQuery = async (
   }
 ) => {
   const { query, variables = '{}' } = options;
-  let parsedVariables: object = {};
 
+  let parsedVariables: object = {};
   try {
-    parsedVariables = JSON.parse(variables);
+    parsedVariables = JSON.parse(variables === '' ? '{}' : variables);
   } catch (jsonError) {
     throw new Error(String(i18n.t('jsonVariables', { message: (jsonError as Error).message })));
   }

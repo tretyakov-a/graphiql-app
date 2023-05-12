@@ -34,11 +34,13 @@ export const fetchGraphqlSchemaExtraReducers = (builder: ActionReducerMapBuilder
   builder.addCase(fetchGraphqlSchema.fulfilled, (state, action) => {
     state.schema.loading = Loading.SUCCESS;
     state.schema.data = action.payload;
+    state.schema.error = null;
     state.schema.fetched = true;
   });
   builder.addCase(fetchGraphqlSchema.rejected, (state, action) => {
     state.schema.loading = Loading.ERROR;
     state.schema.error = action.error.message || '';
     //TODO: show toast/popup with error message
+    console.log(action.error.message);
   });
 };

@@ -45,11 +45,13 @@ export const fetchGraphqlQueryExtraReducers = (builder: ActionReducerMapBuilder<
   builder.addCase(fetchGraphqlQuery.fulfilled, (state, action) => {
     state.query.loading = Loading.SUCCESS;
     state.query.data = action.payload;
+    state.query.error = null;
     state.editors.response = JSON.stringify(action.payload, null, 2);
   });
   builder.addCase(fetchGraphqlQuery.rejected, (state, action) => {
     state.query.loading = Loading.ERROR;
     state.query.error = action.error.message || '';
     //TODO: show toast/popup with error message
+    console.log(action.error.message);
   });
 };
