@@ -26,7 +26,7 @@ const DropdownList = ({ obj, parentKey }: Props) => {
   ]);
 
   const keyArr = Object.keys(obj);
-  console.log(obj);
+
   return (
     <ul className={classes.tree}>
       {keyArr.length === 0 ? (
@@ -76,13 +76,6 @@ const DropdownList = ({ obj, parentKey }: Props) => {
       )}
     </ul>
   );
-  // };
-
-  // return (
-  //   <div className={classes.accordion}>
-  //     {!schema.data.__schema ? <span>No data and more</span> : checkType(schema.data.__schema)}
-  //   </div>
-  // );
 };
 
 export default DropdownList;
