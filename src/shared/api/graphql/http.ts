@@ -1,14 +1,15 @@
 import { GraphqlResponse } from './types';
+import { i18n } from '@src/shared/localization';
 
 const handleErrors = (res: Response): Response => {
   if (res.status === 400 || res.status === 200) {
     return res;
   }
   if (!res.ok) {
-    throw new Error(`Loading error occured (code: ${res.status})`);
+    throw new Error(String(i18n.t('httpStatusCodeError', { status: res.status })));
   }
   if (!res.headers.get('Content-Type')?.includes('application/json')) {
-    throw new Error('Invalid content-type in response');
+    throw new Error(String(i18n.t('httpInvalidContentType')));
   }
   return res;
 };

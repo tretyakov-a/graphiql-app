@@ -1,5 +1,6 @@
 import introspectionQuery from './introspection-query';
 import { fetchData } from './http';
+import { i18n } from '@src/shared/localization';
 
 export const fetchSchema = (endpoint: string) => {
   return fetchQuery(endpoint, { query: introspectionQuery });
@@ -13,6 +14,14 @@ export const fetchQuery = async (
   }
 ) => {
   const { query, variables = '' } = options;
+  let parsedVariables: object = {};
+
+  try {
+    parsedVariables = JSON.parse(variables);
+  } catch (jsonError) {
+    throw new Error(String(i18n.t('jsonVariables', { message: (jsonError as Error).message })));
+  }
+
   try {
     return await fetchData(endpoint, {
       method: 'POST',
@@ -21,7 +30,7 @@ export const fetchQuery = async (
       },
       body: JSON.stringify({
         query,
-        variables: JSON.parse(variables),
+        variables: parsedVariables,
       }),
     });
   } catch (err) {
