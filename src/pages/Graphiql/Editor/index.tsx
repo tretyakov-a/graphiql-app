@@ -30,9 +30,12 @@ const Editor = React.memo((props: EditorProps) => {
   } = useGraphqlStore();
   const dispatch = useAppDispatch();
 
-  const onChange = useCallback((value: string) => {
-    dispatch(setEditorValue({ editorKey, value }));
-  }, []);
+  const onChange = useCallback(
+    (value: string) => {
+      dispatch(setEditorValue({ editorKey, value }));
+    },
+    [dispatch, editorKey, setEditorValue]
+  );
 
   return (
     <div className={classes.editorContainer}>
