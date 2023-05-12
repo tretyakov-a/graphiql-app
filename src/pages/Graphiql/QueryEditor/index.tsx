@@ -8,7 +8,7 @@ const QueryEditor = () => {
     <div className={classes.queryEditorContainer}>
       <section className={classes.queryEditor}>
         <div className={classes.queryEditorText}>
-          <Editor value="query {}" />
+          <Editor editorKey="query" />
         </div>
         <aside className={classes.queryEditorToolbar}>
           <IconButton icon={faPlay} className={classes.playButton} />

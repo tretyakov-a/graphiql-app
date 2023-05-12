@@ -5,7 +5,10 @@ const ResponsePanel = () => {
   return (
     <div className={classes.responsePanel}>
       <section className={classes.response}>
-        <Editor editable={false} basicSetup={{ lineNumbers: false }} />
+        <Editor
+          editorKey="response"
+          codeMirrorProps={{ editable: false, basicSetup: { lineNumbers: false } }}
+        />
       </section>
     </div>
   );

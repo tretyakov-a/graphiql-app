@@ -1,5 +1,5 @@
 import introspectionQuery from './introspection-query';
-import { fetchData } from '../http';
+import { fetchData } from './http';
 
 const graphqlEndpoint = 'https://rickandmortyapi.com/graphql';
 
@@ -11,17 +11,17 @@ export const fetchQuery = async (
   endpoint: string,
   options: {
     query: string;
-    variables?: Record<string, string>;
-    headers?: Headers;
+    variables?: string;
+    headers?: string;
   }
 ) => {
-  const { query, variables = {}, headers = {} } = options;
+  const { query, variables = '', headers = '' } = options;
   try {
     return await fetchData(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        ...headers,
+        ...JSON.parse(headers),
       },
       body: JSON.stringify({
         query,
