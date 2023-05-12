@@ -3,6 +3,7 @@ import Editor from '../Editor';
 import { useGraphqlStore } from '@src/store';
 import { Loading } from '@src/store/graphql/types';
 import { json } from '@codemirror/lang-json';
+import Loader from '@src/components/Loader';
 
 const ResponsePanel = () => {
   const {
@@ -13,7 +14,7 @@ const ResponsePanel = () => {
     <div className={classes.responsePanel}>
       <section className={classes.response}>
         {loading === Loading.PENDING ? (
-          <div>Loading...</div>
+          <Loader />
         ) : error === null && data !== null ? (
           <Editor
             editorKey="response"

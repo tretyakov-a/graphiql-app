@@ -7,6 +7,7 @@ import { DragOptions } from '../hooks/use-resizable-flex/types';
 import { maxWidthQuery, MediaQueryContext } from '@src/shared/contexts/media-query';
 import { classNames } from '@src/shared/utils';
 import useOpenCloseAnimation from '@src/shared/hooks/animation';
+import Loader from '@src/components/Loader';
 const DocsExplorer = lazy(() => import('./DocsExplorer'));
 
 const MIN_WIDTH = 200;
@@ -63,7 +64,7 @@ const DocsExplorerPanel = () => {
     >
       <section className={classes.docsExplorerContainer}>
         {isVisible && (
-          <Suspense fallback={<div>Docs loading...</div>}>
+          <Suspense fallback={<Loader />}>
             <DocsExplorer />
           </Suspense>
         )}

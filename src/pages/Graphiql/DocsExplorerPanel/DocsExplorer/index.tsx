@@ -1,3 +1,4 @@
+import Loader from '@src/components/Loader';
 import { useAppDispatch, useGraphqlStore } from '@src/store';
 import { Loading } from '@src/store/graphql/types';
 import { useEffect } from 'react';
@@ -17,7 +18,7 @@ const DocsExplorer = () => {
     <>
       <h2>Docs</h2>
       {loading === Loading.PENDING ? (
-        <div>Loading...</div>
+        <Loader />
       ) : error === null && data !== null ? (
         <>
           <p>Schema was loaded</p>
