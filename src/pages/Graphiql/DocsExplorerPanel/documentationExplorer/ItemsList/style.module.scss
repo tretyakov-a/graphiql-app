@@ -1,0 +1,38 @@
+.tree {
+  padding-left: 1em;
+
+  &Item {
+    cursor: pointer;
+    display: block;
+    position: relative;
+    padding: 0 1.3em;
+    border-left: 1px solid steelblue;
+    background: transparent;
+    list-style: square;
+    list-style-type: square;
+    list-style-position: inside;
+    overflow: visible;
+    box-sizing: border-box;
+    transition: all 0.2s;
+  }
+
+  &Item:last-child {
+    border-left: none;
+  }
+
+  &Item::before {
+    content: "";
+    position: absolute;
+    top: -0.5em;
+    left: 0;
+    height: 1em;
+    width: 1em;
+    border-bottom: 1px solid steelblue;
+    transition: all 0.2s;
+  }
+
+  &Item:last-child::before {
+    border-left: 1px solid steelblue;
+    background: transparent;
+  }
+}
