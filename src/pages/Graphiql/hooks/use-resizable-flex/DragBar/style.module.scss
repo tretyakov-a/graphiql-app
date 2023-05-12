@@ -1,5 +1,3 @@
-$dragbarWidth: 9px;
-
 .dragbar {
   cursor: col-resize;
   position: relative;
@@ -12,7 +10,7 @@ $dragbarWidth: 9px;
     justify-content: center;
     position: absolute;
     right: 0;
-    width: $dragbarWidth;
+    width: var(--dragbar-width);
     height: 100%;
 
     &Right {
@@ -24,7 +22,7 @@ $dragbarWidth: 9px;
     opacity: 0;
     position: absolute;
     z-index: 10;
-    width: $dragbarWidth - 4px;
+    width: calc(var(--dragbar-width) - 4px);
     height: 100px;
     background-color: var(--color-primary-alpha50);
     border-radius: 2px;
@@ -55,7 +53,7 @@ $dragbarWidth: 9px;
   .dragbarWrapper {
     bottom: 0;
     width: 100%;
-    height: $dragbarWidth;
+    height: var(--dragbar-width);
 
     &Bottom {
       bottom: auto;
@@ -65,6 +63,6 @@ $dragbarWidth: 9px;
 
   .dragbarThumb {
     width: 100px;
-    height: $dragbarWidth - 4px;
+    height: calc(var(--dragbar-width) - 4px);
   }
 }
