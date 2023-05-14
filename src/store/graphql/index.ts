@@ -1,4 +1,4 @@
-import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { type PayloadAction, createSlice, Middleware } from '@reduxjs/toolkit';
 import { useAppSelector } from '..';
 import { type GraphqlState, type EditorKey, Loading } from './types';
 import {
@@ -46,6 +46,14 @@ const initialState: GraphqlState = {
     data: null,
     fetched: false,
   },
+};
+
+export const showErrorMiddleware: Middleware = () => (next) => (action) => {
+  if (action.type.includes('rejected')) {
+    console.log(action.error.message);
+    //TODO: show toast/popup with error message
+  }
+  return next(action);
 };
 
 export const graphqlSlice = createSlice({
