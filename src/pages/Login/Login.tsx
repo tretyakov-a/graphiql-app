@@ -1,8 +1,6 @@
-import { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { auth } from '../../shared/api/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import classes from './style.module.scss';
 import { useTranslation } from 'react-i18next';
 import { useInput } from '@src/shared/hooks/InputFormHooks';
@@ -12,16 +10,6 @@ const Login = () => {
   const { t } = useTranslation();
   const email = useInput('', { isEmpty: true, minLength: 3, isEmail: true });
   const password = useInput('', { isEmpty: true, minLength: 8, isPassword: true });
-  const [user, loading] = useAuthState(auth);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (loading) {
-      // maybe trigger a loading screen
-      return;
-    }
-    if (user) navigate('/');
-  }, [user, loading, navigate]);
 
   return (
     <PageWrapper
