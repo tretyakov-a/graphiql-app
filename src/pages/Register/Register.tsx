@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { registerWithEmailAndPassword } from '../../shared/api/firebase';
 import classes from './style.module.scss';
+import '@src/styles/errorString.scss';
 import { useInput } from '@src/shared/hooks/InputFormHooks';
 import PageWrapper from '@src/components/PageWrapper';
 
@@ -22,7 +23,6 @@ function Register() {
       pageContainerClassName={classes.register__pageContainer}
     >
       <div className={classes.register__container}>
-        {name.isDirty && name.isError && <div style={{ color: 'red' }}>{name.errorText}</div>}
         <input
           type="text"
           name="name"
@@ -32,7 +32,7 @@ function Register() {
           placeholder={t('FullName') || ''}
           onBlur={() => name.onBlur()}
         />
-        {email.isDirty && email.isError && <div style={{ color: 'red' }}>{email.errorText}</div>}
+        {name.isDirty && name.isError && <div className="error-string">{name.errorText}</div>}
         <input
           type="text"
           name="email"
@@ -42,9 +42,7 @@ function Register() {
           placeholder={t('EmailAddress') || ''}
           onBlur={() => email.onBlur()}
         />
-        {password.isDirty && password.isError && (
-          <div style={{ color: 'red' }}>{password.errorText}</div>
-        )}
+        {email.isDirty && email.isError && <div className="error-string">{email.errorText}</div>}
         <input
           type="password"
           name="password"
@@ -54,6 +52,9 @@ function Register() {
           placeholder={t('Password') || ''}
           onBlur={() => password.onBlur()}
         />
+        {password.isDirty && password.isError && (
+          <div className="error-string">{password.errorText}</div>
+        )}
         <button
           disabled={email.isError || password.isError || name.isError}
           className={classes.register__btn}

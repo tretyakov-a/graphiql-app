@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { auth } from '../../shared/api/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import classes from './style.module.scss';
+import '@src/styles/errorString.scss';
 import { useTranslation } from 'react-i18next';
 import { useInput } from '@src/shared/hooks/InputFormHooks';
 import PageWrapper from '@src/components/PageWrapper';
@@ -17,7 +18,6 @@ const Login = () => {
       pageContainerClassName={classes.login__pageContainer}
     >
       <div className={classes.login__container}>
-        {email.isDirty && email.isError && <div style={{ color: 'red' }}>{email.errorText}</div>}
         <input
           type="text"
           name="email"
@@ -27,9 +27,7 @@ const Login = () => {
           placeholder={t('EmailAddress') || ''}
           onBlur={() => email.onBlur()}
         />
-        {password.isDirty && password.isError && (
-          <div style={{ color: 'red' }}>{password.errorText}</div>
-        )}
+        {email.isDirty && email.isError && <div className="error-string">{email.errorText}</div>}
         <input
           type="password"
           name="password"
@@ -39,6 +37,9 @@ const Login = () => {
           placeholder={t('Password') || ''}
           onBlur={() => password.onBlur()}
         />
+        {password.isDirty && password.isError && (
+          <div className="error-string">{password.errorText}</div>
+        )}
         <button
           disabled={email.isError || password.isError}
           className={classes.login__btn}
