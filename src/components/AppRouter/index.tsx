@@ -17,11 +17,18 @@ const AppRouter = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Welcome />} />
+          <Route
+            index
+            element={
+              <ProtectedRoute user={user} isNeedable={false} route="/graphiql">
+                <Welcome />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="auth"
             element={
-              <ProtectedRoute user={user} isNeedable={false}>
+              <ProtectedRoute user={user} isNeedable={false} route="/graphiql">
                 <Login />
               </ProtectedRoute>
             }
@@ -29,7 +36,7 @@ const AppRouter = () => {
           <Route
             path="register"
             element={
-              <ProtectedRoute user={user} isNeedable={false}>
+              <ProtectedRoute user={user} isNeedable={false} route="/graphiql">
                 <Register />
               </ProtectedRoute>
             }
@@ -37,7 +44,7 @@ const AppRouter = () => {
           <Route
             path="reset"
             element={
-              <ProtectedRoute user={user} isNeedable={false}>
+              <ProtectedRoute user={user} isNeedable={false} route="/graphiql">
                 <Reset />
               </ProtectedRoute>
             }
@@ -45,7 +52,7 @@ const AppRouter = () => {
           <Route
             path="graphiql"
             element={
-              <ProtectedRoute user={user} isNeedable={true}>
+              <ProtectedRoute user={user} isNeedable={true} route="/">
                 <Graphiql />
               </ProtectedRoute>
             }

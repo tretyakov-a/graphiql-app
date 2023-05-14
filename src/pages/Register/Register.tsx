@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link, useNavigate } from 'react-router-dom';
-import { auth, registerWithEmailAndPassword } from '../../shared/api/firebase';
+import { Link } from 'react-router-dom';
+import { registerWithEmailAndPassword } from '../../shared/api/firebase';
 import classes from './style.module.scss';
 import { useInput } from '@src/shared/hooks/InputFormHooks';
 import PageWrapper from '@src/components/PageWrapper';
@@ -11,18 +10,11 @@ function Register() {
   const email = useInput('', { isEmpty: true, minLength: 3, isEmail: true });
   const password = useInput('', { isEmpty: true, minLength: 8, isPassword: true });
   const name = useInput('', { isEmpty: true, minLength: 3 });
-  const [user, loading] = useAuthState(auth);
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const register = () => {
     if (!name) alert(t('PleaseEnterName'));
     registerWithEmailAndPassword(name.value, email.value, password.value);
   };
-
-  useEffect(() => {
-    if (loading) return;
-    if (user) navigate('/');
-  }, [user, loading, navigate]);
 
   return (
     <PageWrapper

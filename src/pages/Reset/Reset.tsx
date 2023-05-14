@@ -16,7 +16,6 @@ function Reset() {
   useEffect(() => {
     try {
       if (loading) return;
-      if (user) navigate('/');
     } catch {
       return;
     }
