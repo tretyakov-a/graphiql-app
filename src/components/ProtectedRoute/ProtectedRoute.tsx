@@ -4,12 +4,15 @@ import { Navigate } from 'react-router-dom';
 
 interface ProtectedRouteProps extends React.PropsWithChildren {
   user: User | null | undefined;
+  isNeedable: boolean;
 }
 
 export const ProtectedRoute = (props: ProtectedRouteProps) => {
-  const { user, children } = props;
+  const { user, children, isNeedable } = props;
 
-  if (!user) {
+  if (!user && isNeedable) {
+    return <Navigate to="/" replace />;
+  } else if (user && !isNeedable) {
     return <Navigate to="/" replace />;
   }
 
