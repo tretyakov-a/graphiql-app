@@ -1,4 +1,4 @@
-import { GraphqlResponse } from '@src/shared/api/graphql';
+import { GraphqlResponse, GraphqlSchema } from '@src/shared/api/graphql';
 
 export type EditorKey = 'query' | 'variables' | 'headers' | 'response';
 
@@ -14,13 +14,13 @@ export type LoadingState = {
   error: string | null;
 };
 
-export type GraphqlLoadingState = LoadingState & {
-  data: GraphqlResponse | null;
+export type GraphqlLoadingState<T> = LoadingState & {
+  response: GraphqlResponse<T> | null;
 };
 
 export interface GraphqlState {
   editors: Record<EditorKey, string>;
   endpoint: string;
-  query: GraphqlLoadingState & { executed: { query: string; variables: string } };
-  schema: GraphqlLoadingState & { fetched: boolean };
+  query: GraphqlLoadingState<unknown> & { executed: { query: string; variables: string } };
+  schema: GraphqlLoadingState<GraphqlSchema> & { fetched: boolean };
 }

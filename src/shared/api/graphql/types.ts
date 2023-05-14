@@ -8,7 +8,7 @@ export type GraphqlError = {
   };
 };
 
-export type GraphqlResponse = {
-  data?: unknown;
+export type GraphqlResponse<T> = {
+  data?: T;
   errors?: GraphqlError[];
 };

@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 
 const DocsExplorer = () => {
   const {
-    schema: { loading, data, error },
+    schema: { loading, response, error },
     actions: { fetchGraphqlSchema },
   } = useGraphqlStore();
   const dispatch = useAppDispatch();
@@ -16,23 +16,18 @@ const DocsExplorer = () => {
 
   return (
     <>
-      <h2>Docs</h2>
+      <h2 style={{ marginBottom: '1rem' }}>Docs</h2>
       {loading === Loading.PENDING ? (
         <Loader />
-      ) : error === null && data !== null ? (
-        <>
-          <p>Schema was loaded</p>
-          <br />
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-            has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown
-            printer took a galley of type and scrambled it to make a type specimen book. It has
-            survived not only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s with the release of
-            Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-            publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-          </p>
-        </>
+      ) : error === null && response !== null ? (
+        <ul>
+          {response.data?.__schema.types.map((type) => (
+            <li key={type.name} style={{ marginBottom: '0.5rem' }}>
+              <h3>{type.name}</h3>
+              <p style={{ fontSize: '14px', color: 'var(--color-text-xl)' }}>{type.description}</p>
+            </li>
+          ))}
+        </ul>
       ) : (
         ''
       )}

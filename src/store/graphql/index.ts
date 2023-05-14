@@ -34,7 +34,7 @@ const initialState: GraphqlState = {
   query: {
     loading: Loading.IDLE,
     error: null,
-    data: null,
+    response: null,
     executed: {
       query: '',
       variables: '',
@@ -43,7 +43,7 @@ const initialState: GraphqlState = {
   schema: {
     loading: Loading.IDLE,
     error: null,
-    data: null,
+    response: null,
     fetched: false,
   },
 };

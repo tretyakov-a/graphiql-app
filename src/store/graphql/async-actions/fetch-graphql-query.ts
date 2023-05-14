@@ -3,7 +3,7 @@ import { type GraphqlResponse, fetchQuery } from '@src/shared/api/graphql';
 import type { AsyncThunkConfig } from '@src/store';
 import { type GraphqlState, Loading } from '../types';
 
-export const fetchGraphqlQuery = createAsyncThunk<GraphqlResponse, void, AsyncThunkConfig>(
+export const fetchGraphqlQuery = createAsyncThunk<GraphqlResponse<unknown>, void, AsyncThunkConfig>(
   'graphql/fetchGraphqlQuery',
   async (_, { getState }) => {
     const {
@@ -44,7 +44,7 @@ export const fetchGraphqlQueryExtraReducers = (builder: ActionReducerMapBuilder<
   });
   builder.addCase(fetchGraphqlQuery.fulfilled, (state, action) => {
     state.query.loading = Loading.SUCCESS;
-    state.query.data = action.payload;
+    state.query.response = action.payload;
     state.query.error = null;
     state.editors.response = JSON.stringify(action.payload, null, 2);
   });

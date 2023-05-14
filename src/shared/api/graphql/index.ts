@@ -1,12 +1,13 @@
 import introspectionQuery from './introspection-query';
 import { fetchData } from './http';
 import { i18n } from '@src/shared/localization';
+import { GraphqlSchema } from './schema-types';
 
 export const fetchSchema = (endpoint: string) => {
-  return fetchQuery(endpoint, { query: introspectionQuery });
+  return fetchQuery<GraphqlSchema>(endpoint, { query: introspectionQuery });
 };
 
-export const fetchQuery = async (
+export const fetchQuery = async <T>(
   endpoint: string,
   options: {
     query: string;
@@ -23,7 +24,7 @@ export const fetchQuery = async (
   }
 
   try {
-    return await fetchData(endpoint, {
+    return await fetchData<T>(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -39,3 +40,4 @@ export const fetchQuery = async (
 };
 
 export type { GraphqlError, GraphqlResponse } from './types';
+export type { GraphqlSchema } from './schema-types';

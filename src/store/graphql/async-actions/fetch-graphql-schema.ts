@@ -1,10 +1,10 @@
 import { type ActionReducerMapBuilder, createAsyncThunk } from '@reduxjs/toolkit';
-import { type GraphqlResponse, fetchSchema } from '@src/shared/api/graphql';
+import { type GraphqlResponse, fetchSchema, GraphqlSchema } from '@src/shared/api/graphql';
 import type { AsyncThunkConfig } from '@src/store';
 import { type GraphqlState, Loading } from '../types';
 
 export const fetchGraphqlSchema = createAsyncThunk<
-  GraphqlResponse,
+  GraphqlResponse<GraphqlSchema>,
   { refetch?: boolean },
   AsyncThunkConfig
 >(
@@ -33,7 +33,7 @@ export const fetchGraphqlSchemaExtraReducers = (builder: ActionReducerMapBuilder
   });
   builder.addCase(fetchGraphqlSchema.fulfilled, (state, action) => {
     state.schema.loading = Loading.SUCCESS;
-    state.schema.data = action.payload;
+    state.schema.response = action.payload;
     state.schema.error = null;
     state.schema.fetched = true;
   });

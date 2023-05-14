@@ -7,7 +7,7 @@ import Loader from '@src/components/Loader';
 
 const ResponsePanel = () => {
   const {
-    query: { loading, error, data },
+    query: { loading, error, response },
   } = useGraphqlStore();
 
   return (
@@ -15,7 +15,7 @@ const ResponsePanel = () => {
       <section className={classes.response}>
         {loading === Loading.PENDING ? (
           <Loader />
-        ) : error === null && data !== null ? (
+        ) : error === null && response !== null ? (
           <Editor
             editorKey="response"
             codeMirrorProps={{
