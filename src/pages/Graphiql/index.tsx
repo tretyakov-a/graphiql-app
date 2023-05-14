@@ -1,5 +1,3 @@
-import { auth } from '@src/shared/api/firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import classes from './style.module.scss';
 import PageWrapper from '@src/components/PageWrapper';
 import { useContext, useRef } from 'react';
@@ -10,21 +8,12 @@ import { DragContext } from '@src/shared/contexts/drag';
 import { MediaQueryContext, maxWidthQuery } from '@src/shared/contexts/media-query';
 import Portal from '@src/components/Portal';
 import ResponsePanel from './ResponsePanel';
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 
 const Graphiql = () => {
   const graphqlMainContainerRef = useRef<HTMLDivElement>(null);
   const editorsContainerRef = useRef<HTMLDivElement>(null);
   const { matches } = useContext(MediaQueryContext);
   const matchesSmBreakpoint = matches![maxWidthQuery('sm')];
-
-  const [user] = useAuthState(auth);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!user) navigate('/');
-  }, [navigate, user]);
 
   return (
     <PageWrapper
