@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import { auth, logout } from '@src/shared/api/firebase';
 import LanguageSelector from '@src/components/LanguageSelector';
+import logoutSVG from '@src/assets/logout.svg';
 
 const Header = () => {
   const { t } = useTranslation();
@@ -48,7 +49,7 @@ const Header = () => {
               {user && (
                 <li>
                   <button onClick={logout} className={classes.menuLink}>
-                    {t('logOut')}
+                    <img src={logoutSVG} alt="logout" />
                   </button>
                 </li>
               )}
