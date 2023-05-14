@@ -1,9 +1,9 @@
 import Loader from '@src/components/Loader';
 import { useAppDispatch, useGraphqlStore } from '@src/store';
 import { Loading } from '@src/store/graphql/types';
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 
-const DocsExplorer = () => {
+const DocsExplorer = memo(() => {
   const {
     schema: { loading, response, error },
     actions: { fetchGraphqlSchema },
@@ -33,6 +33,6 @@ const DocsExplorer = () => {
       )}
     </>
   );
-};
+});
 
 export default DocsExplorer;

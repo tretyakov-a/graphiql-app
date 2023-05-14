@@ -1,10 +1,11 @@
-import React from 'react';
+import { memo, useContext, useMemo } from 'react';
 import './codemirror.scss';
 import classes from './style.module.scss';
 import CodeMirror, { type ReactCodeMirrorProps } from '@uiw/react-codemirror';
 import { EditorKey } from '@src/store/graphql';
-import { useAppDispatch, useGraphqlStore } from '@src/store';
+import { useGraphqlStore } from '@src/store';
 import { useCallback } from 'react';
+import { EditableEditorKey, EditorsContext } from '@src/shared/contexts/editors';
 
 interface EditorProps {
   editorKey: EditorKey;
@@ -22,32 +23,35 @@ const basicSetupOptions = {
   indentOnInput: true,
 };
 
-const Editor = React.memo((props: EditorProps) => {
+const Editor = memo((props: EditorProps) => {
   const { codeMirrorProps, editorKey } = props;
-  const {
-    editors,
-    actions: { setEditorValue },
-  } = useGraphqlStore();
-  const dispatch = useAppDispatch();
+  const { responseOutput } = useGraphqlStore();
+  const editableEditorKey = editorKey as EditableEditorKey;
+  const { editors, setEditorValue } = useContext(EditorsContext);
 
-  const onChange = useCallback(
+  const handleOnChange = useCallback(
     (value: string) => {
-      dispatch(setEditorValue({ editorKey, value }));
+      setEditorValue(editableEditorKey, value);
     },
-    [dispatch, editorKey, setEditorValue]
+    [editableEditorKey, setEditorValue]
   );
+  const isResponse = editorKey === 'response';
+  const value = isResponse ? responseOutput : editors[editableEditorKey];
+  const onChange = isResponse ? undefined : handleOnChange;
 
-  return (
-    <div className={classes.editorContainer}>
+  const codeMirror = useMemo(
+    () => (
       <CodeMirror
         {...codeMirrorProps}
         basicSetup={{ ...basicSetupOptions, ...(codeMirrorProps?.basicSetup as object) }}
         height="100%"
-        value={editors[editorKey]}
+        value={value}
         onChange={onChange}
       />
-    </div>
+    ),
+    [codeMirrorProps, onChange, value]
   );
+  return <div className={classes.editorContainer}>{codeMirror}</div>;
 });
 
 export default Editor;

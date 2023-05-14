@@ -19,7 +19,7 @@ export type GraphqlLoadingState<T> = LoadingState & {
 };
 
 export interface GraphqlState {
-  editors: Record<EditorKey, string>;
+  responseOutput: string;
   endpoint: string;
   query: GraphqlLoadingState<unknown> & { executed: { query: string; variables: string } };
   schema: GraphqlLoadingState<GraphqlSchema> & { fetched: boolean };

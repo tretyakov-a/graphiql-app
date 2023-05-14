@@ -4,6 +4,8 @@ import Editor from '../Editor';
 import IconButton from '@src/components/IconButton';
 import { useAppDispatch, useGraphqlStore } from '@src/store';
 import { Loading } from '@src/store/graphql/types';
+import { useContext } from 'react';
+import { EditorsContext } from '@src/shared/contexts/editors';
 
 const QueryEditor = () => {
   const {
@@ -12,8 +14,12 @@ const QueryEditor = () => {
   } = useGraphqlStore();
   const dispatch = useAppDispatch();
 
+  const {
+    editors: { query, variables },
+  } = useContext(EditorsContext);
+
   const handleRequestButtonClick = () => {
-    dispatch(fetchGraphqlQuery());
+    dispatch(fetchGraphqlQuery({ query, variables }));
   };
 
   return (
