@@ -17,11 +17,13 @@ const Header = () => {
         <div className={classes.headerRight}>
           <nav className={classes.menuContainer}>
             <ul className={classes.menu}>
-              <li>
-                <NavLink to="/" className={classes.menuLink}>
-                  {t('mainPage')}
-                </NavLink>
-              </li>
+              {!user && (
+                <li>
+                  <NavLink to="/" className={classes.menuLink}>
+                    {t('mainPage')}
+                  </NavLink>
+                </li>
+              )}
               {user && (
                 <li>
                   <NavLink to="/graphiql" className={classes.menuLink}>
