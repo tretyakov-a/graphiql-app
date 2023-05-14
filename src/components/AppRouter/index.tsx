@@ -18,13 +18,34 @@ const AppRouter = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Welcome />} />
-          <Route path="auth" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="reset" element={<Reset />} />
+          <Route
+            path="auth"
+            element={
+              <ProtectedRoute user={user} isNeedable={false}>
+                <Login />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="register"
+            element={
+              <ProtectedRoute user={user} isNeedable={false}>
+                <Register />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="reset"
+            element={
+              <ProtectedRoute user={user} isNeedable={false}>
+                <Reset />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="graphiql"
             element={
-              <ProtectedRoute user={user}>
+              <ProtectedRoute user={user} isNeedable={true}>
                 <Graphiql />
               </ProtectedRoute>
             }
