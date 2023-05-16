@@ -2,6 +2,7 @@
 
 .docsExplorer {
   &Panel {
+    position: relative;
     display: none;
     flex-direction: row;
     border-left: 1px solid var(--color-text-xs);
@@ -9,6 +10,7 @@
 
     &Visible {
       display: flex;
+      justify-content: flex-end;
     }
 
     @include sm-breakpoint {
@@ -20,10 +22,14 @@
   }
 
   &Container {
+    position: absolute;
+    left: 0;
     flex: 1;
-    width: 100%;
+    width: calc(100% - var(--dragbar-width));
     height: 100%;
     padding: 0.5rem;
+    overflow-y: auto;
+    pointer-events: all;
 
     @include sm-breakpoint {
       border-radius: 10px;

@@ -2,10 +2,17 @@ import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 import type { TypedUseSelectorHook } from 'react-redux';
 import appUiReducer from './app-ui';
+import graphqlReducer, { showErrorMiddleware } from './graphql';
+
+const middlewares = [showErrorMiddleware];
 
 export const store = configureStore({
   reducer: {
     appUI: appUiReducer,
+    graphql: graphqlReducer,
+  },
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat(middlewares as ReturnType<typeof getDefaultMiddleware>);
   },
 });
 
@@ -22,4 +29,5 @@ export interface AsyncThunkConfig {
 }
 
 export { useAppUI } from './app-ui';
+export { useGraphqlStore } from './graphql';
 export type { AppUIState, FlexState, VisibilityState } from './app-ui';

@@ -1,5 +1,5 @@
-import HeadersEditor from './HeadersEditor';
-import VariablesEditor from './VariablesEditor';
+import Editor from '../Editor';
+import { json } from '@codemirror/lang-json';
 
 export enum EDITORS {
   VARIABLES,
@@ -9,10 +9,24 @@ export enum EDITORS {
 export const editors = [
   {
     headerTitle: 'variables',
-    component: <VariablesEditor />,
+    component: (
+      <Editor
+        editorKey="variables"
+        codeMirrorProps={{
+          extensions: [json()],
+        }}
+      />
+    ),
   },
   {
     headerTitle: 'headers',
-    component: <HeadersEditor />,
+    component: (
+      <Editor
+        editorKey="headers"
+        codeMirrorProps={{
+          extensions: [json()],
+        }}
+      />
+    ),
   },
 ];
