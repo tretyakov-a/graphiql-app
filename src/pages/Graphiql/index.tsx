@@ -8,7 +8,7 @@ import { DragContext } from '@src/shared/contexts/drag';
 import { MediaQueryContext, maxWidthQuery } from '@src/shared/contexts/media-query';
 import Portal from '@src/components/Portal';
 import ResponsePanel from './ResponsePanel';
-
+import { EditorsContextProvider } from '@src/shared/contexts/editors';
 const Graphiql = () => {
   const graphqlMainContainerRef = useRef<HTMLDivElement>(null);
   const editorsContainerRef = useRef<HTMLDivElement>(null);
@@ -20,26 +20,28 @@ const Graphiql = () => {
       pageClassName={classes.graphiql}
       pageContainerClassName={classes.graphiqlContainer}
     >
-      <SideToolbar />
-      <div className={classes.graphiqlMain} ref={graphqlMainContainerRef}>
-        <DragContext.Provider value={{ containerRef: graphqlMainContainerRef }}>
-          {matchesSmBreakpoint ? (
-            <Portal>
+      <EditorsContextProvider>
+        <SideToolbar />
+        <div className={classes.graphiqlMain} ref={graphqlMainContainerRef}>
+          <DragContext.Provider value={{ containerRef: graphqlMainContainerRef }}>
+            {matchesSmBreakpoint ? (
+              <Portal>
+                <DocsExplorerPanel />
+              </Portal>
+            ) : (
               <DocsExplorerPanel />
-            </Portal>
-          ) : (
-            <DocsExplorerPanel />
-          )}
-        </DragContext.Provider>
-        <div className={classes.editorsPanel}>
-          <div className={classes.editorsContainer} ref={editorsContainerRef}>
-            <DragContext.Provider value={{ containerRef: editorsContainerRef }}>
-              <EditorsLeftPanel />
-            </DragContext.Provider>
-            <ResponsePanel />
+            )}
+          </DragContext.Provider>
+          <div className={classes.editorsPanel}>
+            <div className={classes.editorsContainer} ref={editorsContainerRef}>
+              <DragContext.Provider value={{ containerRef: editorsContainerRef }}>
+                <EditorsLeftPanel />
+              </DragContext.Provider>
+              <ResponsePanel />
+            </div>
           </div>
         </div>
-      </div>
+      </EditorsContextProvider>
     </PageWrapper>
   );
 };

@@ -2,21 +2,25 @@ import { type ActionReducerMapBuilder, createAsyncThunk } from '@reduxjs/toolkit
 import { type GraphqlResponse, fetchQuery } from '@src/shared/api/graphql';
 import type { AsyncThunkConfig } from '@src/store';
 import { type GraphqlState, Loading } from '../types';
+import { setExecuted } from '..';
 
-export const fetchGraphqlQuery = createAsyncThunk<GraphqlResponse, void, AsyncThunkConfig>(
+export type FetchGraphqlQueryPayload = { query: string; variables: string };
+
+export const fetchGraphqlQuery = createAsyncThunk<
+  GraphqlResponse<unknown>,
+  FetchGraphqlQueryPayload,
+  AsyncThunkConfig
+>(
   'graphql/fetchGraphqlQuery',
-  async (_, { getState }) => {
-    const {
-      endpoint,
-      editors: { query, variables },
-    } = getState().graphql;
+  async ({ query, variables }, { getState, dispatch }) => {
+    const { endpoint } = getState().graphql;
+    dispatch(setExecuted({ query, variables }));
     const response = await fetchQuery(endpoint, { query, variables });
     return response;
   },
   {
-    condition: (_: void, { getState }) => {
+    condition: ({ query, variables }, { getState }) => {
       const {
-        editors: { query, variables },
         query: {
           executed: { query: prevQuery, variables: prevVariables },
           loading,
@@ -39,19 +43,15 @@ export const fetchGraphqlQuery = createAsyncThunk<GraphqlResponse, void, AsyncTh
 export const fetchGraphqlQueryExtraReducers = (builder: ActionReducerMapBuilder<GraphqlState>) => {
   builder.addCase(fetchGraphqlQuery.pending, (state) => {
     state.query.loading = Loading.PENDING;
-    const { query, variables } = state.editors;
-    state.query.executed = { query, variables };
   });
   builder.addCase(fetchGraphqlQuery.fulfilled, (state, action) => {
     state.query.loading = Loading.SUCCESS;
-    state.query.data = action.payload;
+    state.query.response = action.payload;
     state.query.error = null;
-    state.editors.response = JSON.stringify(action.payload, null, 2);
+    state.responseOutput = JSON.stringify(action.payload, null, 2);
   });
   builder.addCase(fetchGraphqlQuery.rejected, (state, action) => {
     state.query.loading = Loading.ERROR;
     state.query.error = action.error.message || '';
-    //TODO: show toast/popup with error message
-    console.log(action.error.message);
   });
 };

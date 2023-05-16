@@ -14,10 +14,10 @@ const handleErrors = (res: Response): Response => {
   return res;
 };
 
-export const fetchData = async (
+export const fetchData = async <T>(
   baseUrl: string,
   requestInit?: RequestInit
-): Promise<GraphqlResponse> => {
+): Promise<GraphqlResponse<T>> => {
   try {
     const res = handleErrors(await fetch(baseUrl, requestInit));
     return await res.json();
