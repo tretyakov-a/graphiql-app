@@ -1,0 +1,28 @@
+.logo {
+  &Title {
+    color: var(--color-text-xl);
+    transition: 0.25s;
+  }
+
+  a {
+    display: flex;
+  }
+
+  &Img {
+    fill: var(--color-text-xl);
+    width: 30px;
+    margin-right: 0.5rem;
+    transition: 0.25s;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      .logoImg {
+        fill: var(--color-text-l);
+      }
+      .logoTitle {
+        color: var(--color-text-l);
+      }
+    }
+  }
+}
