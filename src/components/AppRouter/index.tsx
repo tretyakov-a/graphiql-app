@@ -12,6 +12,7 @@ import Reset from '@src/pages/Reset/Reset';
 
 const AppRouter = () => {
   const [user] = useAuthState(auth);
+  const isAuthrorized = Boolean(user);
 
   return (
     <BrowserRouter>
@@ -21,7 +22,7 @@ const AppRouter = () => {
           <Route
             path="auth"
             element={
-              <ProtectedRoute user={user} isNeedable={false} route="/graphiql">
+              <ProtectedRoute passCondition={!isAuthrorized} route="/graphiql">
                 <Login />
               </ProtectedRoute>
             }
@@ -29,7 +30,7 @@ const AppRouter = () => {
           <Route
             path="register"
             element={
-              <ProtectedRoute user={user} isNeedable={false} route="/graphiql">
+              <ProtectedRoute passCondition={!isAuthrorized} route="/graphiql">
                 <Register />
               </ProtectedRoute>
             }
@@ -37,7 +38,7 @@ const AppRouter = () => {
           <Route
             path="reset"
             element={
-              <ProtectedRoute user={user} isNeedable={false} route="/graphiql">
+              <ProtectedRoute passCondition={!isAuthrorized} route="/graphiql">
                 <Reset />
               </ProtectedRoute>
             }
@@ -45,7 +46,7 @@ const AppRouter = () => {
           <Route
             path="graphiql"
             element={
-              <ProtectedRoute user={user} isNeedable={true} route="/">
+              <ProtectedRoute passCondition={isAuthrorized} route="/">
                 <Graphiql />
               </ProtectedRoute>
             }
