@@ -15,16 +15,16 @@ type Deprecation = {
 
 type NameDescription = {
   name: string | null;
-  description: string | null;
+  description?: string | null;
 };
 
-type EnumValue = {
+export type EnumValue = {
   name: TypeKind;
   description: string | null;
 } & Deprecation;
 
-type InputValue = NameDescription & {
-  type: Type | null;
+export type InputValue = NameDescription & {
+  type: TypeOfType | null;
   defaultValue: string | null;
 };
 
@@ -34,19 +34,25 @@ type Directive = NameDescription & {
   args: InputValue[];
 };
 
-type Field = NameDescription & {
+export type Field = NameDescription & {
   args: InputValue[] | null;
-  type: Type;
+  type: TypeOfType;
 } & Deprecation;
 
-type Type = NameDescription & {
-  Type: TypeKind;
+export type Type = NameDescription & {
+  type: TypeOfType;
   fields: Field[] | null;
   inputFields: InputValue[] | null;
   interfaces: Type[] | null;
   enumValues: EnumValue[] | null;
   possibleTypes: Type[] | null;
   ofType: Type | null;
+};
+
+export type TypeOfType = NameDescription & {
+  kind: TypeKind;
+  name: string | null;
+  ofType: TypeOfType | null;
 };
 
 export type GraphqlSchema = {

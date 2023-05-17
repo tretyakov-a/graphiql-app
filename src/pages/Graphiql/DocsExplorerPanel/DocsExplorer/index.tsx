@@ -1,7 +1,10 @@
 import Loader from '@src/components/Loader';
 import { useAppDispatch, useGraphqlStore } from '@src/store';
 import { Loading } from '@src/store/graphql/types';
+import { Field, TypeOfType } from '@src/shared/api/graphql/schema-types';
 import { memo, useEffect } from 'react';
+import useStateHistory from '@src/shared/hooks/stateHistoryHook';
+import TypeElement, { Element as State } from './TypeElement';
 
 const DocsExplorer = memo(() => {
   const {
@@ -10,9 +13,62 @@ const DocsExplorer = memo(() => {
   } = useGraphqlStore();
   const dispatch = useAppDispatch();
 
+  const [currentState, addState, backState] = useStateHistory<State>();
+
   useEffect(() => {
     dispatch(fetchGraphqlSchema({}));
   }, [dispatch, fetchGraphqlSchema]);
+
+  const handleField = (field: Field) => {
+    console.log(field);
+    if (field.name !== null) {
+      addState({ ...field });
+    }
+  };
+
+  const handleFirstQuery = (name: string | null | undefined) => {
+    const typeObj = response?.data?.__schema.types.find((el) => el.name === name);
+    if (typeObj) {
+      addState(typeObj);
+    }
+  };
+
+  const handleType = (type: TypeOfType | undefined) => {
+    let typeName: string | null | undefined;
+    if (type) {
+      switch (type.kind) {
+        case 'OBJECT':
+          typeName = type.name;
+          break;
+        case 'LIST':
+          typeName = type.ofType?.name;
+          break;
+        case 'SCALAR':
+          typeName = type.name;
+          break;
+
+        default:
+          typeName = getName(type);
+          break;
+      }
+    }
+    const typeObj = response?.data?.__schema.types.find((el) => el.name === typeName);
+    if (typeObj) {
+      addState(typeObj);
+    }
+  };
+
+  const handleBack = () => {
+    backState();
+  };
+
+  const getName = (obj: TypeOfType): string | undefined => {
+    if (obj.name) {
+      return obj.name;
+    } else {
+      return obj.ofType ? getName(obj.ofType) : undefined;
+    }
+  };
 
   return (
     <>
@@ -20,14 +76,24 @@ const DocsExplorer = memo(() => {
       {loading === Loading.PENDING ? (
         <Loader />
       ) : error === null && response !== null ? (
-        <ul>
-          {response.data?.__schema.types.map((type) => (
-            <li key={type.name} style={{ marginBottom: '0.5rem' }}>
-              <h3>{type.name}</h3>
-              <p style={{ fontSize: '14px', color: 'var(--color-text-xl)' }}>{type.description}</p>
-            </li>
-          ))}
-        </ul>
+        <div>
+          {!currentState && (
+            <ul>
+              <span>query: </span>
+              <a onClick={() => handleFirstQuery(response.data?.__schema.queryType?.name)}>
+                {response.data?.__schema.queryType?.name}
+              </a>
+            </ul>
+          )}
+          {currentState && (
+            <TypeElement
+              element={currentState}
+              handleBack={handleBack}
+              handleField={handleField}
+              handleType={handleType}
+            />
+          )}
+        </div>
       ) : (
         ''
       )}
