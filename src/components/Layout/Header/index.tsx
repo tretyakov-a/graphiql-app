@@ -15,7 +15,9 @@ const Header = () => {
   return (
     <header className={classes.header}>
       <div className={[generalClasses.container, classes.headerContainer].join(' ')}>
-        <h1>HeaderLogo</h1>
+        <NavLink to="/" className={classes.menuLink}>
+          <h1>HeaderLogo</h1>
+        </NavLink>
         <div className={classes.headerRight}>
           <nav className={classes.menuContainer}>
             <ul className={classes.menu}>
