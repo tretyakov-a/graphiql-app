@@ -1,19 +1,34 @@
-import { User } from 'firebase/auth';
+import classes from './style.module.scss';
+import { auth } from '@src/shared/api/firebase';
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Navigate } from 'react-router-dom';
+import Loader from '../Loader';
+import PageWrapper from '../PageWrapper';
 
 interface ProtectedRouteProps extends React.PropsWithChildren {
-  user: User | null | undefined;
-  isNeedable: boolean;
+  isAuthRoute?: boolean;
   route: string;
 }
 
 export const ProtectedRoute = (props: ProtectedRouteProps) => {
-  const { user, children, isNeedable, route } = props;
+  const { children, isAuthRoute = false, route } = props;
+  const [user, loading] = useAuthState(auth);
 
-  if (!user && isNeedable) {
-    return <Navigate to={route} replace />;
-  } else if (user && !isNeedable) {
+  if (loading)
+    return (
+      <PageWrapper
+        pageClassName={classes.authLoading}
+        pageContainerClassName={classes.authLoadingContainer}
+      >
+        <h2>Authentication...</h2>
+        <Loader />
+      </PageWrapper>
+    );
+
+  const isAuthorised = Boolean(user);
+
+  if ((isAuthRoute && isAuthorised) || (!isAuthRoute && !isAuthorised)) {
     return <Navigate to={route} replace />;
   }
 

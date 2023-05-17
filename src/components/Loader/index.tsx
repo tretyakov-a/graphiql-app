@@ -1,9 +1,16 @@
 import classes from './style.module.scss';
 
-const Loader = () => {
+interface LoaderProps {
+  size?: number;
+}
+
+const Loader = ({ size = 0.6 }: LoaderProps) => {
   return (
     <div className={classes.loaderContainer}>
-      <div className={classes.ldsDualRing}></div>
+      <div
+        className={classes.ldsDualRing}
+        style={{ transform: `scale(${size > 1 ? 1 : size})` }}
+      ></div>
     </div>
   );
 };
