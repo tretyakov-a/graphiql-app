@@ -1,16 +1,14 @@
+import { classNames } from '@src/shared/utils';
 import classes from './style.module.scss';
 
 interface LoaderProps {
-  size?: number;
+  size?: 'sm' | 'md' | 'lg';
 }
 
-const Loader = ({ size = 0.6 }: LoaderProps) => {
+const Loader = ({ size = 'md' }: LoaderProps) => {
   return (
-    <div className={classes.loaderContainer}>
-      <div
-        className={classes.ldsDualRing}
-        style={{ transform: `scale(${size > 1 ? 1 : size})` }}
-      ></div>
+    <div className={classNames([classes.loaderContainer, classes[`loaderContainer_${size}`]])}>
+      <div className={classes.ldsDualRing}></div>
     </div>
   );
 };
