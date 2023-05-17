@@ -25,7 +25,6 @@ export default {
     NeedSpecial: 'The password must contain numbers and a special character',
     NotRegister: 'This e-mail is`n register yet',
     CheckEOrP: 'Check e-mail or password',
-    logOut: 'Logout',
     jsonVariables: 'Variables are invalid JSON: {{- message}}',
     httpStatusCodeError: 'Loading error occured (code: {{status}})',
     httpInvalidContentType: 'Invalid content-type in response',

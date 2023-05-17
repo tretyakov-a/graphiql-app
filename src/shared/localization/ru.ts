@@ -25,7 +25,6 @@ export default {
     NeedSpecial: 'Пароль должен иметь хотя бы 1 специальный символ',
     NotRegister: 'Такого аккаунта не существует',
     CheckEOrP: 'Проверьте e-mail или пароль',
-    logOut: 'Выйти',
     jsonVariables: 'Ошибка в переменных, неверный JSON: {{- message}}',
     httpStatusCodeError: 'Ошибка загрузки данных (статус код: {{status}})',
     httpInvalidContentType: 'Неверный тип содержимого в ответе сервера',
