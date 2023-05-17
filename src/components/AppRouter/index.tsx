@@ -17,14 +17,7 @@ const AppRouter = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route
-            index
-            element={
-              <ProtectedRoute user={user} isNeedable={false} route="/graphiql">
-                <Welcome />
-              </ProtectedRoute>
-            }
-          />
+          <Route index element={<Welcome />} />
           <Route
             path="auth"
             element={
