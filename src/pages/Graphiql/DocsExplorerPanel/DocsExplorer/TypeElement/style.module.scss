@@ -1,0 +1,49 @@
+@import "@src/styles/variables";
+
+.docs {
+  padding: var(--content-padding);
+
+  &BackBtn {
+    display: inline-flex;
+  }
+
+  &Previos {
+    display: inline;
+  }
+
+  &Header {
+    padding: var(--content-padding);
+  }
+
+  &SubHeader {
+    padding: var(--content-padding);
+  }
+
+  &Desc {
+    padding: var(--content-padding), 0;
+    font-size: 0.9em;
+    line-height: 1.2em;
+  }
+
+  &List {
+    line-height: 1.5em;
+  }
+
+  &LinkField,
+  &LinkType:hover {
+    color: var(--color-primary);
+  }
+
+  &LinkType,
+  &LinkType:hover {
+    color: var(--color-secondary);
+  }
+
+  &LinkField:hover,
+  &LinkType:hover {
+    text-decoration: underline;
+    transition: all, 0.5s;
+    cursor: pointer;
+  }
+
+}

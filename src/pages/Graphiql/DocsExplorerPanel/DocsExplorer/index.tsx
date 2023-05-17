@@ -5,6 +5,7 @@ import { Field, TypeOfType } from '@src/shared/api/graphql/schema-types';
 import { memo, useEffect } from 'react';
 import useStateHistory from '@src/shared/hooks/stateHistoryHook';
 import TypeElement, { Element as State } from './TypeElement';
+import classes from './TypeElement/style.module.scss';
 
 const DocsExplorer = memo(() => {
   const {
@@ -13,7 +14,7 @@ const DocsExplorer = memo(() => {
   } = useGraphqlStore();
   const dispatch = useAppDispatch();
 
-  const [currentState, addState, backState] = useStateHistory<State>();
+  const [currentState, addState, backState, prevState] = useStateHistory<State>();
 
   useEffect(() => {
     dispatch(fetchGraphqlSchema({}));
@@ -33,7 +34,7 @@ const DocsExplorer = memo(() => {
     }
   };
 
-  const handleType = (type: TypeOfType | undefined) => {
+  const handleType = (type: TypeOfType | undefined | null) => {
     let typeName: string | null | undefined;
     if (type) {
       switch (type.kind) {
@@ -44,6 +45,10 @@ const DocsExplorer = memo(() => {
           typeName = type.ofType?.name;
           break;
         case 'SCALAR':
+          typeName = type.name;
+          break;
+        case 'INPUT_OBJECT':
+          console.log(response?.data?.__schema.types);
           typeName = type.name;
           break;
 
@@ -80,13 +85,17 @@ const DocsExplorer = memo(() => {
           {!currentState && (
             <ul>
               <span>query: </span>
-              <a onClick={() => handleFirstQuery(response.data?.__schema.queryType?.name)}>
+              <a
+                onClick={() => handleFirstQuery(response.data?.__schema.queryType?.name)}
+                className={classes.docsLinkType}
+              >
                 {response.data?.__schema.queryType?.name}
               </a>
             </ul>
           )}
           {currentState && (
             <TypeElement
+              parentName={prevState?.name || 'Docs'}
               element={currentState}
               handleBack={handleBack}
               handleField={handleField}

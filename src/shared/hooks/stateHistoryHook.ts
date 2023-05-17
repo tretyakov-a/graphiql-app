@@ -1,6 +1,8 @@
 import { useReducer } from 'react';
 
-function useStateHistory<T>(initialValue?: T): [T | undefined, (state: T) => void, () => void] {
+function useStateHistory<T>(
+  initialValue?: T
+): [T | undefined, (state: T) => void, () => void, T | undefined] {
   const reducer = (oldState: T[], action: { type: string; payload: T | undefined }): Array<T> => {
     switch (action.type) {
       case 'add':
@@ -34,7 +36,9 @@ function useStateHistory<T>(initialValue?: T): [T | undefined, (state: T) => voi
     setState({ type: 'delite', payload: undefined });
   };
 
-  return [currentState, addState, backState];
+  const prevState = allStates[allStates.length - 2];
+
+  return [currentState, addState, backState, prevState];
 }
 
 export default useStateHistory;
