@@ -51,7 +51,11 @@ const Header = () => {
               )}
               {user && (
                 <li>
-                  <IconButton icon={faRightFromBracket} onClick={logout} />
+                  <IconButton
+                    icon={faRightFromBracket}
+                    tooltip={{ langKey: 'logout' }}
+                    onClick={logout}
+                  />
                 </li>
               )}
             </ul>
