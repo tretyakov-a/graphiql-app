@@ -5,63 +5,53 @@ import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import { auth, logout } from '@src/shared/api/firebase';
 import LanguageSelector from '@src/components/LanguageSelector';
-import logoutSVG from '@src/assets/logout.svg';
 import Loader from '@src/components/Loader';
+import IconButton from '@src/components/IconButton';
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { LinkInfo, authorizedLinks, unauthorizedLinks } from './links';
+import Logo from './Logo';
+import { classNames } from '@src/shared/utils';
 
 const Header = () => {
   const { t } = useTranslation();
   const [user, loading] = useAuthState(auth);
 
-  const authorizedLinks = (
-    <>
-      <li>
-        <NavLink to="/graphiql" className={classes.menuLink}>
-          {t('graphiql')}
+  const renderLinks = (links: LinkInfo[]) =>
+    links.map(({ to, langKey }) => (
+      <li key={to}>
+        <NavLink
+          to={to}
+          className={({ isActive }) =>
+            classNames([classes.menuLink, isActive && classes.menuLinkActive])
+          }
+        >
+          {t(langKey)}
         </NavLink>
       </li>
-      <li>
-        <button onClick={logout} className={classes.menuLink}>
-          <img src={logoutSVG} alt="logout" />
-        </button>
-      </li>
-    </>
-  );
-
-  const unuathorizedLinks = (
-    <>
-      <li>
-        <NavLink to="/" className={classes.menuLink}>
-          {t('mainPage')}
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/auth" className={classes.menuLink}>
-          {t('signIn')}
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/register" className={classes.menuLink}>
-          {t('signUp')}
-        </NavLink>
-      </li>
-    </>
-  );
+    ));
 
   const isAuthorized = Boolean(user);
 
   return (
     <header className={classes.header}>
-      <div className={[generalClasses.container, classes.headerContainer].join(' ')}>
-        <h1>HeaderLogo</h1>
+      <div className={classNames([generalClasses.container, classes.headerContainer])}>
+        <Logo />
         <div className={classes.headerRight}>
           <nav className={classes.menuContainer}>
             {loading ? (
-              <Loader size={0.3} />
+              <Loader size={'sm'} />
             ) : (
-              <ul className={classes.menu}>{isAuthorized ? authorizedLinks : unuathorizedLinks}</ul>
+              <ul className={classes.menu}>
+                {isAuthorized ? renderLinks(authorizedLinks) : renderLinks(unauthorizedLinks)}
+              </ul>
             )}
           </nav>
           <div className={classes.toolbar}>
+            {isAuthorized && (
+              <div>
+                <IconButton onClick={logout} icon={faRightFromBracket} />
+              </div>
+            )}
             <LanguageSelector />
           </div>
         </div>
