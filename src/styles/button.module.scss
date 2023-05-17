@@ -30,3 +30,13 @@
     padding: 0 1rem;
   }
 }
+
+.button + .tooltip {
+  --rt-opacity: 1;
+  font-size: 14px;
+  background: var(--color-text-l);
+  color: var(--color-text-light);
+  box-shadow: 0 5px 15px -10px var(--color-text);
+  z-index: 100;
+  transition: opacity 0.25s ease-out;
+}

@@ -1,18 +1,26 @@
 import btnClasses from '@src/styles/button.module.scss';
 import { IconDefinition, SizeProp } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { ButtonHTMLAttributes, forwardRef } from 'react';
-import { classNames } from '@src/shared/utils';
 import { faQuestion } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { ButtonHTMLAttributes, forwardRef, useState } from 'react';
+import { classNames } from '@src/shared/utils';
+import { Tooltip, PlacesType } from 'react-tooltip';
+import { useTranslation } from 'react-i18next';
 
 interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: IconDefinition;
   iconSize?: SizeProp;
   isActive?: boolean;
+  tooltip?: {
+    langKey: string;
+    notShowOnActive?: boolean;
+  };
 }
 
 const IconButton = forwardRef<HTMLElement, IconButtonProps>((props, ref) => {
-  const { icon, iconSize, className, onClick, disabled, isActive } = props;
+  const { icon, iconSize, className, onClick, isActive, tooltip } = props;
+  const { t } = useTranslation();
+  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
 
   const classes = classNames([
     btnClasses.button,
@@ -21,14 +29,38 @@ const IconButton = forwardRef<HTMLElement, IconButtonProps>((props, ref) => {
     className,
   ]);
 
+  const tooltipProps = {
+    'data-tooltip-id': tooltip?.langKey,
+    'data-tooltip-content': t(`tooltips.${tooltip?.langKey}` || ''),
+    'data-tooltip-place': 'bottom' as PlacesType,
+  };
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setIsTooltipOpen(false);
+    return onClick?.(e);
+  };
+
+  const handleMouseEnter = () => {
+    if (tooltip?.notShowOnActive && isActive) return;
+    setIsTooltipOpen(true);
+  };
+
   return (
-    <button
-      ref={ref as React.RefObject<HTMLButtonElement>}
-      {...{ onClick, disabled }}
-      className={classes}
-    >
-      <FontAwesomeIcon icon={icon || faQuestion} size={iconSize || 'xl'} />
-    </button>
+    <>
+      <button
+        {...(tooltip && tooltipProps)}
+        ref={ref as React.RefObject<HTMLButtonElement>}
+        onClick={handleClick}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={() => setIsTooltipOpen(false)}
+        className={classes}
+      >
+        <FontAwesomeIcon icon={icon || faQuestion} size={iconSize || 'xl'} />
+      </button>
+      {tooltip !== undefined && (
+        <Tooltip isOpen={isTooltipOpen} id={tooltip?.langKey} className={btnClasses.tooltip} />
+      )}
+    </>
   );
 });
 
