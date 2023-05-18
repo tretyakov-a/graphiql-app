@@ -1,32 +1,13 @@
-import IconButton from '@src/components/IconButton';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import classes from './style.module.scss';
-import {
-  Type,
-  Field,
-  TypeOfType,
-  InputValue,
-  EnumValue,
-} from '@src/shared/api/graphql/schema-types';
+import { Field, TypeOfType } from '@src/shared/api/graphql/schema-types';
 import { getPerfomedNameFromSchema as getPerfomedName } from '../utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-export interface Element {
-  name: string | null;
-  description?: string | null;
-  args?: InputValue[] | null;
-  type?: TypeOfType;
-  fields?: Field[] | null;
-  inputFields?: InputValue[] | null;
-  interfaces?: Type[] | null;
-  enumValues?: EnumValue[] | null;
-  possibleTypes?: Type[] | null;
-  ofType?: Type | null;
-}
+import { DocsElement } from '@src/store/docs-explorer/types';
 
 interface Props {
   parentName?: string | null;
-  element: Element;
+  element: DocsElement;
   handleBack: () => void;
   handleType: (type: TypeOfType | undefined | null) => void;
   handleField: (field: Field) => void;
