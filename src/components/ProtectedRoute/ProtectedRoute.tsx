@@ -20,7 +20,7 @@ export const ProtectedRoute = (props: ProtectedRouteProps) => {
         pageClassName={classes.authLoading}
         pageContainerClassName={classes.authLoadingContainer}
       >
-        <h2>Authentication...</h2>
+        <h2 className={classes.authLoadingTitle}>Authentication</h2>
         <Loader />
       </PageWrapper>
     );

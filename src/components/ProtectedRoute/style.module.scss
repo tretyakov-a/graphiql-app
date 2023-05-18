@@ -2,7 +2,11 @@
   &Container {
     display: flex;
     flex-direction: column;
-    // justify-content: center;
     align-items: center;
+  }
+
+  &Title {
+    color: var(--color-text-l);
+    margin-bottom: 1rem;
   }
 }
