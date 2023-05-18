@@ -6,6 +6,7 @@ import { memo, useEffect } from 'react';
 import useStateHistory from '@src/shared/hooks/stateHistoryHook';
 import TypeElement, { Element as State } from './TypeElement';
 import classes from './TypeElement/style.module.scss';
+import { getNameFromSchema as getName } from '@src/shared/utils/index';
 
 const DocsExplorer = memo(() => {
   const {
@@ -35,28 +36,7 @@ const DocsExplorer = memo(() => {
   };
 
   const handleType = (type: TypeOfType | undefined | null) => {
-    let typeName: string | null | undefined;
-    if (type) {
-      switch (type.kind) {
-        case 'OBJECT':
-          typeName = type.name;
-          break;
-        case 'LIST':
-          typeName = type.ofType?.name;
-          break;
-        case 'SCALAR':
-          typeName = type.name;
-          break;
-        case 'INPUT_OBJECT':
-          console.log(response?.data?.__schema.types);
-          typeName = type.name;
-          break;
-
-        default:
-          typeName = getName(type);
-          break;
-      }
-    }
+    const typeName: string | undefined = getName(type);
     const typeObj = response?.data?.__schema.types.find((el) => el.name === typeName);
     if (typeObj) {
       addState(typeObj);
@@ -65,14 +45,6 @@ const DocsExplorer = memo(() => {
 
   const handleBack = () => {
     backState();
-  };
-
-  const getName = (obj: TypeOfType): string | undefined => {
-    if (obj.name) {
-      return obj.name;
-    } else {
-      return obj.ofType ? getName(obj.ofType) : undefined;
-    }
   };
 
   return (
