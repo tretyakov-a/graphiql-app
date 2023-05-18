@@ -8,7 +8,7 @@ import {
   InputValue,
   EnumValue,
 } from '@src/shared/api/graphql/schema-types';
-import { getPerfomedNameFromSchema as getPerfomedName } from '@src/shared/utils/index';
+import { getPerfomedNameFromSchema as getPerfomedName } from '../utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export interface Element {
