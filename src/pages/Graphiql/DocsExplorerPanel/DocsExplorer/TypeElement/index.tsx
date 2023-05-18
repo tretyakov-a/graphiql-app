@@ -4,6 +4,7 @@ import { Field, TypeOfType } from '@src/shared/api/graphql/schema-types';
 import { getPerfomedNameFromSchema as getPerfomedName } from '../utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { DocsElement } from '@src/store/docs-explorer/types';
+import ReactMarkdown from 'react-markdown';
 
 interface Props {
   parentName?: string | null;
@@ -23,7 +24,7 @@ const TypeElement = (props: Props) => {
         <span style={{ marginLeft: '0.5rem' }}>{`${parentName}`}</span>
       </a>
       <h3 className={classes.docsHeader}>{element.name}</h3>
-      <p className={classes.docsDesc}>{element.description}</p>
+      {element.description && <ReactMarkdown>{element.description}</ReactMarkdown>}
       {element.fields && (
         <ul className={classes.docsList}>
           {element.fields.map((field) => (
