@@ -9,6 +9,7 @@ import {
   EnumValue,
 } from '@src/shared/api/graphql/schema-types';
 import { getPerfomedNameFromSchema as getPerfomedName } from '@src/shared/utils/index';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export interface Element {
   name: string | null;
@@ -36,13 +37,10 @@ const TypeElement = (props: Props) => {
 
   return (
     <div className={classes.docs}>
-      <IconButton
-        icon={faChevronLeft}
-        iconSize={'sm'}
-        onClick={handleBack}
-        className={classes.docsBackBtn}
-      />
-      <p className={classes.docsPrevios}>{parentName}</p>
+      <a className={classes.docsPrevios} onClick={handleBack}>
+        <FontAwesomeIcon icon={faChevronLeft} size="sm" />
+        <span style={{ marginLeft: '0.5rem' }}>{`${parentName}`}</span>
+      </a>
       <h3 className={classes.docsHeader}>{element.name}</h3>
       <p className={classes.docsDesc}>{element.description}</p>
       {element.fields && (
