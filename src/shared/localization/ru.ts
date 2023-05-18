@@ -37,5 +37,8 @@ export default {
       hideEditors: 'Скрыть редакторы',
       showEditors: 'Показать редакторы',
     },
+    inputFields: 'Поля ввода',
+    arguments: 'Аргументы',
+    type: 'Тип',
   },
 };

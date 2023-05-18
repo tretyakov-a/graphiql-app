@@ -37,5 +37,8 @@ export default {
       hideEditors: 'Hide editors',
       showEditors: 'Show editors',
     },
+    inputFields: 'Input Fields',
+    arguments: 'Arguments',
+    type: 'Type',
   },
 };

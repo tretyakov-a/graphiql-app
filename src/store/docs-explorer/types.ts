@@ -17,6 +17,7 @@ export type DocsElement = {
   enumValues?: EnumValue[] | null;
   possibleTypes?: Type[] | null;
   ofType?: Type | null;
+  isDeprecated?: boolean | null;
 };
 
 export interface DocsExplorerState {
