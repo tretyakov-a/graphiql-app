@@ -23,7 +23,6 @@ const DocsExplorer = memo(() => {
   }, [dispatch, fetchGraphqlSchema]);
 
   const handleField = (field: Field) => {
-    console.log(field);
     if (field.name !== null) {
       dispatch(addElement({ ...field }));
     }
@@ -34,7 +33,6 @@ const DocsExplorer = memo(() => {
     if (typeObj) {
       dispatch(addElement(typeObj));
     }
-    console.log(docsExplorer);
   };
 
   const handleType = (type: TypeOfType | undefined | null) => {
