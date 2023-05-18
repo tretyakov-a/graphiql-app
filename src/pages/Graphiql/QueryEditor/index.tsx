@@ -32,6 +32,7 @@ const QueryEditor = () => {
           <IconButton
             onClick={handleRequestButtonClick}
             icon={faPlay}
+            tooltip={{ langKey: 'execute' }}
             className={classes.requestButton}
             disabled={loading === Loading.PENDING}
           />

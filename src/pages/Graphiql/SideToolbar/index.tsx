@@ -14,9 +14,16 @@ const SideToolbar = () => {
     dispatch(toggleVisibility('docs'));
   };
 
+  const isActive = visiblity.docs;
+
   return (
     <aside className={classes.sideToolbar}>
-      <IconButton icon={faBook} onClick={toggleDocs} isActive={visiblity.docs} />
+      <IconButton
+        icon={faBook}
+        tooltip={{ langKey: isActive ? 'docsClose' : 'docsOpen' }}
+        onClick={toggleDocs}
+        isActive={isActive}
+      />
     </aside>
   );
 };

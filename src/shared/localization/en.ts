@@ -28,5 +28,14 @@ export default {
     jsonVariables: 'Variables are invalid JSON: {{- message}}',
     httpStatusCodeError: 'Loading error occured (code: {{status}})',
     httpInvalidContentType: 'Invalid content-type in response',
+    tooltips: {
+      logout: 'Logout',
+      language: 'Choose language',
+      docsOpen: 'Open documentation explorer',
+      docsClose: 'Close documentation explorer',
+      execute: 'Execute query',
+      hideEditors: 'Hide editors',
+      showEditors: 'Show editors',
+    },
   },
 };
