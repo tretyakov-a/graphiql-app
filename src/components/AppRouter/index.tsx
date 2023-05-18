@@ -1,14 +1,14 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import { auth } from '@src/shared/api/firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import Welcome from '@src/pages/Welcome';
 import NotFound from '@src/pages/NotFound';
 import Graphiql from '@src/pages/Graphiql';
 import Layout from '@src/components/Layout';
-import Login from '../../pages/Login/Login';
+import Login from '@src/pages/Login/Login';
 import Register from '@src/pages/Register/Register';
 import Reset from '@src/pages/Reset/Reset';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '@src/shared/api/firebase';
 
 const AppRouter = () => {
   const [user] = useAuthState(auth);

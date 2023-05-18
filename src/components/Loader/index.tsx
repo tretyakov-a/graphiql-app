@@ -1,8 +1,13 @@
+import { classNames } from '@src/shared/utils';
 import classes from './style.module.scss';
 
-const Loader = () => {
+interface LoaderProps {
+  size?: 'sm' | 'md' | 'lg';
+}
+
+const Loader = ({ size = 'md' }: LoaderProps) => {
   return (
-    <div className={classes.loaderContainer}>
+    <div className={classNames([classes.loaderContainer, classes[`loaderContainer_${size}`]])}>
       <div className={classes.ldsDualRing}></div>
     </div>
   );

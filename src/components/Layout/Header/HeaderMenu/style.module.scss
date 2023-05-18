@@ -1,0 +1,23 @@
+.menu {
+  height: 100%;
+  display: flex;
+  column-gap: 1rem;
+
+  &Link {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    border-bottom: 2px solid transparent;
+
+    img {
+      width: var(--logout-img-size);
+    }
+
+    &Active {
+      border-color: var(--color-primary);
+      cursor: default;
+      pointer-events: none;
+    }
+  }
+}

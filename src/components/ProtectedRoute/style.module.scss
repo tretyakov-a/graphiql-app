@@ -1,0 +1,12 @@
+.authLoading {
+  &Container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &Title {
+    color: var(--color-text-l);
+    margin-bottom: 1rem;
+  }
+}
