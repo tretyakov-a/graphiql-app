@@ -8,7 +8,7 @@ import {
   InputValue,
   EnumValue,
 } from '@src/shared/api/graphql/schema-types';
-import { useEffect } from 'react';
+import { getPerfomedNameFromSchema as getPerfomedName } from '@src/shared/utils/index';
 
 export interface Element {
   name: string | null;
@@ -33,36 +33,6 @@ interface Props {
 
 const TypeElement = (props: Props) => {
   const { parentName, element, handleBack, handleType, handleField } = props;
-  const getName = (obj: TypeOfType | null | undefined): string | undefined => {
-    return obj ? (obj.name ? obj.name : obj.ofType ? getName(obj.ofType) : undefined) : undefined;
-  };
-
-  const getPerfomedName = (obj: TypeOfType | null | undefined): string | undefined => {
-    let typeName: string | null | undefined;
-    if (obj) {
-      switch (obj.kind) {
-        case 'OBJECT':
-          typeName = obj.name;
-          break;
-        case 'LIST':
-          typeName = `[${getPerfomedName(obj.ofType)}]`;
-          break;
-        case 'NON_NULL':
-          typeName = `${getPerfomedName(obj.ofType)}!`;
-          break;
-        case 'SCALAR':
-          typeName = obj.name;
-          break;
-
-        default:
-          typeName = getName(obj);
-          break;
-      }
-    }
-    if (typeName) {
-      return typeName;
-    }
-  };
 
   return (
     <div className={classes.docs}>
@@ -84,11 +54,7 @@ const TypeElement = (props: Props) => {
               </a>
               :{' '}
               <a onClick={() => handleType(field.type)} className={classes.docsLinkType}>
-                {field.type.kind === 'OBJECT'
-                  ? field.type.name
-                  : field.type.kind === 'LIST'
-                  ? '[' + getName(field.type) + ']'
-                  : getName(field.type)}
+                {getPerfomedName(field.type)}
               </a>
             </li>
           ))}
@@ -101,7 +67,7 @@ const TypeElement = (props: Props) => {
             <li key={field.name}>
               <span>{field.name}</span>:{' '}
               <a onClick={() => handleType(field.type)} className={classes.docsLinkType}>
-                {getName(field.type)}
+                {getPerfomedName(field.type)}
               </a>
             </li>
           ))}
