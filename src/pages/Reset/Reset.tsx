@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { auth, sendPasswordReset } from '../../shared/api/firebase';
 import classes from './style.module.scss';
+import '@src/styles/errorString.scss';
 import { useTranslation } from 'react-i18next';
 import { useInput } from '@src/shared/hooks/InputFormHooks';
 import PageWrapper from '@src/components/PageWrapper';
@@ -16,7 +17,6 @@ function Reset() {
   useEffect(() => {
     try {
       if (loading) return;
-      if (user) navigate('/');
     } catch {
       return;
     }
@@ -27,7 +27,6 @@ function Reset() {
       pageContainerClassName={classes.reset__pageContainer}
     >
       <div className={classes.reset__container}>
-        {email.isDirty && email.isError && <div style={{ color: 'red' }}>{email.errorText}</div>}
         <input
           type="text"
           name="email"
@@ -37,6 +36,7 @@ function Reset() {
           placeholder={t('EmailAddress') || ''}
           onBlur={() => email.onBlur()}
         />
+        {email.isDirty && email.isError && <div className="error-string">{email.errorText}</div>}
         <button
           disabled={email.isError}
           className={classes.reset__btn}

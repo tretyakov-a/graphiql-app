@@ -26,6 +26,9 @@
     display: flex;
     align-items: center;
     height: 100%;
+    img {
+      width: var(--logout-img-size);
+    }
 
     &Active {
       color: var(--color-primary);

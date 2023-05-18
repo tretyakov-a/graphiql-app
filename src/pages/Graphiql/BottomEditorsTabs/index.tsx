@@ -78,6 +78,7 @@ const BottomEditorsTabs = () => {
         <div className={classes.headerToolbar}>
           <IconButton
             icon={!isVisible ? faChevronUp : faChevronDown}
+            tooltip={{ langKey: !isVisible ? 'showEditors' : 'hideEditors' }}
             iconSize="sm"
             className={classes.collapseButton}
             onClick={toggleCollapsed}

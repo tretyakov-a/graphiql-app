@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import { auth, logout } from '@src/shared/api/firebase';
 import LanguageSelector from '@src/components/LanguageSelector';
+import IconButton from '@src/components/IconButton';
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 const Header = () => {
   const { t } = useTranslation();
@@ -13,15 +15,19 @@ const Header = () => {
   return (
     <header className={classes.header}>
       <div className={[generalClasses.container, classes.headerContainer].join(' ')}>
-        <h1>HeaderLogo</h1>
+        <NavLink to="/" className={classes.menuLink}>
+          <h1>HeaderLogo</h1>
+        </NavLink>
         <div className={classes.headerRight}>
           <nav className={classes.menuContainer}>
             <ul className={classes.menu}>
-              <li>
-                <NavLink to="/" className={classes.menuLink}>
-                  {t('mainPage')}
-                </NavLink>
-              </li>
+              {!user && (
+                <li>
+                  <NavLink to="/" className={classes.menuLink}>
+                    {t('mainPage')}
+                  </NavLink>
+                </li>
+              )}
               {user && (
                 <li>
                   <NavLink to="/graphiql" className={classes.menuLink}>
@@ -45,9 +51,11 @@ const Header = () => {
               )}
               {user && (
                 <li>
-                  <button onClick={logout} className={classes.menuLink}>
-                    {t('logOut')}
-                  </button>
+                  <IconButton
+                    icon={faRightFromBracket}
+                    tooltip={{ langKey: 'logout' }}
+                    onClick={logout}
+                  />
                 </li>
               )}
             </ul>
