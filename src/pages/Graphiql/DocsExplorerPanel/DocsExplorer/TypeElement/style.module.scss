@@ -3,6 +3,12 @@
 .docs {
   padding: var(--content-padding);
 
+  & p {
+    padding: var(--content-padding), 0;
+    font-size: 0.9em;
+    line-height: 1.2em;
+  }
+
   &BackBtn {
     display: inline-flex;
   }
@@ -13,10 +19,13 @@
 
   &Header {
     padding: var(--content-padding);
+    font-size: 1.3em;
+    color: var(--color-primary);
   }
 
   &SubHeader {
     padding: var(--content-padding);
+    font-weight: 600;
   }
 
   &Desc {
@@ -44,6 +53,11 @@
     text-decoration: underline;
     transition: all, 0.5s;
     cursor: pointer;
+  }
+
+  &Warning {
+    color: var(--color-error);
+    font-size: 1.5em;
   }
 
 }

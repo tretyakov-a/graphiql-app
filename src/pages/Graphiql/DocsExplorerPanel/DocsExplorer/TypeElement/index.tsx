@@ -5,6 +5,7 @@ import { getPerfomedNameFromSchema as getPerfomedName } from '../utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { DocsElement } from '@src/store/docs-explorer/types';
 import ReactMarkdown from 'react-markdown';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   parentName?: string | null;
@@ -16,6 +17,8 @@ interface Props {
 
 const TypeElement = (props: Props) => {
   const { parentName, element, handleBack, handleType, handleField } = props;
+  const { t } = useTranslation();
+  console.log(element);
 
   return (
     <div className={classes.docs}>
@@ -28,7 +31,7 @@ const TypeElement = (props: Props) => {
       {element.fields && (
         <ul className={classes.docsList}>
           {element.fields.map((field) => (
-            <li key={field.name}>
+            <li key={field.name} className={classes.docsItem}>
               <a onClick={() => handleField(field)} className={classes.docsLinkField}>
                 {field.name}
               </a>
@@ -40,11 +43,11 @@ const TypeElement = (props: Props) => {
           ))}
         </ul>
       )}
+      {element.inputFields && <h4 className={classes.docsSubHeader}>{t('inputFields')}</h4>}
       {element.inputFields && (
         <ul className={classes.docsList}>
-          <p>Input Fields</p>
           {element.inputFields.map((field) => (
-            <li key={field.name}>
+            <li key={field.name} className={classes.docsItem}>
               <span>{field.name}</span>:{' '}
               <a onClick={() => handleType(field.type)} className={classes.docsLinkType}>
                 {getPerfomedName(field.type)}
@@ -53,11 +56,11 @@ const TypeElement = (props: Props) => {
           ))}
         </ul>
       )}
-      {element.args && <h4 className={classes.docsSubHeader}>Arguments</h4>}
+      {element.args && <h4 className={classes.docsSubHeader}>{t('arguments')}</h4>}
       {element.args && (
         <ul className={classes.docsList}>
           {element.args.map((arg) => (
-            <li key={arg.name}>
+            <li key={arg.name} className={classes.docsItem}>
               <span>{arg.name}</span>:{' '}
               <a onClick={() => handleType(arg.type)} className={classes.docsLinkType}>
                 {getPerfomedName(arg.type)}
@@ -66,14 +69,13 @@ const TypeElement = (props: Props) => {
           ))}
         </ul>
       )}
-      {element.type && <h4 className={classes.docsSubHeader}>Type</h4>}
+      {element.type && <h4 className={classes.docsSubHeader}>{t('type')}</h4>}
       {element.type && (
-        <p>
-          <a onClick={() => handleType(element.type)} className={classes.docsLinkType}>
-            {getPerfomedName(element.type)}
-          </a>
-        </p>
+        <a onClick={() => handleType(element.type)} className={classes.docsLinkType}>
+          {getPerfomedName(element.type)}
+        </a>
       )}
+      {element.isDeprecated && <p className={classes.docsWarning}>Depricated</p>}
     </div>
   );
 };

@@ -29,5 +29,8 @@ export default {
     jsonVariables: 'Ошибка в переменных, неверный JSON: {{- message}}',
     httpStatusCodeError: 'Ошибка загрузки данных (статус код: {{status}})',
     httpInvalidContentType: 'Неверный тип содержимого в ответе сервера',
+    inputFields: 'Поля ввода',
+    arguments: 'Аргументы',
+    type: 'Тип',
   },
 };

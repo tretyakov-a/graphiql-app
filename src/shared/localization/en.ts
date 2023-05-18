@@ -29,5 +29,8 @@ export default {
     jsonVariables: 'Variables are invalid JSON: {{- message}}',
     httpStatusCodeError: 'Loading error occured (code: {{status}})',
     httpInvalidContentType: 'Invalid content-type in response',
+    inputFields: 'Input Fields',
+    arguments: 'Arguments',
+    type: 'Type',
   },
 };
