@@ -6,7 +6,7 @@ import { memo, useEffect } from 'react';
 import useStateHistory from '@src/shared/hooks/stateHistoryHook';
 import TypeElement, { Element as State } from './TypeElement';
 import classes from './TypeElement/style.module.scss';
-import { getNameFromSchema as getName } from '@src/shared/utils/index';
+import { getNameFromSchema as getName } from './utils';
 
 const DocsExplorer = memo(() => {
   const {
