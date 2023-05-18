@@ -7,13 +7,12 @@ import Loader from '../Loader';
 import PageWrapper from '../PageWrapper';
 
 interface ProtectedRouteProps extends React.PropsWithChildren {
-  isAuthRoute?: boolean;
+  passCondition: boolean;
   route: string;
 }
-
 export const ProtectedRoute = (props: ProtectedRouteProps) => {
-  const { children, isAuthRoute = false, route } = props;
-  const [user, loading] = useAuthState(auth);
+  const { children, passCondition, route } = props;
+  const [, loading] = useAuthState(auth);
 
   if (loading)
     return (
@@ -26,11 +25,9 @@ export const ProtectedRoute = (props: ProtectedRouteProps) => {
       </PageWrapper>
     );
 
-  const isAuthorised = Boolean(user);
-
-  if ((isAuthRoute && isAuthorised) || (!isAuthRoute && !isAuthorised)) {
+  if (!passCondition) {
     return <Navigate to={route} replace />;
   }
 
-  return children as unknown as JSX.Element;
+  return <>{children}</>;
 };

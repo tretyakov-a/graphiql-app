@@ -28,5 +28,14 @@ export default {
     jsonVariables: 'Ошибка в переменных, неверный JSON: {{- message}}',
     httpStatusCodeError: 'Ошибка загрузки данных (статус код: {{status}})',
     httpInvalidContentType: 'Неверный тип содержимого в ответе сервера',
+    tooltips: {
+      logout: 'Выйти',
+      language: 'Выбрать язык',
+      docsOpen: 'Открыть документацию',
+      docsClose: 'Закрыть документацию',
+      execute: 'Выполнить запрос',
+      hideEditors: 'Скрыть редакторы',
+      showEditors: 'Показать редакторы',
+    },
   },
 };

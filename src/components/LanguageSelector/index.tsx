@@ -40,7 +40,12 @@ const LanguageSelector = () => {
     <div className={classes.toolbar}>
       <Popup
         Anchor={forwardRef<HTMLElement>((props, ref) => (
-          <IconButton icon={faGlobe} {...props} ref={ref as React.RefObject<HTMLButtonElement>} />
+          <IconButton
+            icon={faGlobe}
+            tooltip={{ langKey: 'language', notShowOnActive: true }}
+            {...props}
+            ref={ref as React.RefObject<HTMLButtonElement>}
+          />
         ))}
       >
         <form onChange={handleLanguageChange}>{languagesList}</form>

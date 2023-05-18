@@ -4,11 +4,16 @@ import Welcome from '@src/pages/Welcome';
 import NotFound from '@src/pages/NotFound';
 import Graphiql from '@src/pages/Graphiql';
 import Layout from '@src/components/Layout';
-import Login from '../../pages/Login/Login';
+import Login from '@src/pages/Login/Login';
 import Register from '@src/pages/Register/Register';
 import Reset from '@src/pages/Reset/Reset';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '@src/shared/api/firebase';
 
 const AppRouter = () => {
+  const [user] = useAuthState(auth);
+  const isAuthrorized = Boolean(user);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -17,7 +22,7 @@ const AppRouter = () => {
           <Route
             path="auth"
             element={
-              <ProtectedRoute isAuthRoute={true} route="/graphiql">
+              <ProtectedRoute passCondition={!isAuthrorized} route="/graphiql">
                 <Login />
               </ProtectedRoute>
             }
@@ -25,7 +30,7 @@ const AppRouter = () => {
           <Route
             path="register"
             element={
-              <ProtectedRoute isAuthRoute={true} route="/graphiql">
+              <ProtectedRoute passCondition={!isAuthrorized} route="/graphiql">
                 <Register />
               </ProtectedRoute>
             }
@@ -33,7 +38,7 @@ const AppRouter = () => {
           <Route
             path="reset"
             element={
-              <ProtectedRoute isAuthRoute={true} route="/graphiql">
+              <ProtectedRoute passCondition={!isAuthrorized} route="/graphiql">
                 <Reset />
               </ProtectedRoute>
             }
@@ -41,7 +46,7 @@ const AppRouter = () => {
           <Route
             path="graphiql"
             element={
-              <ProtectedRoute route="/">
+              <ProtectedRoute passCondition={isAuthrorized} route="/">
                 <Graphiql />
               </ProtectedRoute>
             }
