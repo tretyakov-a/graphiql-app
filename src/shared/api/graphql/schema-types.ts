@@ -55,12 +55,14 @@ export type TypeOfType = NameDescription & {
   ofType: TypeOfType | null;
 };
 
+export type SchemaType = {
+  queryType: Type;
+  mutationType: Type | null;
+  subscriptionType: Type | null;
+  directives: Directive[];
+  types: Type[];
+};
+
 export type GraphqlSchema = {
-  __schema: {
-    queryType: Type;
-    mutationType: Type | null;
-    subscriptionType: Type | null;
-    directives: Directive[];
-    types: Type[];
-  };
+  __schema: SchemaType;
 };

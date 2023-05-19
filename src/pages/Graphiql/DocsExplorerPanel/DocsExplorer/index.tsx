@@ -1,7 +1,7 @@
 import Loader from '@src/components/Loader';
 import { useAppDispatch, useGraphqlStore, useDocsExplorer } from '@src/store';
 import { Loading } from '@src/store/graphql/types';
-import { Field, TypeOfType } from '@src/shared/api/graphql/schema-types';
+import { Field, TypeOfType, SchemaType } from '@src/shared/api/graphql/schema-types';
 import { memo, useEffect } from 'react';
 import TypeElement from './TypeElement';
 import classes from './TypeElement/style.module.scss';
@@ -71,15 +71,23 @@ const DocsExplorer = memo(() => {
                 <FontAwesomeIcon icon={faBook} size="sm" /> {t('rootTypes')}
               </h4>
               <ul className={classes.docsList}>
-                <li className={classes.docsItem}>
-                  <span className={classes.docsInfo}>query: </span>
-                  <a
-                    onClick={() => handleFirstQuery(response.data?.__schema.queryType?.name)}
-                    className={classes.docsLinkType}
-                  >
-                    {response.data?.__schema.queryType?.name}
-                  </a>
-                </li>
+                {response.data?.__schema &&
+                  (Object.keys(response.data?.__schema) as (keyof SchemaType)[]).map((objKey) => {
+                    const type = response.data?.__schema[objKey];
+                    if (objKey.includes('Type') && type && !Array.isArray(type) && type.name) {
+                      return (
+                        <li className={classes.docsItem} key={objKey}>
+                          <span className={classes.docsInfo}>{objKey.replace('Type', '')}: </span>
+                          <a
+                            onClick={() => handleFirstQuery(type.name)}
+                            className={classes.docsLinkType}
+                          >
+                            {type.name}
+                          </a>
+                        </li>
+                      );
+                    }
+                  })}
               </ul>
             </>
           )}
