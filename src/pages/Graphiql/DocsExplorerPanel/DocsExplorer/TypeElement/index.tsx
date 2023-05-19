@@ -18,7 +18,6 @@ interface Props {
 const TypeElement = (props: Props) => {
   const { parentName, element, handleBack, handleType, handleField } = props;
   const { t } = useTranslation();
-  console.log(element);
 
   return (
     <div className={classes.docs}>
