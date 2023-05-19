@@ -1,8 +1,8 @@
 export type GraphqlError = {
   message: string;
-  location: { line: number; column: number }[];
+  locations?: { line: number; column: number }[];
   path?: (string | number)[];
-  extensions: {
+  extensions?: {
     code: string;
     timestamp?: string;
   };
