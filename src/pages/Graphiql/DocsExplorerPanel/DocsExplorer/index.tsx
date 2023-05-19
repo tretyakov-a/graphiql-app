@@ -54,13 +54,13 @@ const DocsExplorer = memo(() => {
 
   return (
     <>
-      <h2 style={{ marginBottom: '1rem' }}>Docs</h2>
       {loading === Loading.PENDING ? (
         <Loader />
       ) : error === null && response !== null ? (
         <div>
           {docsExplorer.length === 0 && (
             <>
+              <h2 style={{ marginBottom: '1rem' }}>Docs</h2>
               {response?.data?.__schema.types && (
                 <ReactMarkdown className={classes.docsDesc}>
                   {response?.data?.__schema.types.find((el) => el.name === '__Schema')

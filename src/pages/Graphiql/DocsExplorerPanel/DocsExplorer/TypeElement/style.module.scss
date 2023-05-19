@@ -17,53 +17,63 @@
 
   &Previos {
     display: inline;
+    cursor: pointer;
   }
 
   &Header {
-    padding: var(--content-padding);
-    font-size: 1.3em;
-    color: var(--color-primary);
+    margin: 1em 0;
+    font-size: 1.2em;
+    color: var(--color-text-l);
   }
 
   &SubHeader {
-    padding: var(--content-padding);
-    font-weight: 600;
+    margin: 1rem 0;
+    color: var(--color-text-xm);
+    font-size: 0.875rem;
 
     svg {
       font-weight: 400;
+      margin-right: 0.5rem;
     }
   }
 
   &Desc {
     padding: var(--content-padding), 0;
-    font-size: 0.9em;
-    line-height: 1.2em;
+    font-size: 0.875em;
+    line-height: 140%;
+
+    code {
+      background-color: #f1f2f4;
+      padding: 2px;
+      border-radius: 4px;
+      font-size: 0.875rem;
+    }
   }
 
   &List {
     line-height: 1.5em;
-  }
-
-  &Item:not(:first-child) {
-    padding-top: var(--content-padding);
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
   }
 
   &Info {
-    color: var(--color-info);
+    color: var(--color-secondary);
   }
 
   &ItemDesc {
-    font-size: 0.9em;
+    font-size: 0.875em;
+    color: var(--color-text-l);
   }
 
   &LinkField,
   &LinkType:hover {
-    color: var(--color-primary);
+    color: var(--color-info);
   }
 
   &LinkType,
   &LinkType:hover {
-    color: var(--color-secondary);
+    color: var(--color-primary);
   }
 
   &LinkField:hover,
@@ -88,5 +98,4 @@
     color: var(--color-error);
     font-size: 1.5em;
   }
-
 }
