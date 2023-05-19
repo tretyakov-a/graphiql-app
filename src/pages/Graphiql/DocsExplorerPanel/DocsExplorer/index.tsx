@@ -6,8 +6,13 @@ import { memo, useEffect } from 'react';
 import TypeElement from './TypeElement';
 import classes from './TypeElement/style.module.scss';
 import { getNameFromSchema as getName } from './utils';
+import ReactMarkdown from 'react-markdown';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBook } from '@fortawesome/free-solid-svg-icons';
+import { useTranslation } from 'react-i18next';
 
 const DocsExplorer = memo(() => {
+  const { t } = useTranslation();
   const {
     schema: { loading, response, error },
     actions: { fetchGraphqlSchema },
@@ -55,15 +60,28 @@ const DocsExplorer = memo(() => {
       ) : error === null && response !== null ? (
         <div>
           {docsExplorer.length === 0 && (
-            <ul>
-              <span>query: </span>
-              <a
-                onClick={() => handleFirstQuery(response.data?.__schema.queryType?.name)}
-                className={classes.docsLinkType}
-              >
-                {response.data?.__schema.queryType?.name}
-              </a>
-            </ul>
+            <>
+              {response?.data?.__schema.types && (
+                <ReactMarkdown className={classes.docsDesc}>
+                  {response?.data?.__schema.types.find((el) => el.name === '__Schema')
+                    ?.description || ''}
+                </ReactMarkdown>
+              )}
+              <h4 className={classes.docsSubHeader}>
+                <FontAwesomeIcon icon={faBook} size="sm" /> {t('rootTypes')}
+              </h4>
+              <ul className={classes.docsList}>
+                <li className={classes.docsItem}>
+                  <span className={classes.docsInfo}>query: </span>
+                  <a
+                    onClick={() => handleFirstQuery(response.data?.__schema.queryType?.name)}
+                    className={classes.docsLinkType}
+                  >
+                    {response.data?.__schema.queryType?.name}
+                  </a>
+                </li>
+              </ul>
+            </>
           )}
           {docsExplorer.length > 0 && (
             <TypeElement

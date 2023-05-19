@@ -2,9 +2,11 @@
 
 .docs {
   padding: var(--content-padding);
+  color: var(--color-text-xl);
 
-  & p {
-    padding: var(--content-padding), 0;
+  &Desc {
+    padding: var(--content-padding);
+    margin-bottom: 10px;
     font-size: 0.9em;
     line-height: 1.2em;
   }
@@ -26,6 +28,10 @@
   &SubHeader {
     padding: var(--content-padding);
     font-weight: 600;
+
+    svg {
+      font-weight: 400;
+    }
   }
 
   &Desc {
@@ -36,6 +42,18 @@
 
   &List {
     line-height: 1.5em;
+  }
+
+  &Item:not(:first-child) {
+    padding-top: var(--content-padding);
+  }
+
+  &Info {
+    color: var(--color-info);
+  }
+
+  &ItemDesc {
+    font-size: 0.9em;
   }
 
   &LinkField,
@@ -53,6 +71,17 @@
     text-decoration: underline;
     transition: all, 0.5s;
     cursor: pointer;
+  }
+
+  &OneArg {
+    display: inline;
+    font-size: 0.9em;
+  }
+
+  &MultyArg {
+    display: block;
+    padding-left: var(--content-padding);
+    font-size: 0.9em;
   }
 
   &Warning {

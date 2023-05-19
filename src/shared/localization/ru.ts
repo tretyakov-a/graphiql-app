@@ -31,6 +31,8 @@ export default {
     inputFields: 'Поля ввода',
     arguments: 'Аргументы',
     type: 'Тип',
+    rootTypes: 'Корневые типы',
+    fields: 'Поля',
     tooltips: {
       logout: 'Выйти',
       language: 'Выбрать язык',

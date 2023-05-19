@@ -31,6 +31,8 @@ export default {
     inputFields: 'Input Fields',
     arguments: 'Arguments',
     type: 'Type',
+    rootTypes: 'Root Types',
+    fields: 'Fields',
     tooltips: {
       logout: 'Logout',
       language: 'Choose language',
