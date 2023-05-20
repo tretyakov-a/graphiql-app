@@ -1,0 +1,101 @@
+@import "@src/styles/variables";
+
+.docs {
+  padding: var(--content-padding);
+  color: var(--color-text-xl);
+
+  &Desc {
+    padding: var(--content-padding);
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    line-height: 1.2em;
+  }
+
+  &BackBtn {
+    display: inline-flex;
+  }
+
+  &Previos {
+    display: inline;
+    cursor: pointer;
+  }
+
+  &Header {
+    margin: 1em 0;
+    font-size: 1.2em;
+    color: var(--color-text-l);
+  }
+
+  &SubHeader {
+    margin: 1rem 0;
+    color: var(--color-text-xm);
+    font-size: 0.875rem;
+
+    svg {
+      font-weight: 400;
+      margin-right: 0.5rem;
+    }
+  }
+
+  &Desc {
+    padding: var(--content-padding), 0;
+    font-size: 0.875em;
+    line-height: 140%;
+
+    code {
+      background-color: #f1f2f4;
+      padding: 2px;
+      border-radius: 4px;
+      font-size: 0.875rem;
+    }
+  }
+
+  &List {
+    line-height: 1.5em;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+  }
+
+  &Info {
+    color: var(--color-secondary);
+  }
+
+  &ItemDesc {
+    font-size: 0.875em;
+    color: var(--color-text-l);
+  }
+
+  &LinkField,
+  &LinkType:hover {
+    color: var(--color-info);
+  }
+
+  &LinkType,
+  &LinkType:hover {
+    color: var(--color-primary);
+  }
+
+  &LinkField:hover,
+  &LinkType:hover {
+    text-decoration: underline;
+    transition: all, 0.5s;
+    cursor: pointer;
+  }
+
+  &OneArg {
+    display: inline;
+    font-size: 0.9em;
+  }
+
+  &MultyArg {
+    display: block;
+    padding-left: var(--content-padding);
+    font-size: 0.9em;
+  }
+
+  &Warning {
+    color: var(--color-error);
+    font-size: 1.5em;
+  }
+}
