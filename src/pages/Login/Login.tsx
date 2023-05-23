@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import { auth } from '../../shared/api/firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { logInWithEmailAndPassword } from '../../shared/api/firebase';
 import classes from './style.module.scss';
 import '@src/styles/errorString.scss';
 import { useTranslation } from 'react-i18next';
@@ -17,7 +16,13 @@ const Login = () => {
       pageClassName={classes.login}
       pageContainerClassName={classes.login__pageContainer}
     >
-      <div className={classes.login__container}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          logInWithEmailAndPassword(email.value, password.value);
+        }}
+        className={classes.login__container}
+      >
         <input
           type="text"
           name="email"
@@ -43,11 +48,7 @@ const Login = () => {
         <button
           disabled={email.isError || password.isError}
           className={classes.login__btn}
-          onClick={() => {
-            signInWithEmailAndPassword(auth, email.value, password.value).catch(() =>
-              alert(t('CheckEOrP'))
-            );
-          }}
+          type="submit"
         >
           {t('Login') || ''}
         </button>
@@ -57,7 +58,7 @@ const Login = () => {
         <div>
           {t('DontHave') || ''} <Link to="/register">{t('Register') || ''}</Link>
         </div>
-      </div>
+      </form>
     </PageWrapper>
   );
 };

@@ -6,11 +6,13 @@ import React, { ButtonHTMLAttributes, forwardRef, useState } from 'react';
 import { classNames } from '@src/shared/utils';
 import { Tooltip, PlacesType } from 'react-tooltip';
 import { useTranslation } from 'react-i18next';
+import Loader from '../Loader';
 
 interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: IconDefinition;
   iconSize?: SizeProp;
   isActive?: boolean;
+  isLoading?: boolean;
   tooltip?: {
     langKey: string;
     notShowOnActive?: boolean;
@@ -18,7 +20,7 @@ interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const IconButton = forwardRef<HTMLElement, IconButtonProps>((props, ref) => {
-  const { icon, iconSize, className, onClick, isActive, tooltip } = props;
+  const { icon, iconSize, className, onClick, isActive, isLoading, tooltip } = props;
   const { t } = useTranslation();
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
 
@@ -55,7 +57,11 @@ const IconButton = forwardRef<HTMLElement, IconButtonProps>((props, ref) => {
         onMouseLeave={() => setIsTooltipOpen(false)}
         className={classes}
       >
-        <FontAwesomeIcon icon={icon || faQuestion} size={iconSize || 'xl'} />
+        {isLoading ? (
+          <Loader size="xs" />
+        ) : (
+          <FontAwesomeIcon icon={icon || faQuestion} size={iconSize || 'xl'} />
+        )}
       </button>
       {tooltip !== undefined && (
         <Tooltip isOpen={isTooltipOpen} id={tooltip?.langKey} className={btnClasses.tooltip} />

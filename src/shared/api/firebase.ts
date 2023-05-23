@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app';
+import { FirebaseError, initializeApp } from 'firebase/app';
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -7,6 +7,8 @@ import {
   signOut,
 } from 'firebase/auth';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { toast } from 'react-toastify';
+import { i18n } from '../localization';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCJJXfp3jNsO8HrilW4qDMSvvFWKyIZrew',
@@ -24,7 +26,8 @@ const logInWithEmailAndPassword = async (email: string, password: string) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
-    return;
+    const { code } = err as FirebaseError;
+    toast(i18n.t(`errors.${code}`), { type: 'error' });
   }
 };
 const registerWithEmailAndPassword = async (name: string, email: string, password: string) => {
@@ -38,12 +41,13 @@ const registerWithEmailAndPassword = async (name: string, email: string, passwor
       email,
     });
   } catch (err) {
-    return;
+    const { code } = err as FirebaseError;
+    toast(i18n.t(`errors.${code}`), { type: 'error' });
   }
 };
 const sendPasswordReset = async (email: string) => {
   await sendPasswordResetEmail(auth, email);
-  alert('Password reset link sent!');
+  toast('Password reset link sent!', { type: 'success' });
 };
 const logout = () => {
   signOut(auth);
@@ -52,7 +56,6 @@ const logout = () => {
 export {
   auth,
   db,
-  // signInWithGoogle,
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
   sendPasswordReset,

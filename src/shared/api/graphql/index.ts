@@ -3,6 +3,14 @@ import { fetchData } from './http';
 import { i18n } from '@src/shared/localization';
 import { GraphqlSchema } from './schema-types';
 
+export const graphqlError = (message: string) => ({
+  errors: [
+    {
+      message,
+    },
+  ],
+});
+
 export const fetchSchema = (endpoint: string) => {
   return fetchQuery<GraphqlSchema>(endpoint, { query: introspectionQuery });
 };
@@ -20,7 +28,7 @@ export const fetchQuery = async <T>(
   try {
     parsedVariables = JSON.parse(variables === '' ? '{}' : variables);
   } catch (jsonError) {
-    throw new Error(String(i18n.t('jsonVariables', { message: (jsonError as Error).message })));
+    return graphqlError(i18n.t('errors.jsonVariables', { message: (jsonError as Error).message }));
   }
 
   try {

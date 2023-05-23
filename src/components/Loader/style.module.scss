@@ -37,10 +37,24 @@
       margin: 0px;
     }
   }
+
+  &_xs {
+    .ldsDualRing {
+      width: 20px;
+      height: 20px;
+    }
+
+    .ldsDualRing::after {
+      border-width: 2px;
+      margin: 0px;
+    }
+  }
 }
 
 .ldsDualRing {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 80px;
   height: 80px;
 }
@@ -51,8 +65,8 @@
   width: 80%;
   height: 80%;
   border-radius: 50%;
-  border: 6px solid var(--color-primary);
-  border-color: var(--color-primary) transparent var(--color-primary) transparent;
+  border: 6px solid var(--color-loader);
+  border-color: var(--color-loader) transparent var(--color-loader) transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
 

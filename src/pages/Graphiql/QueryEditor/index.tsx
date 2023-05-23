@@ -22,6 +22,8 @@ const QueryEditor = () => {
     dispatch(fetchGraphqlQuery({ query, variables }));
   };
 
+  const isLoading = loading === Loading.PENDING;
+
   return (
     <div className={classes.queryEditorContainer}>
       <section className={classes.queryEditor}>
@@ -34,7 +36,8 @@ const QueryEditor = () => {
             icon={faPlay}
             tooltip={{ langKey: 'execute' }}
             className={classes.requestButton}
-            disabled={loading === Loading.PENDING}
+            disabled={isLoading}
+            isLoading={isLoading}
           />
         </aside>
       </section>

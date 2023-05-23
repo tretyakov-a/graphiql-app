@@ -24,10 +24,6 @@ export default {
     NeedCapital: 'Нужен хотя бы 1 заглавный символ',
     NeedSpecial: 'Пароль должен иметь хотя бы 1 специальный символ',
     NotRegister: 'Такого аккаунта не существует',
-    CheckEOrP: 'Проверьте e-mail или пароль',
-    jsonVariables: 'Ошибка в переменных, неверный JSON: {{- message}}',
-    httpStatusCodeError: 'Ошибка загрузки данных (статус код: {{status}})',
-    httpInvalidContentType: 'Неверный тип содержимого в ответе сервера',
     inputFields: 'Поля ввода',
     arguments: 'Аргументы',
     type: 'Тип',
@@ -41,6 +37,16 @@ export default {
       execute: 'Выполнить запрос',
       hideEditors: 'Скрыть редакторы',
       showEditors: 'Показать редакторы',
+    },
+    errors: {
+      jsonVariables: 'Ошибка в переменных, неверный JSON: {{- message}}',
+      httpStatusCodeError: 'Ошибка загрузки данных (статус код: {{status}})',
+      httpInvalidContentType: 'Неверный тип содержимого в ответе сервера',
+      'Failed to fetch': 'Не удалось загрузить данные',
+      'auth/email-already-in-use':
+        'Ошибка авторизации. Такой адрес электронной почты уже используется',
+      'auth/wrong-password': 'Не правильный пароль!',
+      'auth/user-not-found': 'Пользователь не найден!',
     },
   },
 };

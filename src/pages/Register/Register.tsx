@@ -6,6 +6,7 @@ import classes from './style.module.scss';
 import '@src/styles/errorString.scss';
 import { useInput } from '@src/shared/hooks/InputFormHooks';
 import PageWrapper from '@src/components/PageWrapper';
+import { toast } from 'react-toastify';
 
 function Register() {
   const email = useInput('', { isEmpty: true, minLength: 3, isEmail: true });
@@ -13,7 +14,7 @@ function Register() {
   const name = useInput('', { isEmpty: true, minLength: 3 });
   const { t } = useTranslation();
   const register = () => {
-    if (!name) alert(t('PleaseEnterName'));
+    if (!name) toast(t('PleaseEnterName'), { type: 'error' });
     registerWithEmailAndPassword(name.value, email.value, password.value);
   };
 
@@ -22,7 +23,13 @@ function Register() {
       pageClassName={classes.register}
       pageContainerClassName={classes.register__pageContainer}
     >
-      <div className={classes.register__container}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          register();
+        }}
+        className={classes.register__container}
+      >
         <input
           type="text"
           name="name"
@@ -58,14 +65,14 @@ function Register() {
         <button
           disabled={email.isError || password.isError || name.isError}
           className={classes.register__btn}
-          onClick={register}
+          type="submit"
         >
           {t('Register') || ''}
         </button>
         <div>
           {t('AlreadyHaveAnAccount') || ''} <Link to="/auth">{t('Login')}</Link>
         </div>
-      </div>
+      </form>
     </PageWrapper>
   );
 }

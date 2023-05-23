@@ -1,3 +1,4 @@
+import { graphqlError } from '.';
 import { GraphqlResponse } from './types';
 import { i18n } from '@src/shared/localization';
 
@@ -7,13 +8,7 @@ const checkContentType = (res: Response, type: string) => {
 
 const getTextResponseError = async <T>(res: Response): Promise<GraphqlResponse<T>> => {
   const message = await res.text();
-  return {
-    errors: [
-      {
-        message,
-      },
-    ],
-  };
+  return graphqlError(message);
 };
 
 const handleErrors = <T>(res: Response): Promise<GraphqlResponse<T>> => {
@@ -25,10 +20,10 @@ const handleErrors = <T>(res: Response): Promise<GraphqlResponse<T>> => {
     }
   }
   if (!res.ok) {
-    throw new Error(String(i18n.t('httpStatusCodeError', { status: res.status })));
+    throw new Error(String(i18n.t('errors.httpStatusCodeError', { status: res.status })));
   }
   if (!checkContentType(res, 'application/json')) {
-    throw new Error(String(i18n.t('httpInvalidContentType')));
+    throw new Error(String(i18n.t('errors.httpInvalidContentType')));
   }
   return res.json();
 };
@@ -40,6 +35,9 @@ export const fetchData = async <T>(
   try {
     return handleErrors<T>(await fetch(baseUrl, requestInit));
   } catch (error) {
+    if (error instanceof TypeError) {
+      throw new Error(String(i18n.t(`errors.${error.message}`)));
+    }
     throw error;
   }
 };

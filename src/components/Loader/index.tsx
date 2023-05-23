@@ -2,7 +2,7 @@ import { classNames } from '@src/shared/utils';
 import classes from './style.module.scss';
 
 interface LoaderProps {
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'xs' | 'sm' | 'md' | 'lg';
 }
 
 const Loader = ({ size = 'md' }: LoaderProps) => {
