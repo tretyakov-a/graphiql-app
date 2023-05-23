@@ -10,6 +10,7 @@ import {
   fetchGraphqlSchema,
   fetchGraphqlSchemaExtraReducers,
 } from './async-actions/fetch-graphql-schema';
+import { toast } from 'react-toastify';
 
 const initialState: GraphqlState = {
   endpoint: 'https://rickandmortyapi.com/graphql',
@@ -33,8 +34,7 @@ const initialState: GraphqlState = {
 
 export const showErrorMiddleware: Middleware = () => (next) => (action) => {
   if (action.type.includes('rejected')) {
-    console.log(action.error.message);
-    //TODO: show toast/popup with error message
+    toast(action.error.message, { type: 'error' });
   }
   return next(action);
 };

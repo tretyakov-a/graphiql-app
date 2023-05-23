@@ -25,9 +25,6 @@ export default {
     NeedSpecial: 'The password must contain numbers and a special character',
     NotRegister: 'This e-mail is`n register yet',
     CheckEOrP: 'Check e-mail or password',
-    jsonVariables: 'Variables are invalid JSON: {{- message}}',
-    httpStatusCodeError: 'Loading error occured (code: {{status}})',
-    httpInvalidContentType: 'Invalid content-type in response',
     inputFields: 'Input Fields',
     arguments: 'Arguments',
     type: 'Type',
@@ -41,6 +38,13 @@ export default {
       execute: 'Execute query',
       hideEditors: 'Hide editors',
       showEditors: 'Show editors',
+    },
+    errors: {
+      jsonVariables: 'Variables are invalid JSON: {{- message}}',
+      httpStatusCodeError: 'Loading error occured (code: {{status}})',
+      httpInvalidContentType: 'Invalid content-type in response',
+      'Failed to fetch': 'Failed to fetch',
+      'auth/email-already-in-use': 'Authorization error. Email already in use',
     },
   },
 };

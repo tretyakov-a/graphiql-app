@@ -20,7 +20,9 @@ export const fetchQuery = async <T>(
   try {
     parsedVariables = JSON.parse(variables === '' ? '{}' : variables);
   } catch (jsonError) {
-    throw new Error(String(i18n.t('jsonVariables', { message: (jsonError as Error).message })));
+    throw new Error(
+      String(i18n.t('errors.jsonVariables', { message: (jsonError as Error).message }))
+    );
   }
 
   try {
