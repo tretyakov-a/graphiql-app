@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import { auth } from '../../shared/api/firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { logInWithEmailAndPassword } from '../../shared/api/firebase';
 import classes from './style.module.scss';
 import '@src/styles/errorString.scss';
 import { useTranslation } from 'react-i18next';
@@ -44,9 +43,7 @@ const Login = () => {
           disabled={email.isError || password.isError}
           className={classes.login__btn}
           onClick={() => {
-            signInWithEmailAndPassword(auth, email.value, password.value).catch(() =>
-              alert(t('CheckEOrP'))
-            );
+            logInWithEmailAndPassword(email.value, password.value);
           }}
         >
           {t('Login') || ''}

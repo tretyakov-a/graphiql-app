@@ -24,7 +24,6 @@ export default {
     NeedCapital: 'Нужен хотя бы 1 заглавный символ',
     NeedSpecial: 'Пароль должен иметь хотя бы 1 специальный символ',
     NotRegister: 'Такого аккаунта не существует',
-    CheckEOrP: 'Проверьте e-mail или пароль',
     inputFields: 'Поля ввода',
     arguments: 'Аргументы',
     type: 'Тип',
@@ -46,6 +45,8 @@ export default {
       'Failed to fetch': 'Не удалось загрузить данные',
       'auth/email-already-in-use':
         'Ошибка авторизации. Такой адрес электронной почты уже используется',
+      'auth/wrong-password': 'Не правильный пароль!',
+      'auth/user-not-found': 'Пользователь не найден!',
     },
   },
 };

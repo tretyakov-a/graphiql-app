@@ -24,7 +24,6 @@ export default {
     NeedCapital: 'Need at least one capital letter',
     NeedSpecial: 'The password must contain numbers and a special character',
     NotRegister: 'This e-mail is`n register yet',
-    CheckEOrP: 'Check e-mail or password',
     inputFields: 'Input Fields',
     arguments: 'Arguments',
     type: 'Type',
@@ -45,6 +44,8 @@ export default {
       httpInvalidContentType: 'Invalid content-type in response',
       'Failed to fetch': 'Failed to fetch',
       'auth/email-already-in-use': 'Authorization error. Email already in use',
+      'auth/wrong-password': 'Wrong password!',
+      'auth/user-not-found': 'User not found!',
     },
   },
 };
