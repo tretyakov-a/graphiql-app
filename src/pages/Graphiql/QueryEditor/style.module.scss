@@ -27,6 +27,13 @@
     background-color: var(--color-success);
     color: var(--color-text-light);
 
+    --color-loader: var(--color-text-light);
+
+    &:active,
+    &:active:hover {
+      background-color: var(--color-text-m);
+    }
+
     @media (hover: hover) {
       &:hover {
         background-color: var(--color-success);
