@@ -1,3 +1,4 @@
+import { graphqlError } from '.';
 import { GraphqlResponse } from './types';
 import { i18n } from '@src/shared/localization';
 
@@ -7,13 +8,7 @@ const checkContentType = (res: Response, type: string) => {
 
 const getTextResponseError = async <T>(res: Response): Promise<GraphqlResponse<T>> => {
   const message = await res.text();
-  return {
-    errors: [
-      {
-        message,
-      },
-    ],
-  };
+  return graphqlError(message);
 };
 
 const handleErrors = <T>(res: Response): Promise<GraphqlResponse<T>> => {
