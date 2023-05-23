@@ -16,7 +16,13 @@ const Login = () => {
       pageClassName={classes.login}
       pageContainerClassName={classes.login__pageContainer}
     >
-      <div className={classes.login__container}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          logInWithEmailAndPassword(email.value, password.value);
+        }}
+        className={classes.login__container}
+      >
         <input
           type="text"
           name="email"
@@ -42,9 +48,7 @@ const Login = () => {
         <button
           disabled={email.isError || password.isError}
           className={classes.login__btn}
-          onClick={() => {
-            logInWithEmailAndPassword(email.value, password.value);
-          }}
+          type="submit"
         >
           {t('Login') || ''}
         </button>
@@ -54,7 +58,7 @@ const Login = () => {
         <div>
           {t('DontHave') || ''} <Link to="/register">{t('Register') || ''}</Link>
         </div>
-      </div>
+      </form>
     </PageWrapper>
   );
 };

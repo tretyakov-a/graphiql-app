@@ -8,6 +8,7 @@ import '@src/styles/errorString.scss';
 import { useTranslation } from 'react-i18next';
 import { useInput } from '@src/shared/hooks/InputFormHooks';
 import PageWrapper from '@src/components/PageWrapper';
+import { toast } from 'react-toastify';
 
 function Reset() {
   const { t } = useTranslation();
@@ -26,7 +27,13 @@ function Reset() {
       pageClassName={classes.reset}
       pageContainerClassName={classes.reset__pageContainer}
     >
-      <div className={classes.reset__container}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          sendPasswordReset(email.value).catch(() => toast(t('NotRegister'), { type: 'error' }));
+        }}
+        className={classes.reset__container}
+      >
         <input
           type="text"
           name="email"
@@ -37,19 +44,13 @@ function Reset() {
           onBlur={() => email.onBlur()}
         />
         {email.isDirty && email.isError && <div className="error-string">{email.errorText}</div>}
-        <button
-          disabled={email.isError}
-          className={classes.reset__btn}
-          onClick={() => {
-            sendPasswordReset(email.value).catch(() => alert(t('NotRegister')));
-          }}
-        >
+        <button disabled={email.isError} className={classes.reset__btn} type="submit">
           {t('SendPasswordResetEmail') || ''}
         </button>
         <div>
           {t('DontHave') || ''} <Link to="/register">{t('Register')}</Link>
         </div>
-      </div>
+      </form>
     </PageWrapper>
   );
 }
