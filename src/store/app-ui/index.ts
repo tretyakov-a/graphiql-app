@@ -12,12 +12,16 @@ const initialState: AppUIState = {
     editors: 1,
     bottomEditors: 1,
   },
+  language: 'us',
 };
 
 export const appUISlice = createSlice({
   name: 'appUI',
   initialState,
   reducers: {
+    setLanguage: (state, action: PayloadAction<string>) => {
+      state.language = action.payload;
+    },
     toggleVisibility: (state, action: PayloadAction<Partial<keyof VisibilityState>>) => {
       const prev = state.visiblity[action.payload];
       state.visiblity[action.payload] = !prev;
