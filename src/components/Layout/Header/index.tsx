@@ -8,16 +8,43 @@ import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import Logo from './Logo';
 import { classNames } from '@src/shared/utils';
 import HeaderMenu from './HeaderMenu';
+import { MediaQueryContext, maxWidthQuery } from '@src/shared/contexts/media-query';
+import { useContext } from 'react';
+import SideToolbar from '@src/pages/Graphiql/SideToolbar';
+import { useLocation } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
 
 const Header = () => {
   const [user] = useAuthState(auth);
+  const { matches } = useContext(MediaQueryContext);
+  const location = useLocation();
 
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [isSticky, setIsSticky] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([e]) => setIsSticky(!e.isIntersecting), {
+      threshold: [1],
+    });
+
+    if (headerRef.current) observer.observe(headerRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  const showSidebar = location.pathname.includes('graphiql') && matches?.[maxWidthQuery('sm')];
   const isAuthorized = Boolean(user);
+  const headerClasses = classNames([classes.header, isSticky && classes.headerSticky]);
 
   return (
-    <header className={classes.header}>
+    <header className={headerClasses} ref={headerRef}>
       <div className={classNames([generalClasses.container, classes.headerContainer])}>
-        <Logo />
+        <div className={classes.headerRight}>
+          {showSidebar && <SideToolbar />}
+          <Logo />
+        </div>
         <div className={classes.headerRight}>
           <nav className={classes.headerMenuContainer}>
             <HeaderMenu />
