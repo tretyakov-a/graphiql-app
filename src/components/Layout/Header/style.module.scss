@@ -22,21 +22,10 @@ $sticky-threshold: 1px;
     align-items: center;
   }
 
-  &MenuContainer {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    margin-right: 1rem;
-  }
-
-  &Right {
+  &Right,
+  &Left {
     display: flex;
     align-items: center;
     height: 100%;
   }
-}
-
-.toolbar {
-  display: flex;
-  column-gap: 0.5rem;
 }

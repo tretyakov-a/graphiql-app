@@ -1,10 +1,5 @@
 import classes from './style.module.scss';
 import generalClasses from '@src/styles/general.module.scss';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, logout } from '@src/shared/api/firebase';
-import LanguageSelector from '@src/components/LanguageSelector';
-import IconButton from '@src/components/IconButton';
-import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import Logo from './Logo';
 import { classNames } from '@src/shared/utils';
 import HeaderMenu from './HeaderMenu';
@@ -13,9 +8,12 @@ import { useContext } from 'react';
 import SideToolbar from '@src/pages/Graphiql/SideToolbar';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
+import Portal from '@src/components/Portal';
+import { BurgerMenuContextProvider } from './HeaderMenu/BurgerMenu/burger-menu-context';
+import BurgerMenu from './HeaderMenu/BurgerMenu';
+import BurgerButton from './HeaderMenu/BurgerButton';
 
 const Header = () => {
-  const [user] = useAuthState(auth);
   const { matches } = useContext(MediaQueryContext);
   const location = useLocation();
 
@@ -26,43 +24,36 @@ const Header = () => {
     const observer = new IntersectionObserver(([e]) => setIsSticky(!e.isIntersecting), {
       threshold: [1],
     });
-
     if (headerRef.current) observer.observe(headerRef.current);
-
     return () => {
       observer.disconnect();
     };
   }, []);
 
-  const matchesMedia = matches![maxWidthQuery('sm')];
+  const matchesSmBreakpoint = matches![maxWidthQuery('sm')];
+  const matchesXsBreakpoint = matches![maxWidthQuery('xs')];
 
-  const showSidebar = location.pathname.includes('graphiql') && matchesMedia;
-  const isAuthorized = Boolean(user);
+  const showSidebar = location.pathname.includes('graphiql') && matchesSmBreakpoint;
   const headerClasses = classNames([classes.header, isSticky && classes.headerSticky]);
 
   return (
     <header className={headerClasses} ref={headerRef}>
       <div className={classNames([generalClasses.container, classes.headerContainer])}>
-        <div className={classes.headerRight}>
+        <div className={classes.headerLeft}>
           {showSidebar && <SideToolbar />}
           <Logo />
         </div>
         <div className={classes.headerRight}>
-          <nav className={classes.headerMenuContainer}>
+          {matchesXsBreakpoint ? (
+            <BurgerMenuContextProvider>
+              <BurgerButton />
+              <Portal>
+                <BurgerMenu />
+              </Portal>
+            </BurgerMenuContextProvider>
+          ) : (
             <HeaderMenu />
-          </nav>
-          <div className={classes.toolbar}>
-            {isAuthorized && (
-              <div>
-                <IconButton
-                  onClick={logout}
-                  tooltip={{ langKey: 'logout' }}
-                  icon={faRightFromBracket}
-                />
-              </div>
-            )}
-            <LanguageSelector />
-          </div>
+          )}
         </div>
       </div>
     </header>
