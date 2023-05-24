@@ -9,11 +9,12 @@ import { MediaQueryContext, maxWidthQuery } from '@src/shared/contexts/media-que
 import Portal from '@src/components/Portal';
 import ResponsePanel from './ResponsePanel';
 import { EditorsContextProvider } from '@src/shared/contexts/editors';
+
 const Graphiql = () => {
   const graphqlMainContainerRef = useRef<HTMLDivElement>(null);
   const editorsContainerRef = useRef<HTMLDivElement>(null);
   const { matches } = useContext(MediaQueryContext);
-  const matchesSmBreakpoint = matches![maxWidthQuery('sm')];
+  const matchesMedia = matches![maxWidthQuery('sm')];
 
   return (
     <PageWrapper
@@ -21,10 +22,10 @@ const Graphiql = () => {
       pageContainerClassName={classes.graphiqlContainer}
     >
       <EditorsContextProvider>
-        <SideToolbar />
+        {!matchesMedia && <SideToolbar />}
         <div className={classes.graphiqlMain} ref={graphqlMainContainerRef}>
           <DragContext.Provider value={{ containerRef: graphqlMainContainerRef }}>
-            {matchesSmBreakpoint ? (
+            {matchesMedia ? (
               <Portal>
                 <DocsExplorerPanel />
               </Portal>

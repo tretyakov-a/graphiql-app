@@ -34,7 +34,9 @@ const Header = () => {
     };
   }, []);
 
-  const showSidebar = location.pathname.includes('graphiql') && matches?.[maxWidthQuery('sm')];
+  const matchesMedia = matches![maxWidthQuery('sm')];
+
+  const showSidebar = location.pathname.includes('graphiql') && matchesMedia;
   const isAuthorized = Boolean(user);
   const headerClasses = classNames([classes.header, isSticky && classes.headerSticky]);
 
