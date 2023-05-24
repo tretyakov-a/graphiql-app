@@ -5,15 +5,20 @@
 
 html,
 body,
-#root {
+#root,
+#scroll-container {
   height: 100%;
   min-height: 100%;
 }
 
-#root {
+#scroll-container {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+
+  &.no-scroll {
+    overflow-y: hidden;
+  }
 }
 
 #portal-root {
