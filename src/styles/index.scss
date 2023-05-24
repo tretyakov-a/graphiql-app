@@ -17,8 +17,6 @@ body,
 }
 
 #portal-root {
-  position: absolute;
-  z-index: 10;
   top: 0;
   left: 0;
   right: 0;
@@ -31,6 +29,7 @@ body {
   font-family: Arial, sans-serif;
   font-weight: 400;
   overflow: hidden;
+  background: var(--color-bg-light);
 }
 
 *,

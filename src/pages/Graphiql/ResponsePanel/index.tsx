@@ -14,7 +14,9 @@ const ResponsePanel = () => {
     <div className={classes.responsePanel}>
       <section className={classes.response}>
         {loading === Loading.PENDING ? (
-          <Loader />
+          <div className={classes.loaderContainer}>
+            <Loader />
+          </div>
         ) : error === null && response !== null ? (
           <Editor
             editorKey="response"

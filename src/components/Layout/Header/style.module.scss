@@ -2,7 +2,7 @@ $sticky-threshold: 1px;
 
 .header {
   position: sticky;
-  z-index: 100;
+  z-index: 11;
   top: -$sticky-threshold;
   padding-top: $sticky-threshold;
   height: var(--header-height);
