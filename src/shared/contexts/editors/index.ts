@@ -1,5 +1,6 @@
 import { EditorKey } from '@src/store/graphql';
 import { createContext, useCallback, useMemo, useState } from 'react';
+import { store } from '@src/store';
 
 export type EditableEditorKey = Exclude<EditorKey, 'response'>;
 type Editors = Record<EditableEditorKey, string>;
@@ -11,23 +12,14 @@ export interface EditorsContextProps {
   setEditorValue: SetEditorValueFn;
 }
 
+const {
+  executed: { query, variables },
+} = store.getState().graphql.query;
+
 const editorsInitial: Editors = {
-  query: `query char($id: ID!) {
-  character(id: $id) {
-    id
-    name
-    status
-    species
-    gender
-    origin {
-      name
-    }
-  }
-}`,
-  variables: `{
-  "id": 1
-}`,
-  headers: '',
+  query: query || `query {}`,
+  variables: variables || `{}`,
+  headers: '{}',
 };
 
 export const EditorsContext = createContext<EditorsContextProps>({

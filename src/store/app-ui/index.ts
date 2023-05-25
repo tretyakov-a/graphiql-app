@@ -1,8 +1,10 @@
-import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { type PayloadAction, createSlice, Middleware } from '@reduxjs/toolkit';
 import { useAppSelector } from '..';
 import type { AppUIState, FlexState, VisibilityState } from './types';
 
-const initialState: AppUIState = {
+export const STORAGE_KEY = 'graphiql/ui';
+
+const defaultState: AppUIState = {
   visiblity: {
     docs: false,
     bottomEditors: true,
@@ -14,6 +16,19 @@ const initialState: AppUIState = {
   },
   language: 'us',
 };
+
+const storedState = localStorage.getItem(STORAGE_KEY);
+
+const initialState = storedState !== null ? (JSON.parse(storedState) as AppUIState) : defaultState;
+
+export const saveUIToLocalStorageMiddleware: Middleware =
+  ({ getState }) =>
+  (next) =>
+  (action) => {
+    const res = next(action);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(getState().appUI));
+    return res;
+  };
 
 export const appUISlice = createSlice({
   name: 'appUI',

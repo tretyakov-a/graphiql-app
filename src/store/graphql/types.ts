@@ -18,9 +18,13 @@ export type GraphqlLoadingState<T> = LoadingState & {
   response: GraphqlResponse<T> | null;
 };
 
+export type QueryType = GraphqlLoadingState<unknown> & {
+  executed: { query: string; variables: string };
+};
+
 export interface GraphqlState {
   responseOutput: string;
   endpoint: string;
-  query: GraphqlLoadingState<unknown> & { executed: { query: string; variables: string } };
+  query: QueryType;
   schema: GraphqlLoadingState<GraphqlSchema> & { fetched: boolean };
 }

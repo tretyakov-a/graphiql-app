@@ -1,11 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 import type { TypedUseSelectorHook } from 'react-redux';
-import appUiReducer from './app-ui';
+import appUiReducer, { saveUIToLocalStorageMiddleware } from './app-ui';
 import docsExplorerReducer from './docs-explorer';
-import graphqlReducer, { showErrorMiddleware } from './graphql';
+import graphqlReducer, { saveQueryToLocalStorageMiddleware, showErrorMiddleware } from './graphql';
 
-const middlewares = [showErrorMiddleware];
+const middlewares = [
+  showErrorMiddleware,
+  saveUIToLocalStorageMiddleware,
+  saveQueryToLocalStorageMiddleware,
+];
 
 export const store = configureStore({
   reducer: {
