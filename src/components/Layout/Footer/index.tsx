@@ -4,12 +4,18 @@ import RssLogo from './RssLogo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { githubLinks } from './github-links';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
+  const { t } = useTranslation('welcomeLocalisation');
+
   return (
     <footer className={classes.footer}>
       <div className={[generalClasses.container, classes.footerContainer].join(' ')}>
-        <RssLogo />
+        <div className={classes.footerLeft}>
+          <RssLogo />
+          <div className={classes.footerYear}>2023</div>
+        </div>
         <ul className={classes.githubLinksList}>
           {githubLinks.map(({ link, name }) => (
             <li key={name}>
@@ -21,12 +27,11 @@ const Footer = () => {
                 rel="noreferrer"
               >
                 <FontAwesomeIcon className={classes.githubLinkIcon} icon={faGithub} />
-                {name}
+                {t(`name.${name}`)}
               </a>
             </li>
           ))}
         </ul>
-        <div>2023</div>
       </div>
     </footer>
   );
