@@ -12,25 +12,15 @@ export const BurgerMenuContext = React.createContext<BurgerMenuContextProps>({
 });
 
 export const BurgerMenuContextProvider = ({ children }: React.PropsWithChildren) => {
-  const { setScroll, registerOnClick } = useContext(ScrollContext);
+  const { setScroll } = useContext(ScrollContext);
   const [isMenuOpened, setIsMenuOpen] = useState(false);
-  const [cleanup, setCleanUp] = useState<() => void>(() => {});
 
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((isMenuOpenedPrev) => {
       setScroll(isMenuOpenedPrev);
-      if (!isMenuOpenedPrev) {
-        const cleanupFn = registerOnClick(() => {
-          setIsMenuOpen(false);
-          cleanupFn();
-        });
-        setCleanUp(() => cleanupFn);
-      } else {
-        if (cleanup) cleanup();
-      }
       return !isMenuOpenedPrev;
     });
-  }, [registerOnClick, setScroll, cleanup]);
+  }, [setScroll]);
 
   return (
     <BurgerMenuContext.Provider value={{ isMenuOpened, toggleMenu }}>
