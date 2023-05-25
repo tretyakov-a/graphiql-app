@@ -1,6 +1,6 @@
 import { type PayloadAction, createSlice, Middleware } from '@reduxjs/toolkit';
 import { useAppSelector } from '..';
-import { type GraphqlState, type EditorKey, Loading } from './types';
+import { type GraphqlState, type EditorKey, Loading, QueryType } from './types';
 import {
   FetchGraphqlQueryPayload,
   fetchGraphqlQuery,
@@ -11,6 +11,8 @@ import {
   fetchGraphqlSchemaExtraReducers,
 } from './async-actions/fetch-graphql-schema';
 import { toast } from 'react-toastify';
+
+const STORAGE_KEY = 'graphiql/query';
 
 const initialState: GraphqlState = {
   endpoint: 'https://rickandmortyapi.com/graphql',
@@ -31,6 +33,21 @@ const initialState: GraphqlState = {
     fetched: false,
   },
 };
+
+const storedQueryState = localStorage.getItem(STORAGE_KEY);
+
+if (storedQueryState !== null) {
+  initialState.query = JSON.parse(storedQueryState) as QueryType;
+}
+
+export const saveQueryToLocalStorageMiddleware: Middleware =
+  ({ getState }) =>
+  (next) =>
+  (action) => {
+    const res = next(action);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(getState().graphql.query));
+    return res;
+  };
 
 export const showErrorMiddleware: Middleware = () => (next) => (action) => {
   if (action.type.includes('rejected')) {

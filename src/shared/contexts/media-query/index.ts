@@ -31,8 +31,12 @@ export const useMediaQuery = (queries: string[]) => {
     const onChangeHandlers = queries.reduce(
       (acc, query) => ({
         ...acc,
-        [query]: (e: MediaQueryListEvent) =>
-          setMatches((prev) => ({ ...prev, [query]: e.matches })),
+        [query]: (e: MediaQueryListEvent) => {
+          const restQueries = queries.reduce((acc, q) => {
+            return q !== query ? { ...acc, [q]: window.matchMedia(q).matches } : acc;
+          }, {} as MatchesState);
+          setMatches((prev) => ({ ...prev, [query]: e.matches, ...restQueries }));
+        },
       }),
       {} as Record<string, (e: MediaQueryListEvent) => void>
     );
