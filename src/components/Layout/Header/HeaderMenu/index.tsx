@@ -33,7 +33,7 @@ const HeaderMenu = () => {
 
   const renderLinks = useCallback(
     (links: LinkInfo[]) =>
-      links.map(({ to, langKey }) => (
+      links.map(({ to, langKey, icon }) => (
         <li key={to}>
           <NavLink
             to={to}
@@ -42,7 +42,8 @@ const HeaderMenu = () => {
               classNames([classes.menuLink, isActive && classes.menuLinkActive])
             }
           >
-            {t(langKey)}
+            <span className={classes.menuLinkIcon}>{icon}</span>
+            <span>{t(langKey)}</span>
           </NavLink>
         </li>
       )),
