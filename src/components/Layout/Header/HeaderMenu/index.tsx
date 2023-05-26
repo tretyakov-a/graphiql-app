@@ -6,14 +6,14 @@ import { auth, logout } from '@src/shared/api/firebase';
 import Loader from '@src/components/Loader';
 import { LinkInfo, authorizedLinks, unauthorizedLinks } from './links';
 import { classNames } from '@src/shared/utils';
-import { useCallback, useContext, useRef } from 'react';
+import { forwardRef, useCallback, useContext, useRef } from 'react';
 import { MediaQueryContext, maxWidthQuery } from '@src/shared/contexts/media-query';
 import IconButton from '@src/components/IconButton';
-import { faRightFromBracket, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faGlobe, faRightFromBracket, faXmark } from '@fortawesome/free-solid-svg-icons';
 import LanguageSelector from '@src/components/LanguageSelector';
 import { BurgerMenuContext } from './BurgerMenu/burger-menu-context';
 import useOpenCloseAnimation from '@src/shared/hooks/animation';
-import { PopupContextProvider } from '@src/components/Popup/popup-context';
+import Popup from '@src/components/Popup';
 
 const HeaderMenu = () => {
   const { t } = useTranslation();
@@ -70,9 +70,19 @@ const HeaderMenu = () => {
         )}
       </nav>
       <div className={classes.menuToolbar}>
-        <PopupContextProvider>
+        <Popup
+          anchor={forwardRef<HTMLElement>((props, ref) => (
+            <IconButton
+              icon={faGlobe}
+              tooltip={{ langKey: 'language', notShowOnActive: true }}
+              {...props}
+              ref={ref as React.RefObject<HTMLButtonElement>}
+            />
+          ))}
+        >
           <LanguageSelector />
-        </PopupContextProvider>
+        </Popup>
+
         {isAuthorized && (
           <div>
             <IconButton
