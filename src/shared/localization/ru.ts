@@ -29,6 +29,8 @@ export default {
     type: 'Тип',
     rootTypes: 'Корневые типы',
     fields: 'Поля',
+    endpoint: 'API адрес',
+    docsUnavailible: 'Документация недоступна. Проверьте адрес API: {{- endpoint}}',
     tooltips: {
       logout: 'Выйти',
       language: 'Выбрать язык',
@@ -37,6 +39,8 @@ export default {
       execute: 'Выполнить запрос',
       hideEditors: 'Скрыть редакторы',
       showEditors: 'Показать редакторы',
+      changeEndpoint: 'Сменить API',
+      save: 'Сохранить',
     },
     errors: {
       jsonVariables: 'Ошибка в переменных, неверный JSON: {{- message}}',

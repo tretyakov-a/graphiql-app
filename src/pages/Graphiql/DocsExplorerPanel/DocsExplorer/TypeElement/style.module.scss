@@ -98,4 +98,9 @@
     color: var(--color-error);
     font-size: 1.5em;
   }
+
+  &Error {
+    color: var(--color-text-l);
+    line-height: 140%;
+  }
 }

@@ -5,7 +5,7 @@
     color: var(--color-text-xl);
     transition: 0.25s;
 
-    @include xs-breakpoint {
+    @include sm-breakpoint {
       font-size: 1.2rem;
     }
   }

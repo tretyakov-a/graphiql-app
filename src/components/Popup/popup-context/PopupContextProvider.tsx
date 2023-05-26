@@ -1,13 +1,15 @@
 import { useRef, useState } from 'react';
-import { PopupContext } from '.';
+import { PopupContext, PopupPosition } from '.';
 
-const PopupContextProvider = ({ children }: React.PropsWithChildren) => {
+interface PopupContextProviderProps extends React.PropsWithChildren {
+  position: PopupPosition;
+}
+
+const PopupContextProvider = ({ children, position }: PopupContextProviderProps) => {
   const [isVisible, setVisible] = useState(false);
   const anchorRef = useRef<HTMLElement>(null);
 
   const togglePopup = () => {
-    // e.stopPropagation();
-
     if (!isVisible) {
       const makeInvisible = () => {
         setVisible(false);
@@ -19,7 +21,7 @@ const PopupContextProvider = ({ children }: React.PropsWithChildren) => {
   };
 
   return (
-    <PopupContext.Provider value={{ anchorRef, isVisible, togglePopup }}>
+    <PopupContext.Provider value={{ anchorRef, isVisible, togglePopup, position }}>
       {children}
     </PopupContext.Provider>
   );

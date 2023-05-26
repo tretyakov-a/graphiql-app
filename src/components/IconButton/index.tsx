@@ -20,7 +20,7 @@ interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const IconButton = forwardRef<HTMLElement, IconButtonProps>((props, ref) => {
-  const { icon, iconSize, className, onClick, isActive, isLoading, tooltip } = props;
+  const { icon, iconSize, className, onClick, disabled, isActive, isLoading, tooltip } = props;
   const { t } = useTranslation();
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
 
@@ -56,6 +56,7 @@ const IconButton = forwardRef<HTMLElement, IconButtonProps>((props, ref) => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={() => setIsTooltipOpen(false)}
         className={classes}
+        disabled={disabled}
       >
         {isLoading ? (
           <Loader size="xs" />
