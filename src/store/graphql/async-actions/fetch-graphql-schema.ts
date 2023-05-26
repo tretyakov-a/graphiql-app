@@ -17,10 +17,11 @@ export const fetchGraphqlSchema = createAsyncThunk<
   {
     condition: ({ refetch } = { refetch: false }, { getState }) => {
       const {
-        schema: { loading, fetched },
+        endpoint,
+        schema: { loading, fetched, fetchedEndpoint },
       } = getState().graphql;
-      if (refetch) return true;
-      if (fetched || loading === Loading.PENDING) {
+      if (refetch || loading === Loading.IDLE) return true;
+      if (fetched || loading === Loading.PENDING || endpoint === fetchedEndpoint) {
         return false;
       }
     },
@@ -30,12 +31,15 @@ export const fetchGraphqlSchema = createAsyncThunk<
 export const fetchGraphqlSchemaExtraReducers = (builder: ActionReducerMapBuilder<GraphqlState>) => {
   builder.addCase(fetchGraphqlSchema.pending, (state) => {
     state.schema.loading = Loading.PENDING;
+    state.schema.error = null;
+    state.schema.fetched = false;
   });
   builder.addCase(fetchGraphqlSchema.fulfilled, (state, action) => {
     state.schema.loading = Loading.SUCCESS;
     state.schema.response = action.payload;
     state.schema.error = null;
     state.schema.fetched = true;
+    state.schema.fetchedEndpoint = state.endpoint;
   });
   builder.addCase(fetchGraphqlSchema.rejected, (state, action) => {
     state.schema.loading = Loading.ERROR;

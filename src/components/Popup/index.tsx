@@ -1,54 +1,24 @@
-import classes from './style.module.scss';
 import Portal from '../Portal';
-import React, { useRef, useState } from 'react';
+import React from 'react';
+import { AnchorType, PopupContextProvider, PopupPosition } from './popup-context';
+import ToggleButton from './ToggleButton';
+import PopupContent from './PopupContent';
 
 interface PopupProps extends React.PropsWithChildren {
-  Anchor: React.ForwardRefExoticComponent<
-    React.RefAttributes<HTMLElement> & React.HTMLProps<HTMLElement> & { isActive?: boolean }
-  >;
+  anchor: AnchorType;
+  position?: PopupPosition;
 }
 
 const Popup = (props: PopupProps) => {
-  const [isVisible, setVisible] = useState(false);
-  const anchorRef = useRef<HTMLElement>(null);
-  const { Anchor, children } = props;
-
-  const tooglePopup = (e: React.MouseEvent) => {
-    e.stopPropagation();
-
-    if (!isVisible) {
-      const makeInvisible = () => {
-        setVisible(false);
-        document.removeEventListener('click', makeInvisible);
-      };
-      document.addEventListener('click', makeInvisible);
-    }
-    setVisible((prev) => !prev);
-  };
-
-  const rect = anchorRef.current?.getBoundingClientRect();
-  const popupPosition = rect
-    ? {
-        right: `${document.body.clientWidth - rect.right}px`,
-        top: `${rect.y + rect.height}px`,
-      }
-    : {};
+  const { anchor, children, position = 'right' } = props;
 
   return (
-    <>
-      {<Anchor onClick={tooglePopup} ref={anchorRef} isActive={isVisible} />}
-      {isVisible && (
-        <Portal>
-          <div
-            onClick={(e: React.MouseEvent) => e.stopPropagation()}
-            className={classes.popup}
-            style={popupPosition}
-          >
-            {children}
-          </div>
-        </Portal>
-      )}
-    </>
+    <PopupContextProvider position={position}>
+      <ToggleButton anchor={anchor} />
+      <Portal>
+        <PopupContent>{children}</PopupContent>
+      </Portal>
+    </PopupContextProvider>
   );
 };
 

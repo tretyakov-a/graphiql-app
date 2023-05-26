@@ -29,6 +29,8 @@ export default {
     type: 'Type',
     rootTypes: 'Root Types',
     fields: 'Fields',
+    endpoint: 'API endpoint',
+    docsUnavailible: 'Documentation unavalible. Check api endpoint: {{- endpoint}}',
     tooltips: {
       logout: 'Logout',
       language: 'Choose language',
@@ -37,6 +39,8 @@ export default {
       execute: 'Execute query',
       hideEditors: 'Hide editors',
       showEditors: 'Show editors',
+      changeEndpoint: 'Change API',
+      save: 'Save',
     },
     errors: {
       jsonVariables: 'Variables are invalid JSON: {{- message}}',

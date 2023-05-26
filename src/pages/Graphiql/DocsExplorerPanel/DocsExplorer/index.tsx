@@ -16,16 +16,18 @@ const DocsExplorer = memo(() => {
   const {
     schema: { loading, response, error },
     actions: { fetchGraphqlSchema },
+    endpoint,
   } = useGraphqlStore();
   const {
     docsExplorer,
-    actions: { addElement, deliteLast },
+    actions: { addElement, deliteLast, clearDocs },
   } = useDocsExplorer();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    dispatch(clearDocs());
     dispatch(fetchGraphqlSchema({}));
-  }, [dispatch, fetchGraphqlSchema]);
+  }, [dispatch, fetchGraphqlSchema, endpoint, clearDocs]);
 
   const handleField = (field: Field) => {
     if (field.name !== null) {
@@ -104,7 +106,7 @@ const DocsExplorer = memo(() => {
           )}
         </div>
       ) : (
-        ''
+        <p className={classes.docsError}>{t('docsUnavailible', { endpoint })}</p>
       )}
     </>
   );
