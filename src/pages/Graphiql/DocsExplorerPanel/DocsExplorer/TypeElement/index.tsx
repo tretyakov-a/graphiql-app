@@ -1,5 +1,5 @@
 import { faChevronLeft, faDotCircle, faCubes, faTags } from '@fortawesome/free-solid-svg-icons';
-import classes from './style.module.scss';
+import classes from '../style.module.scss';
 import { Field, TypeOfType } from '@src/shared/api/graphql/schema-types';
 import { getPerfomedNameFromSchema as getPerfomedName } from '../utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

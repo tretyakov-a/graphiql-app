@@ -20,6 +20,9 @@ export const docsExplorerSlice = createSlice({
           : state.docsExplorer;
       state.docsExplorer = newState;
     },
+    clearHistory: (state) => {
+      state.docsExplorer = [];
+    },
   },
 });
 
