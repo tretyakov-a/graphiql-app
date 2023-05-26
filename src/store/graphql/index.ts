@@ -32,6 +32,21 @@ const initialState: GraphqlState = {
   },
 };
 
+const storedQueryState = localStorage.getItem(STORAGE_KEY);
+
+if (storedQueryState !== null) {
+  initialState.query = { ...(JSON.parse(storedQueryState) as QueryType), loading: Loading.IDLE };
+}
+
+export const saveQueryToLocalStorageMiddleware: Middleware =
+  ({ getState }) =>
+  (next) =>
+  (action) => {
+    const res = next(action);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(getState().graphql.query));
+    return res;
+  };
+
 export const showErrorMiddleware: Middleware = () => (next) => (action) => {
   if (action.type.includes('rejected')) {
     toast(action.error.message, { type: 'error' });

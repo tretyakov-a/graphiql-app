@@ -38,8 +38,8 @@ const IconButton = forwardRef<HTMLElement, IconButtonProps>((props, ref) => {
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    onClick?.(e);
     setIsTooltipOpen(false);
-    return onClick?.(e);
   };
 
   const handleMouseEnter = () => {

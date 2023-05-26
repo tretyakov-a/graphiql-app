@@ -39,7 +39,7 @@ const LanguageSelector = () => {
   return (
     <div className={classes.toolbar}>
       <Popup
-        Anchor={forwardRef<HTMLElement>((props, ref) => (
+        anchor={forwardRef<HTMLElement>((props, ref) => (
           <IconButton
             icon={faGlobe}
             tooltip={{ langKey: 'language', notShowOnActive: true }}

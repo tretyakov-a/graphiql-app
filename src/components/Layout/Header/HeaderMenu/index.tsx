@@ -6,6 +6,14 @@ import { auth } from '@src/shared/api/firebase';
 import Loader from '@src/components/Loader';
 import { LinkInfo, authorizedLinks, unauthorizedLinks } from './links';
 import { classNames } from '@src/shared/utils';
+import { useCallback, useContext, useRef } from 'react';
+import { MediaQueryContext, maxWidthQuery } from '@src/shared/contexts/media-query';
+import IconButton from '@src/components/IconButton';
+import { faRightFromBracket, faXmark } from '@fortawesome/free-solid-svg-icons';
+import LanguageSelector from '@src/components/LanguageSelector';
+import { BurgerMenuContext } from './BurgerMenu/burger-menu-context';
+import useOpenCloseAnimation from '@src/shared/hooks/animation';
+import { PopupContextProvider } from '@src/components/Popup/popup-context';
 
 const HeaderMenu = () => {
   const { t } = useTranslation();
@@ -27,12 +35,39 @@ const HeaderMenu = () => {
 
   const isAuthorized = Boolean(user);
 
-  return loading ? (
-    <Loader size={'sm'} />
-  ) : (
-    <ul className={classes.menu}>
-      {isAuthorized ? renderLinks(authorizedLinks) : renderLinks(unauthorizedLinks)}
-    </ul>
+  const handleLogout = () => {
+    toggleMenu();
+    logout();
+  };
+
+  return (
+    <div className={classes.menuWrapper} ref={menuElementRef}>
+      <nav className={classes.menuContainer}>
+        {loading ? (
+          <Loader size={'sm'} />
+        ) : (
+          <ul className={classes.menu}>
+            {isAuthorized ? renderLinks(authorizedLinks) : renderLinks(unauthorizedLinks)}
+          </ul>
+        )}
+      </nav>
+      <div className={classes.menuToolbar}>
+        <PopupContextProvider>
+          <LanguageSelector />
+        </PopupContextProvider>
+        {isAuthorized && (
+          <div>
+            <IconButton
+              onClick={handleLogout}
+              tooltip={{ langKey: 'logout' }}
+              icon={faRightFromBracket}
+            />
+          </div>
+        )}
+
+        {matchesXsBreakpoint && <IconButton icon={faXmark} onClick={toggleMenu} />}
+      </div>
+    </div>
   );
 };
 
