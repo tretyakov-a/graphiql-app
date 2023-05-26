@@ -18,26 +18,21 @@
   --color-text-xs: #e0e0e0;
   --color-text-s: #f5f5f5;
   --color-text-light: #ffffff;
-  --color-loader: var(--color-primary);
+  --color-loader: var(--color-primary-alpha50);
 
   --color-bg: #f1f2f4;
   --color-panel-bg: #f1f2f4;
   --color-bg-light: #ffffff;
 
   --content-padding: 10px;
-  --footer-height: 50px;
+  --footer-height: 60px;
   --header-height: 50px;
   --button-size: 40px;
-  --rss-logo-size: 100px;
-  --logout-img-size: 30px;
+  --rss-logo-size: 80px;
   --dragbar-width: 9px;
 
   @include sm-breakpoint {
     --content-padding: 5px;
-  }
-
-  @include xs-breakpoint {
     --footer-height: 80px;
-    --rss-logo-size: 80px;
   }
 }

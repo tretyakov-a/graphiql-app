@@ -5,7 +5,7 @@
 
   @media (hover: hover) {
     &:hover {
-      background-color: var(--color-text-xs);
+      background-color: var(--color-bg);
     }
   }
 
@@ -17,15 +17,14 @@
     display: flex;
     column-gap: 0.5rem;
 
-    &::before {
-      content: "✓";
+    & .check {
       opacity: 0;
       transition: 0.25s;
     }
   }
 
   input:checked ~ label {
-    &::before {
+    & .check {
       opacity: 1;
     }
   }

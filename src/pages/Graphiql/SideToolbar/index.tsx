@@ -2,8 +2,11 @@ import IconButton from '@src/components/IconButton';
 import classes from './style.module.scss';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 import { useAppDispatch, useAppUI } from '@src/store';
+import { useContext } from 'react';
+import { ScrollContext } from '@src/shared/contexts/scroll';
 
 const SideToolbar = () => {
+  const { setScroll } = useContext(ScrollContext);
   const {
     visiblity,
     actions: { toggleVisibility },
@@ -11,6 +14,7 @@ const SideToolbar = () => {
   const dispatch = useAppDispatch();
 
   const toggleDocs = () => {
+    setScroll(visiblity.docs);
     dispatch(toggleVisibility('docs'));
   };
 

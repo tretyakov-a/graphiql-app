@@ -2,7 +2,6 @@ import classes from './style.module.scss';
 import { useAppDispatch, useAppUI } from '@src/store';
 import { useResizeableFlex } from '../hooks/use-resizable-flex';
 import { Suspense, lazy, useContext, useMemo, useRef } from 'react';
-import { DragContext } from '../../../shared/contexts/drag';
 import { DragOptions } from '../hooks/use-resizable-flex/types';
 import { maxWidthQuery, MediaQueryContext } from '@src/shared/contexts/media-query';
 import { classNames } from '@src/shared/utils';
@@ -14,7 +13,6 @@ const MIN_WIDTH = 200;
 const STORE_KEY = 'docs';
 
 const DocsExplorerPanel = () => {
-  const { containerRef } = useContext(DragContext);
   const {
     visiblity,
     actions: { toggleVisibility },
@@ -37,11 +35,12 @@ const DocsExplorerPanel = () => {
   const { matches } = useContext(MediaQueryContext);
   const isVisible = visiblity.docs;
   const elementRef = useRef<HTMLDivElement>(null);
-  const matchesSmBreakpoint = matches![maxWidthQuery('sm')];
-  const containerRect = containerRef?.current?.getBoundingClientRect() || { y: 0, height: 0 };
+
+  const matchesMedia = matches![maxWidthQuery('sm')];
+
   useOpenCloseAnimation(elementRef, isVisible, {
     display: 'flex',
-    isActive: matchesSmBreakpoint,
+    isActive: matchesMedia,
   });
 
   const docsExplorerClasses = classNames([
@@ -49,17 +48,10 @@ const DocsExplorerPanel = () => {
     isVisible && classes.docsExplorerPanelVisible,
   ]);
 
-  const mediaMatchStyles = matchesSmBreakpoint
-    ? {
-        top: `${containerRect.y}px`,
-        height: `${containerRect.height}px`,
-      }
-    : {};
-
   return (
     <div
       className={docsExplorerClasses}
-      style={{ flex: flex, minWidth: `${MIN_WIDTH}px`, ...mediaMatchStyles }}
+      style={{ flex: flex, minWidth: `${MIN_WIDTH}px` }}
       ref={elementRef}
     >
       <section className={classes.docsExplorerContainer}>

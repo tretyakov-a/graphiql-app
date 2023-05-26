@@ -2,29 +2,49 @@
 
 .footer {
   height: var(--footer-height);
+  background-color: var(--color-bg);
   flex: none;
 
   &Container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    column-gap: 2rem;
+  }
+
+  &Left {
+    display: flex;
+    align-items: flex-end;
+    column-gap: 0.5rem;
+
+    @include sm-breakpoint {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  &Year {
+    color: var(--color-text-xl);
   }
 }
 
 .githubLinksList {
   display: flex;
+  flex-wrap: wrap;
   column-gap: 1rem;
-
-  @include xs-breakpoint {
-    flex-direction: column;
-  }
+  justify-content: flex-end;
 }
 
 .githubLink {
   text-decoration: none;
   transition: 0.25s;
+  line-height: 200%;
 
   &Icon {
     margin-right: 0.2rem;
+  }
+
+  @include xs-breakpoint {
+    line-height: 140%;
   }
 }
