@@ -2,18 +2,15 @@ import classes from './style.module.scss';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
-import { auth, logout } from '@src/shared/api/firebase';
+import { auth } from '@src/shared/api/firebase';
 import Loader from '@src/components/Loader';
 import { LinkInfo, authorizedLinks, unauthorizedLinks } from './links';
 import { classNames } from '@src/shared/utils';
-import { forwardRef, useCallback, useContext, useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { MediaQueryContext, maxWidthQuery } from '@src/shared/contexts/media-query';
-import IconButton from '@src/components/IconButton';
-import { faGlobe, faRightFromBracket, faXmark } from '@fortawesome/free-solid-svg-icons';
-import LanguageSelector from '@src/components/LanguageSelector';
 import { BurgerMenuContext } from './BurgerMenu/burger-menu-context';
 import useOpenCloseAnimation from '@src/shared/hooks/animation';
-import Popup from '@src/components/Popup';
+import HeaderMenuToolbar from './HeaderMenuToolbar';
 
 const HeaderMenu = () => {
   const { t } = useTranslation();
@@ -28,35 +25,27 @@ const HeaderMenu = () => {
     animationName: 'slideY',
   });
 
-  const handleLinkClick = useCallback(() => {
+  const handleLinkClick = () => {
     if (matchesXsBreakpoint) toggleMenu();
-  }, [matchesXsBreakpoint, toggleMenu]);
+  };
 
-  const renderLinks = useCallback(
-    (links: LinkInfo[]) =>
-      links.map(({ to, langKey, icon }) => (
-        <li key={to}>
-          <NavLink
-            to={to}
-            onClick={handleLinkClick}
-            className={({ isActive }) =>
-              classNames([classes.menuLink, isActive && classes.menuLinkActive])
-            }
-          >
-            <span className={classes.menuLinkIcon}>{icon}</span>
-            <span>{t(langKey)}</span>
-          </NavLink>
-        </li>
-      )),
-    [t, handleLinkClick]
-  );
+  const renderLinks = (links: LinkInfo[]) =>
+    links.map(({ to, langKey, icon }) => (
+      <li key={to}>
+        <NavLink
+          to={to}
+          onClick={handleLinkClick}
+          className={({ isActive }) =>
+            classNames([classes.menuLink, isActive && classes.menuLinkActive])
+          }
+        >
+          <span className={classes.menuLinkIcon}>{icon}</span>
+          <span>{t(langKey)}</span>
+        </NavLink>
+      </li>
+    ));
 
   const isAuthorized = Boolean(user);
-
-  const handleLogout = () => {
-    toggleMenu();
-    logout();
-  };
 
   return (
     <div className={classes.menuWrapper} ref={menuElementRef}>
@@ -69,32 +58,7 @@ const HeaderMenu = () => {
           </ul>
         )}
       </nav>
-      <div className={classes.menuToolbar}>
-        <Popup
-          anchor={forwardRef<HTMLElement>((props, ref) => (
-            <IconButton
-              icon={faGlobe}
-              tooltip={{ langKey: 'language', notShowOnActive: true }}
-              {...props}
-              ref={ref as React.RefObject<HTMLButtonElement>}
-            />
-          ))}
-        >
-          <LanguageSelector />
-        </Popup>
-
-        {isAuthorized && (
-          <div>
-            <IconButton
-              onClick={handleLogout}
-              tooltip={{ langKey: 'logout' }}
-              icon={faRightFromBracket}
-            />
-          </div>
-        )}
-
-        {matchesXsBreakpoint && <IconButton icon={faXmark} onClick={toggleMenu} />}
-      </div>
+      <HeaderMenuToolbar />
     </div>
   );
 };
