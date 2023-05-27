@@ -29,6 +29,7 @@ export default {
     type: 'Type',
     rootTypes: 'Root Types',
     fields: 'Fields',
+    search: 'Search',
     tooltips: {
       logout: 'Logout',
       language: 'Choose language',

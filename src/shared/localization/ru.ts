@@ -29,6 +29,7 @@ export default {
     type: 'Тип',
     rootTypes: 'Корневые типы',
     fields: 'Поля',
+    search: 'Поиск',
     tooltips: {
       logout: 'Выйти',
       language: 'Выбрать язык',

@@ -9,7 +9,7 @@ import btnClasses from '@src/styles/button.module.scss';
 import { getNameFromSchema as getName } from './utils';
 import ReactMarkdown from 'react-markdown';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBook, faHome, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faBook, faHome, faSearch, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
 import { getPerfomedNameFromSchema as getPerfomedName } from './utils';
 import { classNames } from '@src/shared/utils';
@@ -40,7 +40,6 @@ const DocsExplorer = memo(() => {
   };
 
   const handleFirstQuery = (name: string | null | undefined) => {
-    console.log('first', name);
     const typeObj = response?.data?.__schema.types.find((el) => el.name === name);
     if (typeObj) {
       dispatch(addElement(typeObj));
@@ -58,12 +57,10 @@ const DocsExplorer = memo(() => {
   };
 
   const handleBack = () => {
-    console.log(docsExplorer.length);
     if (docsExplorer.length > 0) {
       dispatch(deliteLast());
     }
     if (prevSearchValue && docsExplorer.length === 1) {
-      console.log(prevSearchValue);
       setSearchValue(prevSearchValue);
       setPrevSearchValue('');
     }
@@ -87,6 +84,10 @@ const DocsExplorer = memo(() => {
     dispatch(clearHistory());
   };
 
+  const clearSearch = () => {
+    setSearchValue('');
+  };
+
   return (
     <>
       {loading === Loading.PENDING ? (
@@ -94,22 +95,27 @@ const DocsExplorer = memo(() => {
       ) : error === null && response !== null ? (
         <div>
           <div className={classes.SearchBlock}>
-            <div onClick={() => schemaHome()}>
+            <button
+              onClick={() => schemaHome()}
+              className={classNames([btnClasses.button, classes.homeBtn])}
+            >
               <FontAwesomeIcon icon={faHome} size="xl" />
-            </div>
+            </button>
             <input
               type="text"
               name="search"
               className={classes.SearchInput}
               value={searchValue}
               onChange={(e) => handleSearch(e)}
-              // onBlur={() => handleBlur()}
-              // onFocus={() => handleFocus()}
-              placeholder={t('Search') || ''}
+              placeholder={t('search') || ''}
             />
+            <span className={classes.SearchIcon}>
+              <FontAwesomeIcon icon={faSearch} size="sm" />
+            </span>
             <button
               className={classNames([btnClasses.button, classes.clearBtn])}
-              onClick={() => setSearchValue('')}
+              onClick={() => clearSearch()}
+              disabled={!searchValue}
             >
               <FontAwesomeIcon icon={faXmark} size="sm" />
             </button>
@@ -167,49 +173,54 @@ const DocsExplorer = memo(() => {
           )}
           {searchValue && response?.data?.__schema.types && (
             <ul className={classes.docsList}>
+              {response?.data?.__schema.types.map(
+                (el) =>
+                  el.name?.toLowerCase().includes(searchValue) && (
+                    <li className={classes.docsItem} key={el.name}>
+                      <a onClick={() => handleFirstQuery(el.name)} className={classes.docsLinkType}>
+                        {el.name}
+                      </a>
+                    </li>
+                  )
+              )}
               {response?.data?.__schema.types.map((el) =>
-                el.name?.toLowerCase().includes(searchValue) ? (
-                  <li className={classes.docsItem} key={el.name}>
-                    <a onClick={() => handleFirstQuery(el.name)} className={classes.docsLinkType}>
-                      {el.name}
-                    </a>
-                  </li>
-                ) : el.fields ? (
-                  el.fields.map((field) => {
-                    if (field.name && field.name.toLowerCase().includes(searchValue)) {
-                      return (
-                        <li key={el.name + field.name} className={classes.docsItem}>
-                          <a
-                            onClick={() => handleFirstQuery(el.name)}
-                            className={classes.docsLinkField}
-                          >
-                            {el.name}
-                          </a>
-                          :{' '}
-                          <a onClick={() => handleField(field)} className={classes.docsLinkType}>
-                            {field.name}
-                          </a>
-                        </li>
-                      );
-                    }
-                  })
-                ) : el.inputFields ? (
-                  el.inputFields.map((field) => {
-                    if (field.name && field.name.toLowerCase().includes(searchValue)) {
-                      return (
-                        <li key={el.name + field.name} className={classes.docsItem}>
-                          <span className={classes.docsInfo}>{field.name}</span>:{' '}
-                          <a
-                            onClick={() => handleType(field.type)}
-                            className={classes.docsLinkType}
-                          >
-                            {getPerfomedName(field.type)}
-                          </a>
-                        </li>
-                      );
-                    }
-                  })
-                ) : null
+                el.fields
+                  ? el.fields.map((field) => {
+                      if (field.name && field.name.toLowerCase().includes(searchValue)) {
+                        return (
+                          <li key={el.name + field.name} className={classes.docsItem}>
+                            <span className={classes.docsInfo}>{el.name}.</span>
+                            <a onClick={() => handleField(field)} className={classes.docsLinkField}>
+                              {field.name}
+                            </a>
+                            :{' '}
+                            <a
+                              onClick={() => handleType(field.type)}
+                              className={classes.docsLinkType}
+                            >
+                              {getPerfomedName(field.type)}
+                            </a>
+                          </li>
+                        );
+                      }
+                    })
+                  : el.inputFields
+                  ? el.inputFields.map((field) => {
+                      if (field.name && field.name.toLowerCase().includes(searchValue)) {
+                        return (
+                          <li key={field.name} className={classes.docsItem}>
+                            <span className={classes.docsInfo}>{field.name}</span>:{' '}
+                            <a
+                              onClick={() => handleType(field.type)}
+                              className={classes.docsLinkType}
+                            >
+                              {getPerfomedName(field.type)}
+                            </a>
+                          </li>
+                        );
+                      }
+                    })
+                  : null
               )}
             </ul>
           )}
