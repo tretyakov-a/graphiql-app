@@ -1,5 +1,8 @@
 export default {
-  welcome: 'Welcome',
+  welcome: 'Welcome to',
+  welcomeTitle: 'Graphiql - playground/IDE for graphQL requests',
+  welcomeSubtitle: 'The application is developed for final task of ',
+  course: ' course',
   ourTeam: 'Our Team',
   ourProject: 'Our Project',
   ourSchool: 'Our School',
@@ -17,5 +20,13 @@ export default {
   role: {
     'Team lead': 'Team lead',
     Developer: 'Developer',
+  },
+  features: {
+    docs: 'Documentation',
+    docsDesc: 'Get instant docs generated from your schema as you work',
+    editor: 'Editor',
+    editorDesc: 'Know exactly what data you can request from your API without leaving your editor',
+    auth: 'Authorization',
+    authDesc: 'Private access to application, using Google Firebase',
   },
 };

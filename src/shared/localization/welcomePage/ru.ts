@@ -1,5 +1,8 @@
 export default {
-  welcome: 'Приветствие',
+  welcome: 'Добро пожаловать',
+  welcomeTitle: 'Graphiql - IDE для graphql запросов',
+  welcomeSubtitle: 'Приложение разработано в качестве финального задания ',
+  course: ' курса',
   ourTeam: 'Наша команда',
   ourProject: 'Наш проект',
   ourSchool: 'Наша школа',
@@ -17,5 +20,14 @@ export default {
   role: {
     'Team lead': 'Тимлид',
     Developer: 'Разработчик',
+  },
+  features: {
+    docs: 'Документация',
+    docsDesc: 'Мнгновенная генерация документации из вашей схемы, прямо во время работы',
+    editor: 'Редактор',
+    editorDesc:
+      'Точно знайте, какие данные вы можете запросить у своего API, не выходя из редактора',
+    auth: 'Авторизация',
+    authDesc: 'Ограниченный доступ к приложению с использованием Google Firebase',
   },
 };
