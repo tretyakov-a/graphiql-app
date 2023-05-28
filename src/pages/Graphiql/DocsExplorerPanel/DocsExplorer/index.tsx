@@ -32,6 +32,8 @@ const DocsExplorer = memo(() => {
   useEffect(() => {
     dispatch(clearHistory());
     dispatch(fetchGraphqlSchema({}));
+    setSearchValue('');
+    setPrevSearchValue('');
   }, [dispatch, fetchGraphqlSchema, endpoint, clearHistory]);
 
   const handleField = (field: Field) => {
