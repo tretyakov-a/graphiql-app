@@ -32,6 +32,7 @@ export default {
     search: 'Поиск',
     endpoint: 'API адрес',
     docsUnavailible: 'Документация недоступна. Проверьте адрес API: {{- endpoint}}',
+    resetLinkSent: 'Ссылка на сброс пароля отправлена!',
     tooltips: {
       logout: 'Выйти',
       language: 'Выбрать язык',
@@ -42,6 +43,7 @@ export default {
       showEditors: 'Показать редакторы',
       changeEndpoint: 'Сменить API',
       save: 'Сохранить',
+      home: 'На первую страницу',
     },
     errors: {
       jsonVariables: 'Ошибка в переменных, неверный JSON: {{- message}}',

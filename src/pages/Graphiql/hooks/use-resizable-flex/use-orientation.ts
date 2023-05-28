@@ -5,7 +5,7 @@ import { DragLimits } from './types';
 const useOrientation = (orientation: DragBarOrientation, placing: DragbarPlacing) => {
   const isHorizontal = orientation === 'horizontal';
 
-  const getPosition = (e: MouseEvent, delta: number) => {
+  const getPosition = (e: React.MouseEvent, delta: number) => {
     let pos = 0;
     if (isHorizontal) {
       pos = placing === 'top' ? e.screenY + delta : e.screenY - delta;

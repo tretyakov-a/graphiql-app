@@ -1,5 +1,6 @@
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { PopupContext, PopupPosition } from '.';
+import { MouseActionsContext } from '@src/shared/contexts/mouse';
 
 interface PopupContextProviderProps extends React.PropsWithChildren {
   position: PopupPosition;
@@ -8,14 +9,16 @@ interface PopupContextProviderProps extends React.PropsWithChildren {
 const PopupContextProvider = ({ children, position }: PopupContextProviderProps) => {
   const [isVisible, setVisible] = useState(false);
   const anchorRef = useRef<HTMLElement>(null);
+  const { addClickHandler, removeClickHandler } = useContext(MouseActionsContext);
 
   const togglePopup = () => {
     if (!isVisible) {
-      const makeInvisible = () => {
+      const cleanup = (e: React.MouseEvent) => {
+        if (e.target === anchorRef.current) return;
         setVisible(false);
-        document.removeEventListener('click', makeInvisible);
+        removeClickHandler(cleanup);
       };
-      document.addEventListener('click', makeInvisible);
+      addClickHandler(cleanup);
     }
     setVisible((prev) => !prev);
   };

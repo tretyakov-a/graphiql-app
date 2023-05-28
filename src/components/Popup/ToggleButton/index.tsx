@@ -9,11 +9,7 @@ const ToggleButton = ({ anchor: Anchor }: ToggleButtonProps) => {
   const { anchorRef, isVisible, togglePopup } = useContext(PopupContext);
   if (Anchor === null) return null;
 
-  const onClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    togglePopup();
-  };
-  return <Anchor onClick={onClick} ref={anchorRef} isActive={isVisible} />;
+  return <Anchor onClick={togglePopup} ref={anchorRef} isActive={isVisible} />;
 };
 
 export default ToggleButton;
