@@ -5,6 +5,7 @@ import { MediaQueryContext, maxWidthQuery, useMediaQuery } from '@src/shared/con
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import { ToastContainer } from 'react-toastify';
 import { ScrollContextProvider } from '@src/shared/contexts/scroll';
+import { MouseActionsContextProvider } from '@src/shared/contexts/mouse';
 
 const App = () => {
   const { matches } = useMediaQuery([maxWidthQuery('xs'), maxWidthQuery('sm')]);
@@ -13,10 +14,12 @@ const App = () => {
     <ErrorBoundary>
       <MediaQueryContext.Provider value={{ matches }}>
         <Provider store={store}>
-          <ScrollContextProvider>
-            <AppRouter />
-            <ToastContainer position="top-center" hideProgressBar />
-          </ScrollContextProvider>
+          <MouseActionsContextProvider>
+            <ScrollContextProvider>
+              <AppRouter />
+              <ToastContainer position="top-center" hideProgressBar />
+            </ScrollContextProvider>
+          </MouseActionsContextProvider>
         </Provider>
       </MediaQueryContext.Provider>
     </ErrorBoundary>
