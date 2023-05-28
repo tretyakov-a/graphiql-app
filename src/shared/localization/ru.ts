@@ -55,5 +55,9 @@ export default {
       'auth/wrong-password': 'Не правильный пароль!',
       'auth/user-not-found': 'Пользователь не найден!',
     },
+    notFoundTitle: 'Страница не найдена',
+    notFoundInfo:
+      'Oops! Страница, которую вы ищете, не существует. Возможно, она была перемещена или удалена',
+    notFoundBtnText: 'На главную',
   },
 };

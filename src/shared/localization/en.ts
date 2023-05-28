@@ -54,5 +54,9 @@ export default {
       'auth/wrong-password': 'Wrong password!',
       'auth/user-not-found': 'User not found!',
     },
+    notFoundTitle: 'Page not found',
+    notFoundInfo:
+      'Oops! The page you are looking for does not exist. It might have been mooved or deleted',
+    notFoundBtnText: 'Back to welcome',
   },
 };
