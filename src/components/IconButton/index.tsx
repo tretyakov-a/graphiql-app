@@ -58,11 +58,13 @@ const IconButton = forwardRef<HTMLElement, IconButtonProps>((props, ref) => {
         className={classes}
         disabled={disabled}
       >
-        {isLoading ? (
-          <Loader size="xs" />
-        ) : (
-          <FontAwesomeIcon icon={icon || faQuestion} size={iconSize || 'xl'} />
-        )}
+        <span className={btnClasses.buttonInner}>
+          {isLoading ? (
+            <Loader size="xs" />
+          ) : (
+            <FontAwesomeIcon icon={icon || faQuestion} size={iconSize || 'xl'} />
+          )}
+        </span>
       </button>
       {tooltip !== undefined && (
         <Tooltip isOpen={isTooltipOpen} id={tooltip?.langKey} className={btnClasses.tooltip} />

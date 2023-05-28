@@ -13,6 +13,7 @@ import { faBook, faHome, faSearch, faXmark } from '@fortawesome/free-solid-svg-i
 import { useTranslation } from 'react-i18next';
 import { getPerfomedNameFromSchema as getPerfomedName } from './utils';
 import { classNames } from '@src/shared/utils';
+import IconButton from '@src/components/IconButton';
 
 const DocsExplorer = memo(() => {
   const { t } = useTranslation();
@@ -99,12 +100,7 @@ const DocsExplorer = memo(() => {
       ) : error === null && response !== null ? (
         <div>
           <div className={classes.SearchBlock}>
-            <button
-              onClick={() => schemaHome()}
-              className={classNames([btnClasses.button, classes.homeBtn])}
-            >
-              <FontAwesomeIcon icon={faHome} size="xl" />
-            </button>
+            <IconButton icon={faHome} onClick={schemaHome} tooltip={{ langKey: 'home' }} />
             <input
               type="text"
               name="search"

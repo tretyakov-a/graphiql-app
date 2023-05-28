@@ -32,6 +32,7 @@ export default {
     search: 'Search',
     endpoint: 'API endpoint',
     docsUnavailible: 'Documentation unavalible. Check api endpoint: {{- endpoint}}',
+    resetLinkSent: 'Password reset link sent!',
     tooltips: {
       logout: 'Logout',
       language: 'Choose language',
@@ -42,6 +43,7 @@ export default {
       showEditors: 'Show editors',
       changeEndpoint: 'Change API',
       save: 'Save',
+      home: 'Docs main page',
     },
     errors: {
       jsonVariables: 'Variables are invalid JSON: {{- message}}',

@@ -4,6 +4,7 @@ import { classNames } from '@src/shared/utils';
 import { DragBarProps } from './types';
 import useOrientation from '../use-orientation';
 import { DragContext } from '@src/shared/contexts/drag';
+import { MouseActionsContext } from '@src/shared/contexts/mouse';
 
 const DragBar = React.memo((props: DragBarProps) => {
   const {
@@ -15,12 +16,20 @@ const DragBar = React.memo((props: DragBarProps) => {
   } = props;
   const { containerRef } = useContext(DragContext);
   const [isDragged, setIsDragged] = useState(false);
+  const isDraggedRef = useRef(false);
   const dragBarRef = useRef<HTMLDivElement>(null);
   const { getPosition, getDelta, getActiveCursor } = useOrientation(orientation, placing);
+  const { setMouseMoveHandler, setMouseUpHandler } = useContext(MouseActionsContext);
+
+  const setDragged = (value: boolean) => {
+    setIsDragged(value);
+    isDraggedRef.current = value;
+  };
 
   const handleMouseMove =
     (delta: number, ...rest: [() => void, DOMRect?]) =>
-    (e: MouseEvent) => {
+    (e: React.MouseEvent) => {
+      if (!isDraggedRef.current) return;
       onPositionChange(getPosition(e, delta), ...rest);
     };
 
@@ -30,19 +39,19 @@ const DragBar = React.memo((props: DragBarProps) => {
     const delta = getDelta(e, rect);
 
     const handleMouseUp = () => {
-      document.removeEventListener('mousemove', handleMouseMoveWithParams);
-      document.removeEventListener('mouseup', handleMouseUp);
+      setMouseMoveHandler(null);
+      setMouseUpHandler(null);
       document.body.style.cursor = 'default';
-      setIsDragged(false);
+      setDragged(false);
       onDragEnd?.();
     };
     const containerRect = containerRef?.current?.getBoundingClientRect();
     const handleMouseMoveWithParams = handleMouseMove(delta, handleMouseUp, containerRect);
 
-    document.addEventListener('mousemove', handleMouseMoveWithParams);
-    document.addEventListener('mouseup', handleMouseUp);
+    setMouseMoveHandler(() => handleMouseMoveWithParams);
+    setMouseUpHandler(() => handleMouseUp);
     document.body.style.cursor = getActiveCursor();
-    setIsDragged(true);
+    setDragged(true);
     onDragStart?.();
   };
 

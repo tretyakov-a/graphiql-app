@@ -46,9 +46,15 @@ const registerWithEmailAndPassword = async (name: string, email: string, passwor
   }
 };
 const sendPasswordReset = async (email: string) => {
-  await sendPasswordResetEmail(auth, email);
-  toast('Password reset link sent!', { type: 'success' });
+  try {
+    await sendPasswordResetEmail(auth, email);
+    toast(i18n.t('resetLinkSent'), { type: 'success' });
+  } catch (err) {
+    const { code } = err as FirebaseError;
+    toast(i18n.t(`errors.${code}`), { type: 'error' });
+  }
 };
+
 const logout = () => {
   signOut(auth);
 };
