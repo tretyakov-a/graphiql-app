@@ -1,5 +1,5 @@
 import classes from './style.module.scss';
-import rsslogoSrc from '@src/assets/rsslogo.svg';
+import rsslogoSrc from '@src/assets/rsslogo-react.svg';
 
 const RssLogo = () => {
   return (

@@ -1,4 +1,11 @@
+@import "@src/styles/breakpoints";
+
 .welcome {
+  padding-top: 0;
+
+  &Container {
+    padding: 0;
+  }
 
   &Header {
     padding: 1em 0;
@@ -10,7 +17,6 @@
   }
 
   &Cards {
-
     &Conteiner {
       display: flex;
       padding-bottom: 1em;
@@ -38,6 +44,201 @@
       @media screen and (max-width: 640px) {
         width: 100%;
       }
+    }
+  }
+}
+
+.section {
+  &Container {
+    max-width: var(--content-width);
+    padding: 0 var(--content-padding);
+    margin: 0 auto;
+    height: 100%;
+    margin-top: 4rem;
+
+    @include xs-breakpoint {
+      margin-top: 3rem;
+    }
+  }
+
+  &Title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--color-text-l);
+    font-weight: 400;
+    letter-spacing: 1px;
+  }
+}
+
+.hero {
+  height: 500px;
+  background: url("/src/assets/graph-wash.png") repeat, #171e26;
+  color: #ffffff;
+
+  @include xs-breakpoint {
+    height: 400px;
+  }
+
+  &Container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0;
+  }
+
+  &Welcome {
+    color: var(--color-text-m);
+  }
+
+  &Title {
+    font-size: 3rem;
+    line-height: 100%;
+    font-weight: 400;
+    color: #ffffff;
+    max-width: 560px;
+    text-align: center;
+
+    @include xs-breakpoint {
+      font-size: 2rem;
+    }
+  }
+
+  &Subtitle {
+    font-weight: 400;
+    font-size: 1rem;
+    color: var(--color-text-m);
+    text-align: center;
+  }
+
+  a {
+    color: var(--color-text-s);
+    text-decoration: underline;
+  }
+
+  a.heroButton {
+    margin-top: 1rem;
+    height: auto;
+    padding: 0.5rem 1rem;
+    color: var(--color-text);
+    background-color: var(--color-bg-light);
+    text-decoration: none;
+
+    &:active:hover,
+    &:active {
+      background-color: var(--color-text-xs);
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        color: var(--color-text-l);
+      }
+    }
+  }
+}
+
+.team {
+  &Content {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    row-gap: 2rem;
+  }
+}
+
+.features {
+  &Content {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    row-gap: 2rem;
+  }
+
+  &Item {
+    max-width: 300px;
+  }
+
+  &Icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+
+    img {
+      width: 64px;
+      height: 64px;
+    }
+  }
+
+  &Title {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: var(--color-text-xl);
+    text-align: center;
+    font-weight: 400;
+  }
+
+  &Desc {
+    color: var(--color-text-l);
+    line-height: 140%;
+    text-align: center;
+  }
+}
+
+.school {
+  &Content {
+    max-width: 768px;
+    margin: 0 auto;
+    font-size: 1.5rem;
+    color: var(--color-text-xl);
+    line-height: 140%;
+    text-align: center;
+    padding: 0 1rem;
+
+    @include sm-breakpoint {
+      font-size: 1.25rem;
+    }
+
+    @include xs-breakpoint {
+      font-size: 1rem;
+    }
+  }
+
+  &Logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+
+    img {
+      width: 180px;
+
+      @include xs-breakpoint {
+        width: 120px;
+      }
+    }
+  }
+}
+
+.video {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4rem;
+
+  &Container {
+    width: 100%;
+  }
+
+  &Content {
+    width: 100%;
+
+    iframe {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16/9;
     }
   }
 }

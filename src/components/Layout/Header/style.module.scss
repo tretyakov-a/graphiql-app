@@ -20,6 +20,10 @@ $sticky-threshold: 1px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    &Bounded {
+      max-width: var(--content-width);
+    }
   }
 
   &Right,
