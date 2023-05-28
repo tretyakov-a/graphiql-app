@@ -18,7 +18,7 @@
 
   &:active,
   &Active {
-    background-color: var(--color-text-xs);
+    background-color: var(--color-primary-alpha50);
   }
 
   &Icon {
@@ -28,6 +28,12 @@
   &Text {
     width: auto;
     padding: 0 1rem;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    color: var(--color-text-m);
   }
 }
 

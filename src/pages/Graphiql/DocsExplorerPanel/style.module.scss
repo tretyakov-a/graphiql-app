@@ -17,7 +17,10 @@
       position: absolute;
       background: white;
       width: 100%;
-      padding: 0 var(--content-padding);
+      justify-content: center;
+      border-left: none;
+      top: var(--header-height);
+      height: calc(100vh - var(--header-height));
     }
   }
 
@@ -32,7 +35,8 @@
     pointer-events: all;
 
     @include sm-breakpoint {
-      border-radius: 10px;
+      width: 100%;
+      left: auto;
       box-shadow: 0 5px 15px -10px var(--color-text);
     }
   }

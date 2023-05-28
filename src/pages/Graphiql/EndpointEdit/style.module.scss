@@ -1,0 +1,56 @@
+.endpoint {
+  padding: 1rem;
+}
+
+.field {
+  display: flex;
+}
+
+.clearBtn {
+  position: absolute;
+  right: 1px;
+  top: 1px;
+  height: calc(100% - 2px);
+  width: 1.5rem;
+  border-radius: 0;
+  color: var(--color-error);
+
+  &:active:hover,
+  &:active {
+    background-color: var(--color-text-xs);
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--color-text-s);
+      border-color: transparent;
+    }
+  }
+}
+
+.saveBtn {
+  margin-left: 0.5rem;
+}
+
+.input {
+  position: relative;
+
+  input {
+    height: 100%;
+    flex: 1;
+    padding: 0.5rem;
+    padding-right: 2rem;
+    background-color: transparent;
+    border: 1px solid var(--color-text-m);
+    outline: 1px solid transparent;
+    outline: none;
+
+    &:focus {
+      background-color: var(--color-bg-light);
+    }
+  }
+}
+
+.label {
+  margin-bottom: 0.5rem;
+}

@@ -1,11 +1,18 @@
+@import "@src/styles/breakpoints";
+
 .logo {
   &Title {
     color: var(--color-text-xl);
     transition: 0.25s;
+
+    @include sm-breakpoint {
+      font-size: 1.2rem;
+    }
   }
 
   a {
     display: flex;
+    align-items: center;
   }
 
   &Img {

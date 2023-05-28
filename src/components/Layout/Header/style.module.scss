@@ -1,7 +1,20 @@
+$sticky-threshold: 1px;
+
 .header {
+  position: sticky;
+  z-index: 11;
+  top: -$sticky-threshold;
+  padding-top: $sticky-threshold;
   height: var(--header-height);
   background-color: var(--color-bg);
   flex: none;
+  transition: 0.4s;
+
+  &Sticky {
+    background-color: var(--color-text-xs);
+    height: var(--header-height);
+    box-shadow: 0px 4px 10px -5px var(--color-text-l);
+  }
 
   &Container {
     display: flex;
@@ -9,21 +22,10 @@
     align-items: center;
   }
 
-  &MenuContainer {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    margin-right: 1rem;
-  }
-
-  &Right {
+  &Right,
+  &Left {
     display: flex;
     align-items: center;
     height: 100%;
   }
-}
-
-.toolbar {
-  display: flex;
-  column-gap: 0.5rem;
 }

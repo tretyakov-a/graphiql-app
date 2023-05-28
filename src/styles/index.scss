@@ -5,20 +5,24 @@
 
 html,
 body,
-#root {
+#root,
+#scroll-container {
   height: 100%;
   min-height: 100%;
+  overflow: hidden;
 }
 
-#root {
+#scroll-container {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+
+  &.no-scroll {
+    overflow-y: hidden;
+  }
 }
 
 #portal-root {
-  position: absolute;
-  z-index: 10;
   top: 0;
   left: 0;
   right: 0;
@@ -31,6 +35,7 @@ body {
   font-family: Arial, sans-serif;
   font-weight: 400;
   overflow: hidden;
+  background: var(--color-bg-light);
 }
 
 *,

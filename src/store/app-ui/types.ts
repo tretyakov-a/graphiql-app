@@ -12,4 +12,5 @@ export type VisibilityState = {
 export interface AppUIState {
   flexValues: FlexState;
   visiblity: VisibilityState;
+  language: string;
 }
