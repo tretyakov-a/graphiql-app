@@ -1,26 +1,48 @@
 import { useTranslation } from 'react-i18next';
 import classes from './style.module.scss';
+import { Developer } from '@src/shared/data/developers';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDiscord, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { classNames } from '@src/shared/utils';
 
 interface Props {
-  name: string;
-  link: string;
-  role: string;
-  imgSrc?: string | undefined;
+  data: Developer;
 }
 
-const DeveloperCard = ({ name, link, role, imgSrc = 'avatar-placeholder.webp' }: Props) => {
+const DeveloperCard = ({
+  data: { name, github, discord, role, contribution, imgSrc = 'avatar-placeholder.webp' },
+}: Props) => {
   const { t } = useTranslation('welcomeLocalisation');
   const imgUrl = new URL(`/src/assets/images/${imgSrc}`, import.meta.url);
   return (
-    <a href={link} className={classes.developerCardLink}>
-      <div className={classes.developerCardContainer}>
-        <div className={classes.developerCardCircle}>
-          <img src={imgUrl.href} alt={name} className={classes.developerCardImg} />
-        </div>
-        <h4 className={classes.developerCardHeader}>{t(`name.${name}`)}</h4>
-        <p className={classes.developerCardDesc}>{t(`role.${role}`)}</p>
+    <li className={classes.developerCardContainer}>
+      <div className={classes.developerCardCircle}>
+        <img src={imgUrl.href} alt={name} className={classes.developerCardImg} />
       </div>
-    </a>
+      <h3 className={classes.developerCardHeader}>{t(`name.${name}`)}</h3>
+      <ul className={classes.developerCardContacts}>
+        <li>
+          <a
+            className={classNames([classes.developerCardLink, classes.developerCardLinkDiscrod])}
+            href={discord}
+          >
+            <span>
+              <FontAwesomeIcon icon={faDiscord} size="lg" />
+            </span>
+          </a>
+        </li>
+        <li>
+          <a className={classes.developerCardLink} href={github}>
+            <span>
+              <FontAwesomeIcon icon={faGithub} size="lg" />
+            </span>
+          </a>
+        </li>
+      </ul>
+      <p className={classes.developerCardDesc}>
+        {t(`role.${role}`)}. {t(`${contribution}`)}
+      </p>
+    </li>
   );
 };
 

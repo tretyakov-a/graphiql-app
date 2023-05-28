@@ -3,7 +3,7 @@ import btnClasses from '@src/styles/button.module.scss';
 import classes from './style.module.scss';
 import PageWrapper from '@src/components/PageWrapper';
 import DeveloperCard from './DeveloperCard';
-import { githubLinks } from '@src/shared/data/githubLinks';
+import { developers } from '@src/shared/data/developers';
 import { classNames } from '@src/shared/utils';
 import { type Feature, features } from './features';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -37,9 +37,8 @@ const Welcome = () => {
           <h3 className={classes.heroSubtitle}>
             {t('welcomeSubtitle')}
             <a href="https://rs.school/react/" target="_blank">
-              RSSchool React
+              {t('React course')}
             </a>
-            {t('course')}
           </h3>
           <Link
             className={classNames([btnClasses.button, classes.heroButton])}
@@ -60,22 +59,20 @@ const Welcome = () => {
       <section className={classes.team}>
         <div className={classNames([classes.sectionContainer, classes.teamContainer])}>
           <h2 className={classes.sectionTitle}>{t('ourTeam')}</h2>
-          <div className={classes.teamContent}>
-            {githubLinks.map((el) => (
-              <div key={el.name} className={classes.welcomeCardsBlock}>
-                <DeveloperCard {...el} />
-              </div>
+          <ul className={classes.teamContent}>
+            {developers.map((el) => (
+              <DeveloperCard key={el.name} data={el} />
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
       <h2 className={classes.welcomeHeader}>{t('welcome')}</h2>
       <h3 className={classes.welcomeHeader}>{t('ourTeam')}</h3>
       <div className={classes.welcomeCardsConteiner}>
-        {githubLinks.map((el) => (
+        {developers.map((el) => (
           <div key={el.name} className={classes.welcomeCardsBlock}>
-            <DeveloperCard {...el} />
+            <DeveloperCard data={el} />
           </div>
         ))}
       </div>

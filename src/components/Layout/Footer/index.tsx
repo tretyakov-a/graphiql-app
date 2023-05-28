@@ -3,7 +3,7 @@ import generalClasses from '@src/styles/general.module.scss';
 import RssLogo from './RssLogo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { githubLinks } from './github-links';
+import { developers } from '@src/shared/data/developers';
 
 const Footer = () => {
   return (
@@ -11,7 +11,7 @@ const Footer = () => {
       <div className={[generalClasses.container, classes.footerContainer].join(' ')}>
         <RssLogo />
         <ul className={classes.githubLinksList}>
-          {githubLinks.map(({ link, name }) => (
+          {developers.map(({ link, name }) => (
             <li key={name}>
               <a
                 className={classes.githubLink}
