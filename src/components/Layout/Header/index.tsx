@@ -33,12 +33,19 @@ const Header = () => {
   const matchesSmBreakpoint = matches![maxWidthQuery('sm')];
   const matchesXsBreakpoint = matches![maxWidthQuery('xs')];
 
-  const showSidebar = location.pathname.includes('graphiql') && matchesSmBreakpoint;
+  const isGraphqlPage = location.pathname.includes('graphiql');
+  const showSidebar = isGraphqlPage && matchesSmBreakpoint;
   const headerClasses = classNames([classes.header, isSticky && classes.headerSticky]);
+
+  const headerContainerClasses = classNames([
+    generalClasses.container,
+    classes.headerContainer,
+    !isGraphqlPage && classes.headerContainerBounded,
+  ]);
 
   return (
     <header className={headerClasses} ref={headerRef}>
-      <div className={classNames([generalClasses.container, classes.headerContainer])}>
+      <div className={headerContainerClasses}>
         <div className={classes.headerLeft}>
           {showSidebar && <SideToolbar />}
           <Logo />

@@ -5,13 +5,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { developers } from '@src/shared/data/developers';
 import { useTranslation } from 'react-i18next';
+import { classNames } from '@src/shared/utils';
+import { useLocation } from 'react-router-dom';
 
 const Footer = () => {
   const { t } = useTranslation('welcomeLocalisation');
+  const location = useLocation();
+
+  const isGraphqlPage = location.pathname.includes('graphiql');
+
+  const footerContainerClasses = classNames([
+    generalClasses.container,
+    classes.footerContainer,
+    !isGraphqlPage && classes.footerContainerBounded,
+  ]);
 
   return (
     <footer className={classes.footer}>
-      <div className={[generalClasses.container, classes.footerContainer].join(' ')}>
+      <div className={footerContainerClasses}>
         <div className={classes.footerLeft}>
           <RssLogo />
           <div className={classes.footerYear}>2023</div>

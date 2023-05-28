@@ -9,6 +9,7 @@ import { type Feature, features } from './features';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@src/shared/api/firebase';
 import { Link } from 'react-router-dom';
+import rsslogoSrc from '@src/assets/rsslogo-react.svg';
 
 const Welcome = () => {
   const { t } = useTranslation('welcomeLocalisation');
@@ -70,7 +71,7 @@ const Welcome = () => {
       <section className={classes.school}>
         <div className={classNames([classes.sectionContainer, classes.schoolContainer])}>
           <div className={classes.schoolLogo}>
-            <img src="src/assets/rsslogo-react.svg" alt="RSSchool" />
+            <img src={rsslogoSrc} alt="RSSchool" />
           </div>
           <div className={classes.schoolContent}>{t('schoolDesc')}</div>
         </div>

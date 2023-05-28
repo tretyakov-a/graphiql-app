@@ -50,11 +50,15 @@
 
 .section {
   &Container {
-    max-width: 1200px;
+    max-width: var(--content-width);
     padding: 0 var(--content-padding);
     margin: 0 auto;
     height: 100%;
     margin-top: 4rem;
+
+    @include xs-breakpoint {
+      margin-top: 3rem;
+    }
   }
 
   &Title {
@@ -67,7 +71,7 @@
 
 .hero {
   height: 500px;
-  background: url("src/assets/graph-wash.png") repeat, #171e26;
+  background: url("/src/assets/graph-wash.png") repeat, #171e26;
   color: #ffffff;
 
   @include xs-breakpoint {
@@ -191,6 +195,15 @@
     color: var(--color-text-xl);
     line-height: 140%;
     text-align: center;
+    padding: 0 1rem;
+
+    @include sm-breakpoint {
+      font-size: 1.25rem;
+    }
+
+    @include xs-breakpoint {
+      font-size: 1rem;
+    }
   }
 
   &Logo {
@@ -200,6 +213,10 @@
 
     img {
       width: 180px;
+
+      @include xs-breakpoint {
+        width: 120px;
+      }
     }
   }
 }
