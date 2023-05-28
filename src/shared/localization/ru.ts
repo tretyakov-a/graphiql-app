@@ -42,6 +42,7 @@ export default {
       showEditors: 'Показать редакторы',
       changeEndpoint: 'Сменить API',
       save: 'Сохранить',
+      home: 'На первую страницу',
     },
     errors: {
       jsonVariables: 'Ошибка в переменных, неверный JSON: {{- message}}',

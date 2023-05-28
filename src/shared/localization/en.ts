@@ -42,6 +42,7 @@ export default {
       showEditors: 'Show editors',
       changeEndpoint: 'Change API',
       save: 'Save',
+      home: 'Docs main page',
     },
     errors: {
       jsonVariables: 'Variables are invalid JSON: {{- message}}',
