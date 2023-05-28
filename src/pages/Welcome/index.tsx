@@ -10,11 +10,19 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@src/shared/api/firebase';
 import { Link } from 'react-router-dom';
 import rsslogoSrc from '@src/assets/rsslogo-react.svg';
+import { useContext, useEffect } from 'react';
+import { ScrollContext } from '@src/shared/contexts/scroll';
 
 const Welcome = () => {
   const { t } = useTranslation('welcomeLocalisation');
   const [user] = useAuthState(auth);
   const isAuthrorized = Boolean(user);
+
+  const { setScroll } = useContext(ScrollContext);
+
+  useEffect(() => {
+    setScroll(true);
+  }, []);
 
   const renderFeature = ({ name, description, iconSrc }: Feature) => {
     const translatedName = t(`features.${name}`);
@@ -79,7 +87,7 @@ const Welcome = () => {
 
       <section className={classes.video}>
         <div className={classNames([classes.sectionContainer, classes.videoContainer])}>
-          <div className={classes.sectionTitle}>{t('video')}</div>
+          <h2 className={classes.sectionTitle}>{t('video')}</h2>
           <div className={classes.videoContent}>
             <iframe
               src="https://www.youtube.com/embed/GNrdg3PzpJQ"
