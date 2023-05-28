@@ -87,7 +87,7 @@ const Welcome = () => {
 
       <section className={classes.video}>
         <div className={classNames([classes.sectionContainer, classes.videoContainer])}>
-          <h2 className={classes.sectionTitle}>{t('video')}</h2>
+          {/* <h2 className={classes.sectionTitle}>{t('video')}</h2>
           <div className={classes.videoContent}>
             <iframe
               src="https://www.youtube.com/embed/GNrdg3PzpJQ"
@@ -95,7 +95,7 @@ const Welcome = () => {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
             ></iframe>
-          </div>
+          </div> */}
         </div>
       </section>
     </PageWrapper>
