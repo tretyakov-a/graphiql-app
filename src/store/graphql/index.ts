@@ -31,13 +31,21 @@ const initialState: GraphqlState = {
     error: null,
     response: null,
     fetched: false,
+    fetchedEndpoint: '',
   },
 };
 
 const storedQueryState = localStorage.getItem(STORAGE_KEY);
 
+type GraphqlLocalStorage = {
+  query: QueryType;
+  endpoint: string;
+};
+
 if (storedQueryState !== null) {
-  initialState.query = JSON.parse(storedQueryState) as QueryType;
+  const { query, endpoint } = JSON.parse(storedQueryState) as GraphqlLocalStorage;
+  initialState.query = { ...query, loading: Loading.IDLE };
+  initialState.endpoint = endpoint;
 }
 
 export const saveQueryToLocalStorageMiddleware: Middleware =
@@ -45,7 +53,14 @@ export const saveQueryToLocalStorageMiddleware: Middleware =
   (next) =>
   (action) => {
     const res = next(action);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(getState().graphql.query));
+    const { query, endpoint } = getState().graphql;
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({
+        query,
+        endpoint,
+      })
+    );
     return res;
   };
 
@@ -60,6 +75,11 @@ export const graphqlSlice = createSlice({
   name: 'graphql',
   initialState,
   reducers: {
+    setEndpoint: (state, action: PayloadAction<string>) => {
+      state.endpoint = action.payload;
+      state.query.loading = Loading.IDLE;
+      state.schema.loading = Loading.IDLE;
+    },
     setExecuted: (state, action: PayloadAction<FetchGraphqlQueryPayload>) => {
       const { query, variables } = action.payload;
       state.query.executed = { query, variables };

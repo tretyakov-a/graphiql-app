@@ -29,6 +29,12 @@
     width: auto;
     padding: 0 1rem;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    color: var(--color-text-m);
+  }
 }
 
 .button + .tooltip {
