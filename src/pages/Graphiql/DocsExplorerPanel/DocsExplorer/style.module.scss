@@ -67,7 +67,7 @@
   }
 
   &LinkField,
-  &LinkType:hover {
+  &LinkField:hover {
     color: var(--color-info);
   }
 
@@ -104,3 +104,84 @@
     line-height: 140%;
   }
 }
+
+.homeBtn {
+  padding: 0 5px;
+  
+  &:hover {
+    border-color: transparent;
+  }
+}
+
+.Search {
+  &Block {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    height: 2rem;
+    margin-bottom: 1rem;
+    color: var(--color-text-xl);
+
+    input {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 30%;
+      flex: 1;
+      padding: 0.5rem;
+      padding-left: 2rem;
+      background-color: transparent;
+      border: 1px solid var(--color-text-m);
+      outline: 1px solid transparent;
+      outline: none;
+
+      &:focus {
+        width: calc(100% - 50px);
+        background-color: var(--color-bg-light);
+        transition: 500ms;
+
+        & + .SearchIcon {
+          right: calc(100% - 70px);
+          transition: 500ms;
+        }
+      }
+    }
+  }
+
+  &Icon {
+    position: absolute;
+    top: 8px;
+    right: calc(30% - 20px);
+  }
+
+}
+
+.clearBtn {
+  display: block;
+  position: absolute;
+  right: 1px;
+  top: 4px;
+  height: calc(100% - 2px);
+  width: 1.5rem;
+  border-radius: 0;
+  color: var(--color-error);
+
+  &:disabled {
+    display: none;
+  }
+
+  &:active:hover,
+  &:active {
+    background-color: var(--color-text-xs);
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--color-text-s);
+      border-color: transparent;
+    }
+  }
+}
+

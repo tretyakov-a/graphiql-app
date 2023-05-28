@@ -29,6 +29,7 @@ export default {
     type: 'Type',
     rootTypes: 'Root Types',
     fields: 'Fields',
+    search: 'Search',
     endpoint: 'API endpoint',
     docsUnavailible: 'Documentation unavalible. Check api endpoint: {{- endpoint}}',
     tooltips: {

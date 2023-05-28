@@ -29,6 +29,7 @@ export default {
     type: 'Тип',
     rootTypes: 'Корневые типы',
     fields: 'Поля',
+    search: 'Поиск',
     endpoint: 'API адрес',
     docsUnavailible: 'Документация недоступна. Проверьте адрес API: {{- endpoint}}',
     tooltips: {
