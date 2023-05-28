@@ -1,4 +1,7 @@
 .rssLogo {
   display: block;
-  width: var(--rss-logo-size);
+
+  img {
+    width: var(--rss-logo-size);
+  }
 }

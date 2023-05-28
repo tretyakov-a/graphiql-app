@@ -4,6 +4,8 @@ export default {
   welcomeSubtitle: 'The application is developed for final task of ',
   course: ' course',
   ourTeam: 'Our Team',
+  featuresTitle: 'Features',
+  video: 'Quick start guide',
   ourProject: 'Our Project',
   ourSchool: 'Our School',
   'React course': 'React course',

@@ -51,7 +51,7 @@ const Welcome = () => {
 
       <section className={classes.features}>
         <div className={classNames([classes.sectionContainer, classes.featuresContainer])}>
-          <h2 className={classes.sectionTitle}>Features</h2>
+          <h2 className={classes.sectionTitle}>{t('featuresTitle')}</h2>
           <ul className={classes.featuresContent}>{features.map(renderFeature)}</ul>
         </div>
       </section>
@@ -67,25 +67,28 @@ const Welcome = () => {
         </div>
       </section>
 
-      <h2 className={classes.welcomeHeader}>{t('welcome')}</h2>
-      <h3 className={classes.welcomeHeader}>{t('ourTeam')}</h3>
-      <div className={classes.welcomeCardsConteiner}>
-        {developers.map((el) => (
-          <div key={el.name} className={classes.welcomeCardsBlock}>
-            <DeveloperCard data={el} />
+      <section className={classes.school}>
+        <div className={classNames([classes.sectionContainer, classes.schoolContainer])}>
+          <div className={classes.schoolLogo}>
+            <img src="src/assets/rsslogo-react.svg" alt="RSSchool" />
           </div>
-        ))}
-      </div>
-      <h3 className={classes.welcomeHeader}>{t('ourProject')}</h3>
-      <div className={classes.welcomeDesc}>
-        <p>
-          {t('projectDesc1')} <a href="https://rs.school/react/">{t('React course')}</a>.{' '}
-          {t('projectDesc2')}
-        </p>
-        <p>{t('projectDesc3')}</p>
-      </div>
-      <h3 className={classes.welcomeHeader}>{t('ourSchool')}</h3>
-      <div className={classes.welcomeDesc}>{t('schoolDesc')}</div>
+          <div className={classes.schoolContent}>{t('schoolDesc')}</div>
+        </div>
+      </section>
+
+      <section className={classes.video}>
+        <div className={classNames([classes.sectionContainer, classes.videoContainer])}>
+          <div className={classes.sectionTitle}>{t('video')}</div>
+          <div className={classes.videoContent}>
+            <iframe
+              src="https://www.youtube.com/embed/GNrdg3PzpJQ"
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            ></iframe>
+          </div>
+        </div>
+      </section>
     </PageWrapper>
   );
 };

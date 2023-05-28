@@ -4,6 +4,8 @@ export default {
   welcomeSubtitle: 'Приложение разработано в качестве финального задания ',
   course: ' курса',
   ourTeam: 'Наша команда',
+  featuresTitle: 'Особенности',
+  video: 'Инструкция по началу работы',
   ourProject: 'Наш проект',
   ourSchool: 'Наша школа',
   'React course': 'курса по React',

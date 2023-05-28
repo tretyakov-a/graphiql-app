@@ -147,7 +147,7 @@
   &Content {
     display: flex;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
     row-gap: 2rem;
   }
@@ -180,5 +180,46 @@
     color: var(--color-text-l);
     line-height: 140%;
     text-align: center;
+  }
+}
+
+.school {
+  &Content {
+    max-width: 768px;
+    margin: 0 auto;
+    font-size: 1.5rem;
+    color: var(--color-text-xl);
+    line-height: 140%;
+    text-align: center;
+  }
+
+  &Logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+
+    img {
+      width: 180px;
+    }
+  }
+}
+
+.video {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4rem;
+
+  &Container {
+    width: 100%;
+  }
+
+  &Content {
+    width: 100%;
+
+    iframe {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16/9;
+    }
   }
 }
