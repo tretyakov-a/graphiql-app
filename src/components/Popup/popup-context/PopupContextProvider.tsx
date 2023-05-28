@@ -11,7 +11,8 @@ const PopupContextProvider = ({ children, position }: PopupContextProviderProps)
 
   const togglePopup = () => {
     if (!isVisible) {
-      const makeInvisible = () => {
+      const makeInvisible = (e: MouseEvent) => {
+        if (e.target === anchorRef.current) return;
         setVisible(false);
         document.removeEventListener('click', makeInvisible);
       };
