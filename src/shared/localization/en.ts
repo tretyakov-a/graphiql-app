@@ -32,6 +32,7 @@ export default {
     search: 'Search',
     endpoint: 'API endpoint',
     docsUnavailible: 'Documentation unavalible. Check api endpoint: {{- endpoint}}',
+    resetLinkSent: 'Password reset link sent!',
     tooltips: {
       logout: 'Logout',
       language: 'Choose language',

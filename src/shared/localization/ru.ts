@@ -32,6 +32,7 @@ export default {
     search: 'Поиск',
     endpoint: 'API адрес',
     docsUnavailible: 'Документация недоступна. Проверьте адрес API: {{- endpoint}}',
+    resetLinkSent: 'Ссылка на сброс пароля отправлена!',
     tooltips: {
       logout: 'Выйти',
       language: 'Выбрать язык',
